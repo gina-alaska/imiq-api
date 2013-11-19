@@ -1,4 +1,6 @@
 class SitesController < ApplicationController
+  # Fetch & Show all of the site records using the api_params
+  # [GET] /sites.json => sites#index
   def index
     @sites = Site.limit(api_params[:limit]).offset(api_params[:start])
     
@@ -17,6 +19,9 @@ class SitesController < ApplicationController
     end
   end
   
+  # Fetch & Show an individual site record
+  # [GET] /sites/1.json
+  # [GET] /sites/1.html 
   def show
     @site = Site.find(params[:id])
     
