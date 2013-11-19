@@ -12,3 +12,9 @@ sites = JSON.parse(File.read('db/sites.json'))
 sites.each do |site|
   Site.create(site)
 end
+
+sources = JSON.parse(File.read('db/sources.json'))
+
+sources.each do |source|
+  Source.create(source)
+end
