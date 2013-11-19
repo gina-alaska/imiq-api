@@ -7,14 +7,7 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: @sites.as_json(
-          include: { 
-            source: {
-              except: [:sourceid]
-            } 
-          }, 
-          except: [:sourceid]
-        )
+        render json: @sites
       }
     end
   end
