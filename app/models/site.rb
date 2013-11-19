@@ -1,3 +1,3 @@
 class Site < ActiveRecord::Base
-  self.primary_key = 'siteid'
+  belongs_to :source, foreign_key: 'sourceid'
 end

@@ -523,12 +523,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.float   "elevation"
   end
 
-# Could not dump table "ext_arc_arc" because of following StandardError
-#   Unknown type 'geometry' for column 'geom'
-
-# Could not dump table "ext_arc_point" because of following StandardError
-#   Unknown type 'geometry' for column 'geom'
-
   create_table "ext_fws_fishsample", primary_key: "fishsampleid", force: true do |t|
     t.integer "siteid",                null: false
     t.string  "fishname"
@@ -1062,18 +1056,18 @@ ActiveRecord::Schema.define(version: 20131015001029) do
   end
 
   create_table "sitegeography", id: false, force: true do |t|
-    t.integer "siteid",                            default: "nextval('sitegeography_siteid_seq'::regclass)", null: false
-    t.string  "sitecode",               limit: 50,                                                           null: false
+    t.integer "siteid",                            default: 0, null: false
+    t.string  "sitecode",               limit: 50,             null: false
     t.string  "sitename"
-    t.string  "spatialcharacteristics", limit: 50,                                                           null: false
-    t.integer "sourceid",                                                                                    null: false
+    t.string  "spatialcharacteristics", limit: 50,             null: false
+    t.integer "sourceid",                                      null: false
     t.string  "verticaldatum"
     t.integer "localprojectionid"
     t.float   "posaccuracy_m"
     t.string  "state"
     t.string  "county"
     t.text    "comments"
-    t.integer "latlongdatumid",                                                                              null: false
+    t.integer "latlongdatumid",                                null: false
     t.binary  "geographylocation"
     t.text    "locationdescription"
   end
