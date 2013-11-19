@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+sites = JSON.parse(File.read('db/sites.json'))
+
+sites.each do |site|
+  Site.create(site)
+end
