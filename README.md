@@ -12,3 +12,7 @@
     vim config/database.yml #add the appropriate values
     # start up the server / browser
     rails server
+    # setup the database
+    rake db:setup
+    # seed data into the database
+    rake db:seed
