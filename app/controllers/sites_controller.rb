@@ -16,6 +16,18 @@ class SitesController < ApplicationController
       }
     end
   end
+  
+  def show
+    @site = Site.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @site
+      }
+    end
+  end
+  
   # 
   # def update
   #   @site = Site.find(params[:id])
