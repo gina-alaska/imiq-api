@@ -18,3 +18,9 @@ sources = JSON.parse(File.read('db/sources.json'))
 sources.each do |source|
   Source.create(source)
 end
+
+metadata = JSON.parse(File.read('db/metadata.json'))
+
+metadata.each do |m|
+  Metadata.create(m)
+end
