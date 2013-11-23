@@ -1,5 +1,6 @@
 class Source < ActiveRecord::Base
-  has_many :sites, foreign_key: 'sourceid'  
+  has_many :sites, foreign_key: 'sourceid'
+  belongs_to :metadata, foreign_key: 'metadataid'
   
   # Override the default as_json method to set our default values
   def as_json(opts = nil)
@@ -12,5 +13,4 @@ class Source < ActiveRecord::Base
     
     super(opts)
   end
-  
 end
