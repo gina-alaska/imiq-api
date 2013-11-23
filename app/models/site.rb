@@ -1,5 +1,6 @@
 class Site < ActiveRecord::Base
   belongs_to :source, foreign_key: 'sourceid'
+  has_one :metadata, through: :source
 
   # Override the default as_json method to set our default values
   def as_json(opts = nil)
