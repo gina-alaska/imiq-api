@@ -9,6 +9,12 @@ class SitesController < ApplicationController
       format.json {
         render json: @sites
       }
+      format.geojson {
+        render json: {
+          type: "FeatureCollection",
+          features: @sites.collect(&:as_geojson)
+        }
+      }
     end
   end
   
@@ -45,4 +51,5 @@ class SitesController < ApplicationController
     
     api_request
   end
+  helper_method :api_params
 end
