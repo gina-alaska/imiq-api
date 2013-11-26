@@ -11,10 +11,10 @@ class Site < ActiveRecord::Base
   
   include GeoRuby::SimpleFeatures
 
-  scope :has_location, -> {
+  scope :has_location, Proc.new {
     where('geolocation is not null')
   }
-  scope :geomtype, -> (geomtype)  {
+  scope :geomtype, Proc.new  { |geomtype|
     where('geolocation ilike ?', "#{geomtype}%")
   }
 
