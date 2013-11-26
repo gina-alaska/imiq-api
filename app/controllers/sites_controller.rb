@@ -9,14 +9,9 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        render json: @sites
+        render json: @sites, callback: params[:callback]
       }
-      format.geojson {
-        render json: {
-          type: "FeatureCollection",
-          features: @sites.collect(&:as_geojson)
-        }
-      }
+      format.geojson
     end
   end
   

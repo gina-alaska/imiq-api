@@ -1,0 +1,3 @@
+<% cache(site) do %>
+  <%= site.as_geojson.to_json.html_safe %>
+<% end %>

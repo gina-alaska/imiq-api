@@ -21,11 +21,12 @@ class Site < ActiveRecord::Base
   # Override the default as_json method to set our default values
   def as_json(opts = {})
     opts ||= {}
-    opts[:include] ||= []
-    opts[:include] << :source
-    
-    opts[:except] ||= []
-    opts[:except] << :sourceid
+    # opts[:include] ||= []
+    # opts[:include] << :source
+    opts[:only] ||= []
+    opts[:only] += [:siteid, :sitecode, :sitename, :comment]
+    # opts[:except] ||= []
+    # opts[:except] << :sourceid
     
     super(opts)
   end
@@ -37,4 +38,8 @@ class Site < ActiveRecord::Base
       properties: as_json
     }
   end  
+  
+  def cache_key
+    "site/#{siteid}/2"
+  end
 end
