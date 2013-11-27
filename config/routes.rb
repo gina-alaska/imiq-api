@@ -1,4 +1,10 @@
 ImiqApi::Application.routes.draw do
+  resources :variables do
+    collection do
+      get 'values_list'
+    end
+  end
+
   resources :sites, except: [:new, :update, :destroy, :create, :edit]
   resources :sources, except: [:new, :update, :destroy, :create, :edit]
 
