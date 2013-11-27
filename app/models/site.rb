@@ -15,7 +15,7 @@ class Site < ActiveRecord::Base
     where('geolocation is not null')
   }
   scope :geomtype, Proc.new  { |geomtype|
-    where('geolocation ilike ?', "#{geomtype}%")
+    where('spatialcharacteristics ilike ?', "#{geomtype}")
   }
 
   # Override the default as_json method to set our default values
@@ -24,7 +24,7 @@ class Site < ActiveRecord::Base
     # opts[:include] ||= []
     # opts[:include] << :source
     opts[:only] ||= []
-    opts[:only] += [:siteid, :sitecode, :sitename, :comment]
+    opts[:only] += [:siteid]
     # opts[:except] ||= []
     # opts[:except] << :sourceid
     
