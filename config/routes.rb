@@ -1,7 +1,13 @@
 ImiqApi::Application.routes.draw do
+  resources :organizations do
+    collection do
+      get 'list'
+    end
+  end
+
   resources :variables do
     collection do
-      get 'values_list'
+      get 'list'
     end
   end
 

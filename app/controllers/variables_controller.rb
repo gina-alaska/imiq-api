@@ -9,7 +9,7 @@ class VariablesController < ApplicationController
     end
   end
   
-  def values_list
+  def list
     respond_to do |format|
       format.json {
         render json: {

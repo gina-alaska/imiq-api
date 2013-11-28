@@ -9,6 +9,7 @@ gem 'georuby'
 gem 'quiet_assets'
 gem 'bower-rails'
 gem 'dalli'
+gem 'haml'
 gem 'will_paginate'
 
 # Use SCSS for stylesheets

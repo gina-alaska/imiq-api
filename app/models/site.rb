@@ -6,8 +6,11 @@ class Site < ActiveRecord::Base
   # self.table_name = 'seriescatalog_62'
   # self.primary_key = 'siteid'
   
-  belongs_to :source, foreign_key: 'sourceid'
+  belongs_to :source, foreign_key: 'sourceid', uniq: true
+  has_many :organizations, through: :source, uniq: true
   has_one :metadata, through: :source
+  has_many :datastreams, foreign_key: 'siteid'
+  has_many :variables, through: :datastreams
   
   include GeoRuby::SimpleFeatures
 

@@ -8,10 +8,26 @@ class SitesController < ApplicationController
     @sites = @sites.geomtype(api_params[:geometry]) if api_params[:geometry].present?
     @sites = @sites.paginate(:page => params[:page], :per_page => api_params[:limit])
     
+    if api_params[:variablename].present?
+      @sites = @sites.joins(:variables).where('variables.variablename ilike ?', "#{api_params[:variablename]}%")
+    end
+    
+    if api_params[:datatype].present?
+      @sites = @sites.joins(:variables).where('variables.datatype ilike ?', "#{api_params[:datatype]}%" )
+    end
+    
+    if api_params[:samplemedium].present?
+      @sites = @sites.joins(:variables).where('variables.samplemedium ilike ?', "#{api_params[:samplemedium]}%" )
+    end
+    
+    if api_params[:organizationcode].present?
+      @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
+    end
+    
     respond_to do |format|
       format.html
       format.json {
-        render json: @sites, callback: params[:callback]
+        render json: @sites, callback: params[:callback]  
       }
       format.geojson
     end
@@ -41,7 +57,7 @@ class SitesController < ApplicationController
   protected
   
   def api_params
-    api_request = params.permit(:limit, :page, :geometry)
+    api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium, :organizationcode)
     
     api_request[:limit] ||= 50
     api_request[:page] ||= 1

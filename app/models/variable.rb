@@ -1,4 +1,7 @@
 class Variable < ActiveRecord::Base
+  has_many :datastreams, foreign_key: 'variableid'
+  has_many :sites, through: :datastreams
+  
   def self.names
     unique_values_for(:variablename)
   end
