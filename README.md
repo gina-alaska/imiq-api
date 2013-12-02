@@ -1,3 +1,5 @@
+## API Endpoints
+
 ## Requirements
 * Ruby 2.0
 * Rails 4.0.1
@@ -16,3 +18,4 @@
     rake db:setup
     # seed data into the database
     rake db:seed
+
