@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
       after_filter(options) do |controller|
         url = request.original_url.sub(/\?.*$/, '')
         results = instance_variable_get("@#{name}")
-        links = { prev: false, next: false }
+        links = { prev: '', next: '' }
         
         if results.previous_page
           links[:prev] = "#{url}?#{request.query_parameters.merge({ :page => results.previous_page }).to_param}"
@@ -18,16 +18,14 @@ class ApplicationController < ActionController::Base
           links[:next] =  "#{url}?#{request.query_parameters.merge({ :page => results.next_page }).to_param}"
         end
         
-        headers["Access-Control-Expose-Headers"] = 'Links'
+        headers["Access-Control-Expose-Headers"] = 'X-Next-Link,X-Previous-Link,X-Records-Offset,X-Page,X-Total-Pages,X-Total-Records'
         headers["Access-Control-Allow-Origin"] = '*'
-        headers["Links"] = {
-          total: results.total_entries,
-          total_pages: results.total_pages,
-          page: results.current_page,
-          offset: results.offset + results.per_page,
-          previous_page: links[:prev],
-          next_page: links[:next]
-        }.to_json
+        headers["X-Total-Records"] = results.total_entries.to_s
+        headers["X-Total-Pages"] = results.total_pages.to_s
+        headers["X-Page"] = results.current_page.to_s
+        headers["X-Records-Offset"] = (results.offset + (results.length)).to_s
+        headers["X-Previous-Link"] = links[:prev].to_s
+        headers["X-Next-Link"] = links[:next].to_s
       end
     end
 end

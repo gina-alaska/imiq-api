@@ -17,7 +17,6 @@ class Variable < ActiveRecord::Base
   def self.unique_values_for(field)
     variables = Variable.order(field).select(:variableid, field).includes(:sites)
     variables = variables.reject { |v| v.sites.empty? }
-    logger.info variables.inspect
     
     variables.collect { |row|
       row.send(field).downcase.strip
