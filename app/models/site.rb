@@ -22,17 +22,17 @@ class Site < ActiveRecord::Base
   }
 
   # Override the default as_json method to set our default values
-  def as_json(opts = {})
-    opts ||= {}
-    # opts[:include] ||= []
-    # opts[:include] << :source
-    opts[:only] ||= []
-    opts[:only] += [:siteid]
-    # opts[:except] ||= []
-    # opts[:except] << :sourceid
-    
-    super(opts)
-  end
+  # def as_json(opts = {})
+  #   opts ||= {}
+  #   # opts[:include] ||= []
+  #   # opts[:include] << :source
+  #   # opts[:only] ||= []
+  #   # opts[:only] += [:siteid]
+  #   # opts[:except] ||= []
+  #   # opts[:except] << :sourceid
+  #   
+  #   super(opts)
+  # end
   
   def as_geojson
     {
@@ -43,6 +43,6 @@ class Site < ActiveRecord::Base
   end  
   
   def cache_key
-    "site/#{siteid}/2"
+    "site/#{siteid}/3"
   end
 end
