@@ -1,4 +1,5 @@
-<%= api_params[:page] %>
+<%= will_paginate(@sites) %>
 <% @sites.each do |site| %>
 <p><%= site.sitename %></p>
 <% end %>
+<%= will_paginate(@sites) %>
