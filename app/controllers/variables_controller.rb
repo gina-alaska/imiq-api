@@ -1,6 +1,6 @@
 class VariablesController < ApplicationController
   def index
-    @variables = Variable.select('variableid, variablecode, variablename, samplemedium, datatype').order('variablename ASC')
+    @variables = Variable.select('variableid, variablecode, variablename, samplemedium, datatype, valuetype, generalcategory').order('variablename ASC')
     @variables = @variables.includes(:sites)
     @variables = @variables.reject { |v| v.sites.empty? }
     
@@ -17,7 +17,9 @@ class VariablesController < ApplicationController
         render json: {
           names: Variable.names,
           datatypes: Variable.datatypes,
-          samplemediums: Variable.samplemediums
+          samplemediums: Variable.samplemediums,
+          valuetypes: Variable.valuetypes,
+          generalcategory: Variable.generalcategory
         }
       }
     end
