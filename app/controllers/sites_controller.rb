@@ -20,6 +20,14 @@ class SitesController < ApplicationController
       @sites = @sites.joins(:variables).where('variables.samplemedium ilike ?', "#{api_params[:samplemedium]}%" )
     end
     
+    if api_params[:valuetype].present?
+      @sites = @sites.joins(:variables).where('variables.valuetype ilike ?', "#{api_params[:valuetype]}%" )
+    end
+    
+    if api_params[:generalcategory].present?
+      @sites = @sites.joins(:variables).where('variables.generalcategory ilike ?', "#{api_params[:generalcategory]}%" )
+    end
+    
     if api_params[:organizationcode].present?
       @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
     end
@@ -57,7 +65,8 @@ class SitesController < ApplicationController
   protected
   
   def api_params
-    api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium, :organizationcode)
+    api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium, \
+                  :valuetype, :generalcategory, :organizationcode)
     
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
