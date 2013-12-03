@@ -19,7 +19,7 @@ class VariablesController < ApplicationController
           datatypes: Variable.datatypes,
           samplemediums: Variable.samplemediums,
           valuetypes: Variable.valuetypes,
-          generalcategory: Variable.generalcategory
+          generalcategories: Variable.generalcategories
         }
       }
     end

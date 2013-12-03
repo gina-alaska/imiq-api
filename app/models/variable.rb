@@ -14,6 +14,14 @@ class Variable < ActiveRecord::Base
     unique_values_for(:samplemedium)
   end
   
+  def self.valuetypes
+    unique_values_for(:valuetype)
+  end
+  
+  def self.generalcategories
+    unique_values_for(:generalcategory)
+  end
+  
   def self.unique_values_for(field)
     variables = Variable.order(field).select(:variableid, field).includes(:sites)
     variables = variables.reject { |v| v.sites.empty? }
