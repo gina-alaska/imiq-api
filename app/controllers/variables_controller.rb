@@ -15,7 +15,7 @@ class VariablesController < ApplicationController
     respond_to do |format|
       format.json {
         render json: {
-          names: Variable.names,
+          variablenames: Variable.names,
           datatypes: Variable.datatypes,
           samplemediums: Variable.samplemediums,
           valuetypes: Variable.valuetypes,
