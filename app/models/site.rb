@@ -1,7 +1,7 @@
 class Site < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
-  # include SitesTable
-  include SeriesCatalog62View
+  include SitesTable
+  # include SeriesCatalog62View
   
   # This is the configuration needed to pull the from the correct view with valid sites
   # currently we are not using it because the geolocation field in being set to a binary

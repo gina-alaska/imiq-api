@@ -4,7 +4,7 @@ class SitesController < ApplicationController
   # Fetch & Show all of the site records using the api_params
   # [GET] /sites.json => sites#index
   def index
-    @sites = Site.has_location.uniq
+    @sites = Site.has_location
     @sites = @sites.geomtype(api_params[:geometry]) if api_params[:geometry].present?
     @sites = @sites.paginate(:page => params[:page], :per_page => api_params[:limit])
     
@@ -65,7 +65,7 @@ class SitesController < ApplicationController
   protected
   
   def api_params
-    api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium, \
+    api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium,
                   :valuetype, :generalcategory, :organizationcode)
     
     api_request[:limit] ||= 50
