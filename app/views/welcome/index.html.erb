@@ -10,7 +10,7 @@
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
 		    <p> Description  </p>
-				<p> Site information that describes from where the data values were sampled (seriescatalog_62 view).</p>
+				<p> Site information that describes the location where the data values were sampled (seriescatalog_62 view).</p>
 				<br>
 				<p> Format Types </p>
 				  <ul>
@@ -73,18 +73,19 @@
       <div class="panel-body">
 			  <div id="name">
 			    <p> Description  </p>
-					<p> Site information by {siteid} that describes from where the data values were sampled (seriescatalog_62 view).</p>
-					<br>
-					<p> siteid </p>
-				  <ul>
-				    <li>Integer uniquely identifying each site; derived from Sites table.</li>
-				  </ul>					
+					<p> Site information for individual sites (defined by siteid) from the seriescatalog_62 view.  {siteid} is a unique integer identifying each site that is derived from Sites table.</li>
+				  </ul>		
+					<p> siteid </p>		
+				    <ul>
+				      <li>Unique integer identifying each site (from Sites table).</li>
+				    </ul>		
 					<p> Format Types </p>
 					  <ul>
 					    <li>json</li>
+							<li>geojson</li>
 					  </ul>
 				  <br>
-					<%= render "sitestable"%>
+          <%= render "sitestable"%>
 			  </div>
 		  </div>	
 		</div>
@@ -245,5 +246,6 @@
 						</tr>
 					</table>
 			</div>
+		</div>
   </div>
 </div>
