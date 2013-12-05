@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          /sites
+          /sites.{format}
         </a>
       </h4>
     </div>
@@ -12,13 +12,52 @@
 		    <p> Description  </p>
 				<p> Site information that describes where the data values were sampled (seriescatalog_62 view).</p>
 				<br>
-				<p> Output Types </p>
+				<p> Format Types </p>
 				  <ul>
 				    <li>json</li>
 						<li>geojson</li>
 				  </ul>
-					<br>
-					<p> Parameters </p>
+			  <br>
+			  <p> Search Parameters </p>
+				  <table class="table">
+					  <tr>
+					    <th>Field Name</th>
+					    <th>Table</th>
+							<th>Data Type</th>
+					  </tr>
+						<tr>
+							<td>datatype</td>
+							<td>Variables</td>
+							<td>string</td>
+						</tr>
+						<tr>
+							<td>generalcategory</td>
+							<td>Variables</td>
+							<td>string</td>
+						</tr>		
+						<tr>
+							<td>samplemedium</td>
+							<td>Variables</td>
+							<td>string</td>
+						</tr>			
+						<tr>
+							<td>variablename</td>
+							<td>Variables</td>
+							<td>string</td>
+						</tr>			
+						<tr>
+							<td>valuetype</td>
+							<td>Variables</td>
+							<td>string</td>
+						</tr>	
+						<tr>
+							<td>organizationcode</td>
+							<td>Organization Descriptions</td>
+							<td>string</td>
+						</tr>						
+				  </table>
+				<br>	
+			  <p> Table Fields </p>
 					<table class="table">
 						<tr>
 						  <th>Field Name</th>
@@ -26,72 +65,72 @@
 						  <th>Data Type</th>
 						</tr>
 						<tr>
-						  <td>SiteID</td>
+						  <td>siteid</td>
 						  <td>Primary key; Unique integer identifier</td>
 						  <td>integer</td>
 						</tr>
 						<tr>
-						  <td>SiteCode</td>
+						  <td>sitecode</td>
 						  <td>Unique text code for site</td>
 						  <td>nvarchar(50)</td>
 						</tr>
 						<tr>
-						  <td>SiteName</td>
+						  <td>sitename</td>
 						  <td>Site name by organization that collects data</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>SpatialCharacteristics</td>
+						  <td>spatialcharacteristics</td>
 						  <td>Indicates whether site is a point, polygon, or linestring.</td>
 						  <td>nvarchar(50)</td>
 						</tr>
 						<tr>
-						  <td>SourceId</td>
+						  <td>sourceid</td>
 						  <td>Integer identifier referencing the record in the Sources table</td>
 						  <td>integer</td>
 						</tr>
 						<tr>
-						  <td>VerticalDatum</td>
+						  <td>verticaldatum</td>
 						  <td>Vertical datum of the elevation.  Use controlled vocabulary.</td>
 						  <td>nvarchar(255)<td>
 						</tr>
 						<tr>
-						  <td>LocalProjectionID</td>
+						  <td>localprojectionid</td>
 						  <td>Integer identifer referencing a record in the SpatialReferences table</td>
 						  <td>integer</td>
 						</tr>
 						<tr>
-						  <td>PosAccuracy_m</td>
+						  <td>posaccuracy_m</td>
 						  <td>Positional accuracy of coordinates in meters</td>
 						  <td>float</td>
 						</tr>
 						<tr>
-						  <td>State</td>
+						  <td>state</td>
 						  <td>State/territory where site is located</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>County</td>
+						  <td>county</td>
 						  <td>County/country where site is located</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>Comments</td>
+						  <td>comments</td>
 						  <td>Additional site comments not related to location</td>
 						  <td>nvarchar(MAX)</td>
 						</tr>
 						<tr>
-						  <td>LatLongDatumID</td>
+						  <td>latlongdatumid</td>
 						  <td>References SpatialReferenceID in SpatialReferences table.  To enable spatial calculations, all datum should be WGS84(the code for this is three).</td>
 						  <td>integer</td>
 						</tr>
 						<tr>
-						  <td>GeoLocation</td>
+						  <td>geolocation</td>
 						  <td>Coordinates and elevation given in a specific format for points and polygons. Latitude and longitude should be in decimal degrees. Elevation is in meters. Point locations are stored as "Point (long lat elevation)"</td>
 						  <td>nvarchar(MAX)</td>
 						</tr>
 						<tr>
-						  <td>LocationDescription</td>
+						  <td>locationdescription</td>
 						  <td>None</td>
 						  <td>nvarchar(MAX)</td>
 						</tr>
@@ -117,7 +156,7 @@
 				    <li>json</li>
 				  </ul>
 					<br>
-					<p> Parameters </p>
+					<p> Table Fields </p>
 					<table class="table">
 						<tr>
 						  <th>Field Name</th>
@@ -125,37 +164,37 @@
 						  <th>Data Type</th>
 						</tr>
 						<tr>
-						  <td>VariableID</td>
+						  <td>variableid</td>
 						  <td>Primary key. Unique integer identifier.</td>
 						  <td>integer</td>
 						</tr>
 						<tr>
-						  <td>VariableCode</td>
+						  <td>variablecode</td>
 						  <td>Text to identify the variable</td>
 						  <td>nvarchar(50)</td>
 						</tr>
 						<tr>
-						  <td>VariableName</td>
+						  <td>variablename</td>
 						  <td>Selected from the VariableNameCV table's controlled vocabulary</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>SampleMedium</td>
+						  <td>samplemedium</td>
 						  <td>Selected from the SampleMediumCV table's controlled vocabulary</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>ValueType</td>
+						  <td>valuetype</td>
 						  <td>Selected from the ValueTypeCV table's controlled vocabulary</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>DataType</td>
+						  <td>datatype</td>
 						  <td>Selected from the DataTypeCV table's controlled vocabulary.  If the data type is categorical, then there must be at least one associated CategoricalID to the VariableID.</td>
 						  <td>nvarchar(255)</td>
 						</tr>
 						<tr>
-						  <td>GeneralCategory</td>
+						  <td>generalcategory</td>
 						  <td>Selected from the GeneralCategoryCV table's controlled vocabulary</td>
 						  <td>nvarchar(255)</td>
 						</tr>
@@ -181,7 +220,7 @@
 				    <li>json</li>
 				  </ul>
 					<br>
-					<p> Parameters </p>
+					<p> Table Fields </p>
 					<table class="table">
 						<tr>
 						  <th>Field Name</th>
@@ -189,67 +228,67 @@
 						  <th>Data Type</th>
 						</tr>
 						<tr>
-						  <td>SourceID</td>
+						  <td>sourceid</td>
 						  <td>Primary key.  Unique integer identifier.</td>
 						  <td>integer</td>
 						</tr>
 						<tr>
-						  <td>Organization</td>
+						  <td>organization</td>
 						  <td>Name of the organization that collected or published the data.</td>
 						  <td>nvarchar(255)</td>		
 						</tr>
 						<tr>
-							<td>SourceDescription</td>
+							<td>sourcedescription</td>
 						  <td>A more detailed description of where the dadta was actually obtained and/or is currently stored.</td>
 						  <td>nvarchar(MAX)</td>					
 						</tr>
 						<tr>
-							<td>SourceRole</td>
+							<td>sourcerole</td>
 						  <td>Notes whether the source is the 'originator', 'publisher', or both.</td>
 						  <td>nvarchar(50)</td>					
 						</tr>
 						<tr>
-							<td>SourceLink</td>
+							<td>sourcelink</td>
 						  <td>Link that can be pointed at the original data file, associated metadata, and/or project website.</td>
 						  <td>nvarchar(255)</td>					
 						</tr>
 						<tr>
-							<td>Phone</td>
+							<td>phone</td>
 						  <td>Phone number of contact</td>
 						  <td>nvarchar(255)</td>					
 						</tr>
 						<tr>
-							<td>Email</td>
+							<td>email</td>
 						  <td>Email address of contact</td>
 						  <td>nvarchar(255)</td>					
 						</tr>
 						<tr>
-							<td>Address</td>
+							<td>address</td>
 						  <td>Stress address of contact</td>
 						  <td>nvarchar(255)</td>					
 						</tr>
 						<tr>
-							<td>City</td>
+							<td>city</td>
 						  <td>City associated with contact person's mailing address</td>
 						  <td>nvarchar(255)</td>					
 						</tr>						
 						<tr>
-							<td>State</td>
+							<td>state</td>
 						  <td>State/territory associated with contact person's mailing address</td>
 						  <td>nvarchar(255)</td>					
 						</tr>
 						<tr>
-							<td>ZipCode</td>
+							<td>zipcode</td>
 						  <td>Zip code associated with contact's mailing address</td>
 						  <td>nvarchar(255)</td>					
 						</tr>
 						<tr>
-							<td>Citation</td>
+							<td>citation</td>
 						  <td>Citation to be used when the data from this source is used.</td>
 						  <td>nvarchar(MAX)</td>					
 						</tr>
 						<tr>
-							<td>MetaDataID</td>
+							<td>metadataid</td>
 						  <td>Integer identifier that references the record in the ISOMetadata table.</td>
 						  <td>integer</td>					
 						</tr>
