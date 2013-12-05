@@ -10,7 +10,7 @@
     <div id="collapseOne" class="panel-collapse collapse">
       <div class="panel-body">
 		    <p> Description  </p>
-				<p> Site information that describes where the data values were sampled (seriescatalog_62 view).</p>
+				<p> Site information that describes from where the data values were sampled (seriescatalog_62 view).</p>
 				<br>
 				<p> Format Types </p>
 				  <ul>
@@ -57,84 +57,7 @@
 						</tr>						
 				  </table>
 				<br>	
-			  <p> Table Fields </p>
-					<table class="table">
-						<tr>
-						  <th>Field Name</th>
-						  <th>Description</th>
-						  <th>Data Type</th>
-						</tr>
-						<tr>
-						  <td>siteid</td>
-						  <td>Primary key; Unique integer identifier</td>
-						  <td>integer</td>
-						</tr>
-						<tr>
-						  <td>sitecode</td>
-						  <td>Unique text code for site</td>
-						  <td>nvarchar(50)</td>
-						</tr>
-						<tr>
-						  <td>sitename</td>
-						  <td>Site name by organization that collects data</td>
-						  <td>nvarchar(255)</td>
-						</tr>
-						<tr>
-						  <td>spatialcharacteristics</td>
-						  <td>Indicates whether site is a point, polygon, or linestring.</td>
-						  <td>nvarchar(50)</td>
-						</tr>
-						<tr>
-						  <td>sourceid</td>
-						  <td>Integer identifier referencing the record in the Sources table</td>
-						  <td>integer</td>
-						</tr>
-						<tr>
-						  <td>verticaldatum</td>
-						  <td>Vertical datum of the elevation.  Use controlled vocabulary.</td>
-						  <td>nvarchar(255)<td>
-						</tr>
-						<tr>
-						  <td>localprojectionid</td>
-						  <td>Integer identifer referencing a record in the SpatialReferences table</td>
-						  <td>integer</td>
-						</tr>
-						<tr>
-						  <td>posaccuracy_m</td>
-						  <td>Positional accuracy of coordinates in meters</td>
-						  <td>float</td>
-						</tr>
-						<tr>
-						  <td>state</td>
-						  <td>State/territory where site is located</td>
-						  <td>nvarchar(255)</td>
-						</tr>
-						<tr>
-						  <td>county</td>
-						  <td>County/country where site is located</td>
-						  <td>nvarchar(255)</td>
-						</tr>
-						<tr>
-						  <td>comments</td>
-						  <td>Additional site comments not related to location</td>
-						  <td>nvarchar(MAX)</td>
-						</tr>
-						<tr>
-						  <td>latlongdatumid</td>
-						  <td>References SpatialReferenceID in SpatialReferences table.  To enable spatial calculations, all datum should be WGS84(the code for this is three).</td>
-						  <td>integer</td>
-						</tr>
-						<tr>
-						  <td>geolocation</td>
-						  <td>Coordinates and elevation given in a specific format for points and polygons. Latitude and longitude should be in decimal degrees. Elevation is in meters. Point locations are stored as "Point (long lat elevation)"</td>
-						  <td>nvarchar(MAX)</td>
-						</tr>
-						<tr>
-						  <td>locationdescription</td>
-						  <td>None</td>
-						  <td>nvarchar(MAX)</td>
-						</tr>
-					</table>
+        <%= render "sitestable"%>
       </div>
     </div>
   </div>
@@ -142,7 +65,35 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          /variables
+          /sites/{siteid}.{format}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+			  <div id="name">
+			    <p> Description  </p>
+					<p> Site information by {siteid} that describes from where the data values were sampled (seriescatalog_62 view).</p>
+					<br>
+					<p> siteid </p>
+				  <ul>
+				    <li>Integer uniquely identifying each site; derived from Sites table.</li>
+				  </ul>					
+					<p> Format Types </p>
+					  <ul>
+					    <li>json</li>
+					  </ul>
+				  <br>
+					<%= render "sitestable"%>
+			  </div>
+		  </div>	
+		</div>
+	</div>
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          /variables.{format}
         </a>
       </h4>
     </div>
@@ -151,7 +102,7 @@
 		    <p> Description  </p>
 				<p> This table provides a complete description of measured variables.</p>
 				<br>
-				<p> Output Types </p>
+				<p> Format Types </p>
 				  <ul>
 				    <li>json</li>
 				  </ul>
@@ -206,7 +157,7 @@
 	    <div class="panel-heading">
 	      <h4 class="panel-title">
 	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-	          /sources
+	          /sources.{format}
 	        </a>
 	      </h4>
 	    </div>
@@ -215,7 +166,7 @@
 		    <p> Description  </p>
 				<p> This table contains source information for the Sites that are populating the database.</p>
 				<br>
-				<p> Output Types </p>
+				<p> Format Types </p>
 				  <ul>
 				    <li>json</li>
 				  </ul>
