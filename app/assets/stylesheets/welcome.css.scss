@@ -2,11 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#wrapper{  
+    width:66%;  
+    margin:auto;  
+}
+
 section#header {
-  h1 { font-size: 40px; }
+  h1 { font-size: 40px; text-indent:50px;}
   h2 { font-size: 20px; }
 }
-body
-{
-  background-color:#d0e4fe;
+
+section#footer {
+  text-indent: 50px
 }
