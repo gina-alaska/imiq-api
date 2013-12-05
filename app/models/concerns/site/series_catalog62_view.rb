@@ -1,7 +1,7 @@
 # these are all required to handle the data coming from the 
 # seriescatalog_62 view instead of the sites table
 
-class Site
+class Site < ActiveRecord::Base
   module SeriesCatalog62View
     extend ActiveSupport::Concern
     
