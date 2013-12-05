@@ -1,0 +1,81 @@
+<p> Description  </p>
+<p> This table contains source information for the sites in the database.</p>
+<br>
+<p> Format Types </p>
+  <ul>
+    <li>json</li>
+  </ul>
+	<br>
+	<p> Table Fields </p>
+	<table class="table">
+		<tr>
+		  <th>Field Name</th>
+		  <th>Description</th>
+		  <th>Data Type</th>
+		</tr>
+		<tr>
+		  <td>sourceid</td>
+		  <td>Primary key.  Unique integer identifier.</td>
+		  <td>integer</td>
+		</tr>
+		<tr>
+		  <td>organization</td>
+		  <td>Name of the organization that collected or published the data.</td>
+		  <td>nvarchar(255)</td>		
+		</tr>
+		<tr>
+			<td>sourcedescription</td>
+		  <td>A more detailed description of where the dadta was actually obtained and/or is currently stored.</td>
+		  <td>nvarchar(MAX)</td>					
+		</tr>
+		<tr>
+			<td>sourcerole</td>
+		  <td>Notes whether the source is the 'originator', 'publisher', or both.</td>
+		  <td>nvarchar(50)</td>					
+		</tr>
+		<tr>
+			<td>sourcelink</td>
+		  <td>Link that can be pointed at the original data file, associated metadata, and/or project website.</td>
+		  <td>nvarchar(255)</td>					
+		</tr>
+		<tr>
+			<td>phone</td>
+		  <td>Phone number of contact</td>
+		  <td>nvarchar(255)</td>					
+		</tr>
+		<tr>
+			<td>email</td>
+		  <td>Email address of contact</td>
+		  <td>nvarchar(255)</td>					
+		</tr>
+		<tr>
+			<td>address</td>
+		  <td>Stress address of contact</td>
+		  <td>nvarchar(255)</td>					
+		</tr>
+		<tr>
+			<td>city</td>
+		  <td>City associated with contact person's mailing address</td>
+		  <td>nvarchar(255)</td>					
+		</tr>						
+		<tr>
+			<td>state</td>
+		  <td>State/territory associated with contact person's mailing address</td>
+		  <td>nvarchar(255)</td>					
+		</tr>
+		<tr>
+			<td>zipcode</td>
+		  <td>Zip code associated with contact's mailing address</td>
+		  <td>nvarchar(255)</td>					
+		</tr>
+		<tr>
+			<td>citation</td>
+		  <td>Citation to be used when the data from this source is used.</td>
+		  <td>nvarchar(MAX)</td>					
+		</tr>
+		<tr>
+			<td>metadataid</td>
+		  <td>Integer identifier that references the record in the ISOMetadata table.</td>
+		  <td>integer</td>					
+		</tr>
+	</table>
