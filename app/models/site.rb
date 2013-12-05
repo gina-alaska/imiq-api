@@ -1,10 +1,11 @@
 class Site < ActiveRecord::Base
+  include GeoRuby::SimpleFeatures
+  # include SitesTable
+  include SeriesCatalog62View
+  
   # This is the configuration needed to pull the from the correct view with valid sites
   # currently we are not using it because the geolocation field in being set to a binary
   # datatype that we cannot decode
-  
-  # self.table_name = 'seriescatalog_62'
-  # self.primary_key = 'siteid'
   
   belongs_to :source, foreign_key: 'sourceid'
   has_many :organizations, through: :source
@@ -12,12 +13,7 @@ class Site < ActiveRecord::Base
   has_many :datastreams, foreign_key: 'siteid'
   has_many :variables, through: :datastreams
   
-  include GeoRuby::SimpleFeatures
-
-  scope :has_location, Proc.new {
-    where('geolocation is not null')
-  }
-  scope :geomtype, Proc.new  { |geomtype|
+  scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
   }
 
@@ -33,7 +29,7 @@ class Site < ActiveRecord::Base
   #   
   #   super(opts)
   # end
-  
+    
   def as_geojson
     {
       type: 'Feature',
@@ -43,6 +39,6 @@ class Site < ActiveRecord::Base
   end  
   
   def cache_key
-    "site/#{siteid}/3"
+    "site/#{siteid}/v1"
   end
 end

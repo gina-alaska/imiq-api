@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131015001029) do
+ActiveRecord::Schema.define(version: 0) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,49 +25,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.float   "elevation"
   end
 
-  create_table "annual_airtemp_1900_to_2013", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_1900_to_2013_nouaf", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_2000_to_2013_all", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_2000_to_2013_nouaf", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_avgairtemps", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "annualavg"
-  end
-
   create_table "annual_avgpeakmayjunedischarge_yearcount", id: false, force: true do |t|
     t.integer "siteid",           null: false
     t.string  "sitename"
@@ -75,13 +32,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer "totalyears"
     t.float   "elevation"
     t.binary  "geolocation"
-  end
-
-  create_table "annual_avgprecips", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "annualtotal"
   end
 
   create_table "annual_avgsummerprecip_yearcount", id: false, force: true do |t|
@@ -192,6 +142,7 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.string  "begindatetimeutc",        limit: 100
     t.string  "enddatetimeutc",          limit: 100
     t.binary  "geolocation"
+    t.text    "geolocationtext"
     t.string  "spatialcharacteristics",  limit: 50,  null: false
     t.integer "totalvalues"
   end
@@ -259,14 +210,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
   end
 
   create_table "daily_airtempdatavalues", primary_key: "valueid", force: true do |t|
-    t.float    "datavalue"
-    t.datetime "utcdatetime",        null: false
-    t.integer  "siteid",             null: false
-    t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
-  end
-
-  create_table "daily_airtempdatavalues_test", primary_key: "valueid", force: true do |t|
     t.float    "datavalue"
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
@@ -339,7 +282,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "daily_rh", id: false, force: true do |t|
@@ -357,7 +299,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "daily_snowdepth", id: false, force: true do |t|
@@ -375,12 +316,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
-  end
-
-  create_table "daily_soils_utcdatetime", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.date    "datetimeutc"
   end
 
   create_table "daily_swe", id: false, force: true do |t|
@@ -398,7 +333,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "daily_utcdatetime", id: false, force: true do |t|
@@ -423,7 +357,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer  "originalvariableid", null: false
     t.integer  "offsetvalue"
     t.integer  "offsettypeid"
-    t.datetime "insertdate"
   end
 
   create_table "daily_windspeed", id: false, force: true do |t|
@@ -443,7 +376,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer  "originalvariableid", null: false
     t.integer  "offsetvalue"
     t.integer  "offsettypeid"
-    t.datetime "insertdate"
   end
 
   create_table "datastreams", primary_key: "datastreamid", force: true do |t|
@@ -501,6 +433,18 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer "totalvalues"
   end
 
+  create_table "datavaluesraw", primary_key: "valueid", force: true do |t|
+    t.float    "datavalue"
+    t.float    "valueaccuracy"
+    t.datetime "localdatetime", null: false
+    t.float    "utcoffset",     null: false
+    t.integer  "qualifierid"
+    t.integer  "datastreamid",  null: false
+  end
+
+  add_index "datavaluesraw", ["datastreamid"], name: "datavaluesraw_datastreamid", unique: true, using: :btree
+  add_index "datavaluesraw", ["localdatetime"], name: "datavaluesraw_localdatetime", unique: true, using: :btree
+
   create_table "derivedfrom", id: false, force: true do |t|
     t.integer "derivedfromid", null: false
     t.integer "valueid",       null: false
@@ -521,6 +465,28 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.float   "latitude"
     t.float   "longitude"
     t.float   "elevation"
+  end
+
+  create_table "ext_arc_arc", force: true do |t|
+    t.string "stream_cod"
+    t.string "name"
+    t.string "source"
+    t.float  "shape_leng"
+  end
+
+  create_table "ext_arc_point", force: true do |t|
+    t.float   "x_coord"
+    t.float   "y_coord"
+    t.float   "lat"
+    t.float   "long_"
+    t.string  "mtrs"
+    t.string  "type"
+    t.integer "plotsym"
+    t.string  "quad"
+    t.string  "stream_cod"
+    t.string  "name"
+    t.string  "specstr"
+    t.integer "midangle"
   end
 
   create_table "ext_fws_fishsample", primary_key: "fishsampleid", force: true do |t|
@@ -575,6 +541,16 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.text   "definition"
   end
 
+  create_table "geometry_columns", id: false, force: true do |t|
+    t.string  "f_table_catalog",   limit: 256, null: false
+    t.string  "f_table_schema",    limit: 256, null: false
+    t.string  "f_table_name",      limit: 256, null: false
+    t.string  "f_geometry_column", limit: 256, null: false
+    t.integer "coord_dimension",               null: false
+    t.integer "srid",                          null: false
+    t.string  "type",              limit: 30,  null: false
+  end
+
   create_table "groupdescriptions", primary_key: "groupid", force: true do |t|
     t.text "groupdescription"
   end
@@ -599,7 +575,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "hourly_precip", id: false, force: true do |t|
@@ -617,7 +592,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "hourly_rh", id: false, force: true do |t|
@@ -635,7 +609,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "hourly_snowdepth", id: false, force: true do |t|
@@ -653,12 +626,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
-  end
-
-  create_table "hourly_soil_utcdatetime", id: false, force: true do |t|
-    t.integer  "siteid",      null: false
-    t.datetime "datetimeutc"
   end
 
   create_table "hourly_swe", id: false, force: true do |t|
@@ -676,7 +643,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.datetime "insertdate"
   end
 
   create_table "hourly_utcdatetime", id: false, force: true do |t|
@@ -701,7 +667,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer  "originalvariableid", null: false
     t.integer  "offsetvalue"
     t.integer  "offsettypeid"
-    t.datetime "insertdate"
   end
 
   create_table "hourly_windspeed", id: false, force: true do |t|
@@ -721,7 +686,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer  "originalvariableid", null: false
     t.integer  "offsetvalue"
     t.integer  "offsettypeid"
-    t.datetime "insertdate"
   end
 
   create_table "imiqversion", id: false, force: true do |t|
@@ -929,12 +893,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.text    "citation",                            null: false
   end
 
-  create_table "rails_tests", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "rasterdatavalues", primary_key: "valueid", force: true do |t|
     t.text     "datavalue"
     t.float    "valueaccuracy"
@@ -1027,6 +985,45 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.string  "begindatetimeutc",        limit: 100
     t.string  "enddatetimeutc",          limit: 100
     t.binary  "geolocation"
+    t.text    "geolocationtext"
+    t.string  "spatialcharacteristics",  limit: 50,  null: false
+    t.integer "totalvalues"
+    t.integer "startdecade"
+    t.integer "enddecade"
+    t.integer "totalyears"
+  end
+
+  create_table "seriescatalog_62", id: false, force: true do |t|
+    t.integer "datastreamid",                        null: false
+    t.string  "datastreamname",                      null: false
+    t.integer "siteid",                              null: false
+    t.string  "sitecode",                limit: 50,  null: false
+    t.string  "sitename"
+    t.integer "variableid",                          null: false
+    t.string  "variablecode",            limit: 50,  null: false
+    t.string  "variablename",                        null: false
+    t.string  "speciation",                          null: false
+    t.integer "variableunitsid",                     null: false
+    t.string  "samplemedium",                        null: false
+    t.string  "valuetype",                           null: false
+    t.float   "timesupport",                         null: false
+    t.integer "timeunitsid",                         null: false
+    t.string  "datatype",                            null: false
+    t.string  "generalcategory",                     null: false
+    t.integer "methodid",                            null: false
+    t.text    "methoddescription",                   null: false
+    t.integer "sourceid",                            null: false
+    t.string  "organization",                        null: false
+    t.text    "sourcedescription",                   null: false
+    t.text    "citation",                            null: false
+    t.integer "qualitycontrollevelid"
+    t.string  "qualitycontrollevelcode", limit: 50,  null: false
+    t.string  "begindatetime",           limit: 100
+    t.string  "enddatetime",             limit: 100
+    t.string  "begindatetimeutc",        limit: 100
+    t.string  "enddatetimeutc",          limit: 100
+    t.binary  "geolocation"
+    t.text    "geolocationtext"
     t.string  "spatialcharacteristics",  limit: 50,  null: false
     t.integer "totalvalues"
     t.integer "startdecade"
@@ -1056,18 +1053,18 @@ ActiveRecord::Schema.define(version: 20131015001029) do
   end
 
   create_table "sitegeography", id: false, force: true do |t|
-    t.integer "siteid",                            default: 0, null: false
-    t.string  "sitecode",               limit: 50,             null: false
+    t.integer "siteid",                            default: "nextval('sitegeography_siteid_seq'::regclass)", null: false
+    t.string  "sitecode",               limit: 50,                                                           null: false
     t.string  "sitename"
-    t.string  "spatialcharacteristics", limit: 50,             null: false
-    t.integer "sourceid",                                      null: false
+    t.string  "spatialcharacteristics", limit: 50,                                                           null: false
+    t.integer "sourceid",                                                                                    null: false
     t.string  "verticaldatum"
     t.integer "localprojectionid"
     t.float   "posaccuracy_m"
     t.string  "state"
     t.string  "county"
     t.text    "comments"
-    t.integer "latlongdatumid",                                null: false
+    t.integer "latlongdatumid",                                                                              null: false
     t.binary  "geographylocation"
     t.text    "locationdescription"
   end
@@ -1145,6 +1142,14 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.integer "metadataid",                                 null: false
   end
 
+  create_table "spatial_ref_sys", id: false, force: true do |t|
+    t.integer "srid",                   null: false
+    t.string  "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string  "srtext",    limit: 2048
+    t.string  "proj4text", limit: 2048
+  end
+
   create_table "spatialreferences", primary_key: "spatialreferenceid", force: true do |t|
     t.integer "srsid"
     t.string  "srsname",      null: false
@@ -1214,6 +1219,26 @@ ActiveRecord::Schema.define(version: 20131015001029) do
   end
 
   add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
+  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
+
+  create_table "variables", primary_key: "variableid", force: true do |t|
+    t.string  "variablecode",        limit: 50,              null: false
+    t.string  "variablename",                                null: false
+    t.text    "variabledescription"
+    t.string  "speciation",                     default: "", null: false
+    t.integer "variableunitsid",                             null: false
+    t.string  "samplemedium",                   default: "", null: false
+    t.string  "valuetype",                      default: "", null: false
+    t.boolean "isregular",                                   null: false
+    t.float   "timesupport",                                 null: false
+    t.integer "timeunitsid",                                 null: false
+    t.string  "datatype",                       default: "", null: false
+    t.string  "generalcategory",                default: "", null: false
+    t.float   "nodatavalue",                                 null: false
+  end
+
+  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
+  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
 
   create_table "verticaldatumcv", id: false, force: true do |t|
     t.string "term",       null: false
@@ -1236,18 +1261,6 @@ ActiveRecord::Schema.define(version: 20131015001029) do
     t.float   "latitude"
     t.float   "longitude"
     t.float   "elevation"
-  end
-
-  create_table "yearly_annualairtemps_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  create_table "yearly_annualprecips_avg", id: false, force: true do |t|
-    t.integer "siteid",         null: false
-    t.float   "avgannualtotal"
-    t.integer "totalyears"
   end
 
   create_table "yearly_avgfallairtemp", id: false, force: true do |t|
