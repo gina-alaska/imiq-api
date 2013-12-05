@@ -2,12 +2,12 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSites">
           /sites.{format}
         </a>
       </h4>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse">
+    <div id="collapseSites" class="panel-collapse collapse">
       <div class="panel-body">
 		    <p> Description  </p>
 				<p> Site information that describes the location where the data values were sampled (seriescatalog_62 view).</p>
@@ -64,16 +64,16 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSitesShow">
           /sites/{siteid}.{format}
         </a>
       </h4>
     </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
+    <div id="collapseSitesShow" class="panel-collapse collapse">
       <div class="panel-body">
 			  <div id="name">
 			    <p> Description  </p>
-					<p> Site information for individual sites (defined by siteid) from the seriescatalog_62 view.  {siteid} is a unique integer identifying each site that is derived from Sites table.</li>
+					<p> Site information for individual sites from the seriescatalog_62 view.
 				  </ul>		
 					<p> siteid </p>		
 				    <ul>
@@ -93,12 +93,12 @@
 	<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseVariables">
           /variables.{format}
         </a>
       </h4>
     </div>
-    <div id="collapseThree" class="panel-collapse collapse">
+    <div id="collapseVariables" class="panel-collapse collapse">
       <div class="panel-body">
 				<%= render "variabledescription"%>     
       </div>
@@ -121,14 +121,34 @@
 	<div class="panel panel-default">
 	    <div class="panel-heading">
 	      <h4 class="panel-title">
-	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSources">
 	          /sources.{format}
 	        </a>
 	      </h4>
 	    </div>
-    <div id="collapseFour" class="panel-collapse collapse">
+    <div id="collapseSources" class="panel-collapse collapse">
       <div class="panel-body">
 				<%= render "sourcedescription"%>
+			</div>
+		</div>
+  </div>
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSourcesShow">
+	          /sources/{sourceid}.{format}
+	        </a>
+	      </h4>
+	    </div>
+    <div id="collapseSourcesShow" class="panel-collapse collapse">
+      <div class="panel-body">
+		    <p> Description  </p>
+				<p> Source information for the each sourceid in the Imiq database.</p>
+				<br>
+				<p> Format Types </p>
+				  <ul>
+				    <li>json</li>
+				  </ul>
 			</div>
 		</div>
   </div>
