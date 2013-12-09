@@ -12,6 +12,7 @@ class Site < ActiveRecord::Base
   has_one :metadata, through: :source
   has_many :datastreams, foreign_key: 'siteid'
   has_many :variables, through: :datastreams
+  has_many :daily_airtempdatavalues, foreign_key: 'siteid'
   
   scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
@@ -29,6 +30,10 @@ class Site < ActiveRecord::Base
   #   
   #   super(opts)
   # end
+  
+  def support_data_sources
+    { daily_airtempdatavalue: 'Daily Air Temp' }
+  end
     
   def as_geojson
     {
