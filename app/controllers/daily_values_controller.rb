@@ -2,21 +2,11 @@ class DailyValuesController < ApplicationController
   def airtemps
     
     @exportvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
+    @unit_csv_header = DailyAirtempdatavalue.csv_header    
     
-    if api_params[:siteid].present?
-      @exportvalues = @exportvalues.where(siteid: params[:siteid])
-    end
-
-    if api_params[:startdate].present?
-      @exportvalues = @exportvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
-    end
-    
-    if api_params[:enddate].present?
-      @exportvalues = @exportvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
-    end
+    search_exportvalues :"@exportvalues"
     
     respond_to do |format|
-      @unit_csv_header = DailyAirtempdatavalue.csv_header
       format.csv { render 'daily_values/dailyvalues' }
     end
     
@@ -25,7 +15,19 @@ class DailyValuesController < ApplicationController
   def rhs
     
     @exportvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
+    @unit_csv_header = DailyRhdatavalue.csv_header
     
+    search_exportvalues :"@exportvalues"
+    
+    respond_to do |format|
+      format.csv { render 'daily_values/dailyvalues' }
+    end
+    
+  end
+  
+  protected
+
+  def search_exportvalues exportvalues
     if api_params[:siteid].present?
       @exportvalues = @exportvalues.where(siteid: params[:siteid])
     end
@@ -37,15 +39,7 @@ class DailyValuesController < ApplicationController
     if api_params[:enddate].present?
       @exportvalues = @exportvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
     end
-    
-    respond_to do |format|
-      @unit_csv_header = DailyRhdatavalue.csv_header
-      format.csv { render 'daily_values/dailyvalues' }
-    end
-    
   end
-  
-  protected
   
   def api_params
     api_request = params.permit(:limit, :page, :siteid, :startdate, :enddate)
@@ -58,5 +52,5 @@ class DailyValuesController < ApplicationController
     api_request
   end
 #  helper_method :api_params
-  
+
 end
