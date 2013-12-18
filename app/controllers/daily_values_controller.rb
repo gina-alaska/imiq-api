@@ -16,9 +16,8 @@ class DailyValuesController < ApplicationController
     end
     
     respond_to do |format|
-      #format.html
       @unit_csv_header = DailyAirtempdatavalue.csv_header
-      format.csv { render layout: false }
+      format.csv { render 'daily_values/dailyvalues' }
     end
     
   end
@@ -40,9 +39,8 @@ class DailyValuesController < ApplicationController
     end
     
     respond_to do |format|
-      #format.html
       @unit_csv_header = DailyRhdatavalue.csv_header
-      format.csv { render layout: false }
+      format.csv { render 'daily_values/dailyvalues' }
     end
     
   end
