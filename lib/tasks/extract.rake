@@ -5,6 +5,10 @@ namespace :extract do
     raise "Please specify a model using 'model=ModelName'" unless name.present?
     klass = name.constantize
     
+    if ENV['where']
+      klass = klass.where(ENV['where'])
+    end
+    
     File.open(Rails.root.join("db/#{name.underscore}.json"), 'w') do |fp|
       fp << klass.all.to_json
     end

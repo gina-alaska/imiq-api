@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+`unzip -d db/ db/seed_data.zip`
+
 
 sites = JSON.parse(File.read('db/sites.json'))
 
@@ -23,4 +25,10 @@ metadata = JSON.parse(File.read('db/metadata.json'))
 
 metadata.each do |m|
   Metadata.create(m)
+end
+
+daily_airtempdatavalues = JSON.parse(File.read('db/daily_airtempdatavalue.json'))
+
+daily_airtempdatavalues.each do |m|
+  DailyAirtempdatavalue.create(m)
 end

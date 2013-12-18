@@ -1219,26 +1219,6 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
-  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
-
-  create_table "variables", primary_key: "variableid", force: true do |t|
-    t.string  "variablecode",        limit: 50,              null: false
-    t.string  "variablename",                                null: false
-    t.text    "variabledescription"
-    t.string  "speciation",                     default: "", null: false
-    t.integer "variableunitsid",                             null: false
-    t.string  "samplemedium",                   default: "", null: false
-    t.string  "valuetype",                      default: "", null: false
-    t.boolean "isregular",                                   null: false
-    t.float   "timesupport",                                 null: false
-    t.integer "timeunitsid",                                 null: false
-    t.string  "datatype",                       default: "", null: false
-    t.string  "generalcategory",                default: "", null: false
-    t.float   "nodatavalue",                                 null: false
-  end
-
-  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
-  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
 
   create_table "verticaldatumcv", id: false, force: true do |t|
     t.string "term",       null: false
