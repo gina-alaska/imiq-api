@@ -1,24 +1,29 @@
 class DailyValuesController < ApplicationController
   def airtemps
-  
-    @dailyairtempdatavalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
+    
+    @exportvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
     
     if api_params[:siteid].present?
-      @dailyairtempdatavalues = @dailyairtempdatavalues.where(siteid: params[:siteid])
+      @exportvalues = @exportvalues.where(siteid: params[:siteid])
     end
-    
+
     if api_params[:startdate].present?
-      @dailyairtempdatavalues = @dailyairtempdatavalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
+      @exportvalues = @exportvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
     end
     
     if api_params[:enddate].present?
-      @dailyairtempdatavalues = @dailyairtempdatavalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
+      @exportvalues = @exportvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
     end
     
     respond_to do |format|
       #format.html
+      @unit_csv_header = DailyAirtempdatavalue.csv_header
       format.csv { render layout: false }
     end
+    
+  end
+  
+  def search_export
     
   end
   

@@ -1,4 +1,4 @@
-"SiteID", "UTC Time", "Air Temperature (C)"
-<% @dailyairtempdatavalues.each do |row| %>
+"Site ID", "DateTime (UTC)", "<%= @unit_csv_header %>"
+<% @exportvalues.each do |row| %>
 <%= row.siteid %>, <%= row.utcdatetime %>, <%= row.datavalue %>
 <% end %>
