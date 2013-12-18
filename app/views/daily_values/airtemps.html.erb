@@ -1,0 +1,7 @@
+<% if @dailyairtempdatavalues.count > 0 %>
+  <% @dailyairtempdatavalues.each do |row| %>
+    <%= row.siteid %>, <%= row.utcdatetime %>, <%= row.datavalue %> <%= simple_format "\n" %>
+  <% end %>
+<% else %>
+  No data matches your query. 
+<% end %>

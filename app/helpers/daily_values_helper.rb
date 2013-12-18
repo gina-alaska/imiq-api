@@ -1,0 +1,2 @@
+module DailyValuesHelper
+end

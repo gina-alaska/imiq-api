@@ -1,0 +1,4 @@
+"SiteID", "UTC Time", "Air Temperature (C)"
+<% @dailyairtempdatavalues.each do |row| %>
+<%= row.siteid %>, <%= row.utcdatetime %>, <%= row.datavalue %>
+<% end %>
