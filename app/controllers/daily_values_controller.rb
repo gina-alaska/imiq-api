@@ -23,7 +23,27 @@ class DailyValuesController < ApplicationController
     
   end
   
-  def search_export
+  def rhs
+    
+    @exportvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
+    
+    if api_params[:siteid].present?
+      @exportvalues = @exportvalues.where(siteid: params[:siteid])
+    end
+
+    if api_params[:startdate].present?
+      @exportvalues = @exportvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
+    end
+    
+    if api_params[:enddate].present?
+      @exportvalues = @exportvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
+    end
+    
+    respond_to do |format|
+      #format.html
+      @unit_csv_header = DailyRhdatavalue.csv_header
+      format.csv { render layout: false }
+    end
     
   end
   

@@ -1,0 +1,4 @@
+"Site ID", "DateTime (UTC)", "<%= @unit_csv_header %>"
+<% @exportvalues.each do |row| %>
+<%= row.siteid %>, <%= row.utcdatetime %>, <%= row.datavalue %>
+<% end %>

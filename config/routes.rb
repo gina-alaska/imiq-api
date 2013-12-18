@@ -14,6 +14,7 @@ ImiqApi::Application.routes.draw do
   resources :daily_values do
     collection do
       get 'airtemps'
+      get 'rhs'
     end
   end
   
