@@ -1,43 +1,43 @@
 class DailyValuesController < ApplicationController
   def airtemps
     
-    @exportvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
-    @unit_csv_header = DailyAirtempdatavalue.csv_header    
+    @dailyvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
+    @dailyvalues_csv_header = DailyAirtempdatavalue.csv_header    
     
-    search_exportvalues :"@exportvalues"
+    search_dailyvalues
     
     respond_to do |format|
-      format.csv { render 'daily_values/dailyvalues' }
+      format.csv { render 'daily_values/daily_values' }
     end
     
   end
   
   def rhs
     
-    @exportvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
-    @unit_csv_header = DailyRhdatavalue.csv_header
+    @dailyvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
+    @dailyvalues_csv_header = DailyRhdatavalue.csv_header
     
-    search_exportvalues :"@exportvalues"
+    search_dailyvalues
     
     respond_to do |format|
-      format.csv { render 'daily_values/dailyvalues' }
+      format.csv { render 'daily_values/daily_values' }
     end
     
   end
   
   protected
 
-  def search_exportvalues exportvalues
+  def search_dailyvalues 
     if api_params[:siteid].present?
-      @exportvalues = @exportvalues.where(siteid: params[:siteid])
+      @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
     end
 
     if api_params[:startdate].present?
-      @exportvalues = @exportvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
+      @dailyvalues = @dailyvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
     end
     
     if api_params[:enddate].present?
-      @exportvalues = @exportvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
+      @dailyvalues = @dailyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
     end
   end
   

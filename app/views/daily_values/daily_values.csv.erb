@@ -1,0 +1,4 @@
+"Site ID", "DateTime (UTC)", "<%= @dailyvalues_csv_header %>"
+<% @dailyvalues.each do |row| %>
+<%= row.siteid %>, <%= row.utcdatetime %>, <%= row.datavalue %>
+<% end %>
