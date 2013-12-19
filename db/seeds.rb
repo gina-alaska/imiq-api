@@ -8,7 +8,6 @@
 
 `unzip -d db/ db/seed_data.zip`
 
-
 sites = JSON.parse(File.read('db/sites.json'))
 
 sites.each do |site|
@@ -29,18 +28,37 @@ end
 
 daily_airtempdatavalues = JSON.parse(File.read('db/daily_airtempdatavalue.json'))
 
+airtemp = []
 daily_airtempdatavalues.each do |m|
-  DailyAirtempdatavalue.create(m)
+  airtemp << DailyAirtempdatavalue.new(m)
+  
+  if airtemp.count > 2000
+    DailyAirtempdatavalue.import airtemp
+    airtemp = []
+  end
 end
 
 daily_rhdatavalues = JSON.parse(File.read('db/daily_rhdatavalue.json'))
 
-daily_airtempdatavalues.each do |m|
-  DailyRhdatavalue.create(m)
+rh = []
+daily_rhdatavalues.each do |m|
+  rh << DailyRhdatavalue.new(m)
+
+  if rh.count > 2000
+    DailyRhdatavalue.import rh
+    rh = []
+  end
 end
 
 daily_precipdatavalues = JSON.parse(File.read('db/daily_precipdatavalue.json'))
 
+precip = []
 daily_precipdatavalues.each do |m|
-  DailyPrecipdatavalue.create(m)
+  precip << DailyPrecipdatavalue.new(m)
+
+  if precip.count > 2000
+    DailyPrecipdatavalue.import precip
+    precip = []
+  end
 end
+
