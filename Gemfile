@@ -11,6 +11,7 @@ gem 'bower-rails'
 gem 'dalli'
 gem 'haml'
 gem 'will_paginate'
+gem 'activerecord-import', '~> 0.4.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

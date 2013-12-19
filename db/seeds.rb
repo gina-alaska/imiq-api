@@ -29,6 +29,13 @@ end
 
 daily_airtempdatavalues = JSON.parse(File.read('db/daily_airtempdatavalue.json'))
 
+airtemp = []
 daily_airtempdatavalues.each do |m|
-  DailyAirtempdatavalue.create(m)
+  airtemp << DailyAirtempdatavalue.new(m)
+  
+  if airtemp.count > 2000
+    DailyAirtempdatavalue.import airtemp
+    airtemp = []
+  end
 end
+
