@@ -32,3 +32,15 @@ daily_airtempdatavalues = JSON.parse(File.read('db/daily_airtempdatavalue.json')
 daily_airtempdatavalues.each do |m|
   DailyAirtempdatavalue.create(m)
 end
+
+daily_rhdatavalues = JSON.parse(File.read('db/daily_rhdatavalue.json'))
+
+daily_airtempdatavalues.each do |m|
+  DailyRhdatavalue.create(m)
+end
+
+daily_precipdatavalues = JSON.parse(File.read('db/daily_precipdatavalue.json'))
+
+daily_precipdatavalues.each do |m|
+  DailyPrecipdatavalue.create(m)
+end
