@@ -1,6 +1,6 @@
 class DailyValuesController < ApplicationController
+
   def airtemps
-    
     @dailyvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
     @dailyvalues_csv_header = DailyAirtempdatavalue.csv_header    
     
@@ -9,11 +9,9 @@ class DailyValuesController < ApplicationController
     respond_to do |format|
       format.csv { render 'daily_values/daily_values' }
     end
-    
   end
   
   def rhs
-    
     @dailyvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
     @dailyvalues_csv_header = DailyRhdatavalue.csv_header
     
@@ -21,8 +19,7 @@ class DailyValuesController < ApplicationController
     
     respond_to do |format|
       format.csv { render 'daily_values/daily_values' }
-    end
-    
+    end  
   end
   
   protected
