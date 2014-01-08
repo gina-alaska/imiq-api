@@ -12,8 +12,6 @@
 /db/*.sqlite3-journal
 /db/*.json
 
-/vendor/assets/bower_components
-
 *~
 *.rbc
 *.sassc
