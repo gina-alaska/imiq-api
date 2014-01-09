@@ -11,6 +11,13 @@ ImiqApi::Application.routes.draw do
     end
   end
 
+  resources :daily_values do
+    collection do
+      get 'airtemps'
+      get 'rhs'
+    end
+  end
+  
   resources :sites, except: [:new, :update, :destroy, :create, :edit]
   resources :sources, except: [:new, :update, :destroy, :create, :edit]
 
