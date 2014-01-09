@@ -1,13 +1,21 @@
 {
-  "lib": {
-    "name": "bower-rails generated lib assets",
-    "dependencies": {
-    }
-  },
-  "vendor": {
-    "name": "bower-rails generated vendor assets",
-    "dependencies": {
-      "bootstrap": "https://github.com/twbs/bootstrap.git"
-    }
+  "name": "imiq-api",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gina-alaska/imiq-api",
+  "authors": [
+    "Will Fisher <will@teknofire.net>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "https://github.com/twbs/bootstrap.git"
   }
 }
