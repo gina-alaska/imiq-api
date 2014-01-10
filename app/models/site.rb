@@ -43,6 +43,10 @@ class Site < ActiveRecord::Base
     }
   end  
   
+  def wkt
+    Geometry.from_ewkt(geolocation)
+  end
+  
   def cache_key
     "site/#{siteid}/v1"
   end
