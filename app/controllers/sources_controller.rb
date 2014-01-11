@@ -1,14 +1,17 @@
 class SourcesController < ApplicationController
+  respond_to :json
   
   def index
     @sources = Source.limit(api_params[:limit]).offset(api_params[:start])
     
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @sources
-      }
-    end
+#    respond_to do |format|
+#      format.html
+#      format.json {
+#        render json: @sources
+#      }
+#    end
+      respond_with :sources 
+
   end
   
   # Fetch & Show an individual site record
@@ -17,12 +20,13 @@ class SourcesController < ApplicationController
   def show
     @source = Source.find(params[:id])
     
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @source
-      }
-    end
+#    respond_to do |format|
+#      format.html
+#      format.json {
+#        render json: @source
+#      }
+#    end
+    respond_with :source
   end
   
   # 
