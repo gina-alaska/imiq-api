@@ -1,27 +1,18 @@
 class DailyValuesController < ApplicationController
   
   FIELD_MODELS = { 
-    'airtemps' => DailyAirtempdatavalue     
+    'airtemp' => DailyAirtempdatavalue,
+    'relativehumidity' => DailyRhdatavalue,
+    'precipitation' => DailyPrecipdatavalue,
+    'discharge' => DailyDischargedatavalue,
+    'snowdepth' => DailySnowdepthdatavalue,
+    'swe' => DailySwedatavalue,
+    'windspeed' => DailyWindspeeddatavalue,
+    'winddirection' => DailyWinddirectiondatavalue    
   }
   
   def values
     search_dailyvalues model_for(params[:field])
-  end
-  
-  def airtemps
-    # @dailyvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
-    search_dailyvalues(DailyAirtempdatavalue)
-  end
-  
-  def rhs
-    @dailyvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
-    @dailyvalues_csv_header = DailyRhdatavalue.csv_header
-    
-    search_dailyvalues
-    
-    respond_to do |format|
-      format.csv { render 'daily_values/daily_values' }
-    end  
   end
   
   protected
