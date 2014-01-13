@@ -11,12 +11,15 @@ ImiqApi::Application.routes.draw do
     end
   end
 
-  resources :daily_values do
-    collection do
-      get 'airtemps'
-      get 'rhs'
-    end
-  end
+  # resources :daily_values, only: [], as: :daily do
+  #   collection do
+  #     get ':field', to: :daily
+  #     # get 'airtemps'
+  #     # get 'rhs'
+  #   end
+  # end
+  
+  get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }
   
   resources :sites, except: [:new, :update, :destroy, :create, :edit]
   resources :sources, except: [:new, :update, :destroy, :create, :edit]
