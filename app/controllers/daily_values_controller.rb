@@ -1,14 +1,16 @@
 class DailyValuesController < ApplicationController
-
+  
+  FIELD_MODELS = { 
+    'airtemps' => DailyAirtempdatavalue     
+  }
+  
+  def values
+    search_dailyvalues model_for(params[:field])
+  end
+  
   def airtemps
-    @dailyvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
-    @dailyvalues_csv_header = DailyAirtempdatavalue.csv_header    
-    
-    search_dailyvalues
-    
-    respond_to do |format|
-      format.csv { render 'daily_values/daily_values' }
-    end
+    # @dailyvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
+    search_dailyvalues(DailyAirtempdatavalue)
   end
   
   def rhs
@@ -24,7 +26,14 @@ class DailyValuesController < ApplicationController
   
   protected
 
-  def search_dailyvalues 
+  def model_for(field)
+    FIELD_MODELS[field.to_s]
+  end
+
+  def search_dailyvalues(model)
+    @dailyvalues_csv_header = model.csv_header    
+    @dailyvalues = model.order('utcdatetime ASC').has_data
+     
     if api_params[:siteid].present?
       @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
     end
@@ -35,6 +44,10 @@ class DailyValuesController < ApplicationController
     
     if api_params[:enddate].present?
       @dailyvalues = @dailyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
+    end
+    
+    respond_to do |format|
+      format.csv { render 'daily_values' }
     end
   end
   
