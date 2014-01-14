@@ -1,4 +1,4 @@
-"Site ID", "DateTime (UTC)", "<%= @dailyvalues_csv_header %>"
+"Site ID", "Day-Month-Year", "Hour:Min:Sec (UTC)", "<%= @dailyvalues_csv_header %>"
 <% @dailyvalues.each do |row| %>
-<%= row.siteid %>, <%= row.utcdatetime %>, <%= row.datavalue %>
+<%= row.siteid %>, <%= row.utcdatetime.strftime(%"%d-%m-%Y") %>, <%= row.utcdatetime.strftime(%"%X") %>, <%= row.datavalue %>
 <% end %>
