@@ -1,4 +1,4 @@
-json.cache! ['v2', site] do
+json.cache! ['v1', site] do
   json.type 'Feature'
   json.geometry site.wkt
   json.properties do
