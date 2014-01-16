@@ -1,4 +1,5 @@
 class SitesController < ApplicationController
+  respond_to :geojson, :json
   set_pagination_headers :sites, only: [:index]
   
   # Fetch & Show all of the site records using the api_params
@@ -32,13 +33,7 @@ class SitesController < ApplicationController
       @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
     end
     
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @sites, callback: params[:callback]  
-      }
-      format.geojson
-    end
+    respond_with @sites
   end
   
   # Fetch & Show an individual site record
