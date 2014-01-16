@@ -5,7 +5,6 @@ class SitesController < ApplicationController
   # Fetch & Show all of the site records using the api_params
   # [GET] /sites.json => sites#index
   def index
-    @sites = Site.has_location
     @sites = Site.has_location.uniq
     @sites = @sites.geomtype(api_params[:geometry]) if api_params[:geometry].present?
     @sites = @sites.paginate(:page => params[:page], :per_page => api_params[:limit])
@@ -42,13 +41,8 @@ class SitesController < ApplicationController
   # [GET] /sites/1.html 
   def show
     @site = Site.find(params[:id])
-    
-    respond_to do |format|
-      format.html
-      format.json {
-        render json: @site
-      }
-    end
+
+    respond_with @site    
   end
   
   # 
