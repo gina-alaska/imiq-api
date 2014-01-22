@@ -29,6 +29,7 @@ class VariablesController < ApplicationController
           datatypes: Variable.datatypes,
           samplemediums: Variable.samplemediums,
           valuetypes: Variable.valuetypes,
+          derived_variables: Site::DERIVED_VARIABLES,
           generalcategories: Variable.generalcategories
         }
       }

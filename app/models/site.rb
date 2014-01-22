@@ -7,12 +7,31 @@ class Site < ActiveRecord::Base
   # currently we are not using it because the geolocation field in being set to a binary
   # datatype that we cannot decode
   
+  DERIVED_VARIABLES = {
+    :daily_airtempdatavalues => 'Daily Air Temperature',
+    :daily_dischargedatavalues => 'Daily Discharge',
+    :daily_precipdatavalues => 'Daily Precipitation',
+    :daily_rhdatavalues => 'Daily Relative Humidity',
+    :daily_snowdepthdatavalues => 'Daily Snow Depth',
+    :daily_swedatavalues => 'Daily Snow Water Equivalent',
+    :daily_winddirectiondatavalues => 'Daily Wind Direction',
+    :daily_windspeeddatavalues => 'Daily Wind Speed',
+    :daily_airsnowdepthdatavalues => 'Daily Snow Depth'
+  }
+  
   belongs_to :source, foreign_key: 'sourceid'
   has_many :organizations, through: :source
   has_one :metadata, through: :source
   has_many :datastreams, foreign_key: 'siteid'
   has_many :variables, through: :datastreams
   has_many :daily_airtempdatavalues, foreign_key: 'siteid'
+  has_many :daily_dischargedatavalues, foreign_key: 'siteid'
+  has_many :daily_precipdatavalues, foreign_key: 'siteid'
+  has_many :daily_rhdatavalues, foreign_key: 'siteid'
+  has_many :daily_snowdepthdatavalues, foreign_key: 'siteid'
+  has_many :daily_swedatavalues, foreign_key: 'siteid'
+  has_many :daily_winddirectiondatavalues, foreign_key: 'siteid'
+  has_many :daily_windspeeddatavalues, foreign_key: 'siteid'
   
   scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
@@ -41,6 +60,16 @@ class Site < ActiveRecord::Base
       geometry: Geometry.from_ewkt(geolocation).as_json,
       properties: as_json
     }
+  end
+  
+  def derived_variables
+    found = []
+    DERIVED_VARIABLES.keys.each do |variable|
+      # found << variable if self.daily_airtempdatavalues.count > 0
+      found << variable if self.respond_to?(variable) and !self.send(variable).first.nil?  
+    end
+    
+    found
   end  
   
   def wkt
