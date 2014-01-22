@@ -8,15 +8,15 @@ class Site < ActiveRecord::Base
   # datatype that we cannot decode
   
   DERIVED_VARIABLES = {
-    :daily_airtempdatavalues => 'Daily Air Temperature',
-    :daily_dischargedatavalues => 'Daily Discharge',
-    :daily_precipdatavalues => 'Daily Precipitation',
-    :daily_rhdatavalues => 'Daily Relative Humidity',
-    :daily_snowdepthdatavalues => 'Daily Snow Depth',
-    :daily_swedatavalues => 'Daily Snow Water Equivalent',
-    :daily_winddirectiondatavalues => 'Daily Wind Direction',
-    :daily_windspeeddatavalues => 'Daily Wind Speed',
-    :daily_airsnowdepthdatavalues => 'Daily Snow Depth'
+    'Daily Air Temperature' => :daily_airtempdatavalues,
+    'Daily Discharge' => :daily_dischargedatavalues,
+    'Daily Precipitation' => :daily_precipdatavalues,
+    'Daily Relative Humidity' => :daily_rhdatavalues,
+    'Daily Snow Depth' => :daily_snowdepthdatavalues,
+    'Daily Snow Water Equivalent' => :daily_swedatavalues,
+    'Daily Wind Direction' => :daily_winddirectiondatavalues,
+    'Daily Wind Speed' => :daily_windspeeddatavalues,
+    'Daily Snow Depth' => :daily_airsnowdepthdatavalues
   }
   
   belongs_to :source, foreign_key: 'sourceid'
