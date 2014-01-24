@@ -1,16 +1,4 @@
 class DailyValuesController < ApplicationController
-  
-  FIELD_MODELS = { 
-    'airtemp' => DailyAirtempdatavalue,
-    'relativehumidity' => DailyRhdatavalue,
-    'precipitation' => DailyPrecipdatavalue,
-    'discharge' => DailyDischargedatavalue,
-    'snowdepth' => DailySnowdepthdatavalue,
-    'swe' => DailySwedatavalue,
-    'windspeed' => DailyWindspeeddatavalue,
-    'winddirection' => DailyWinddirectiondatavalue    
-  }
-  
   def values
     search_dailyvalues model_for(params[:field])
   end

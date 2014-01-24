@@ -8,16 +8,26 @@ class Site < ActiveRecord::Base
   # datatype that we cannot decode
   
   DERIVED_VARIABLES = {
-    'Daily Air Temperature' => :daily_airtempdatavalues,
-    'Daily Discharge' => :daily_dischargedatavalues,
-    'Daily Precipitation' => :daily_precipdatavalues,
-    'Daily Relative Humidity' => :daily_rhdatavalues,
-    'Daily Snow Depth' => :daily_snowdepthdatavalues,
-    'Daily Snow Water Equivalent' => :daily_swedatavalues,
-    'Daily Wind Direction' => :daily_winddirectiondatavalues,
-    'Daily Wind Speed' => :daily_windspeeddatavalues,
-    'Daily Snow Depth' => :daily_airsnowdepthdatavalues
+    'airtemp' => :daily_airtempdatavalues,
+    'discharge' => :daily_dischargedatavalues,
+    'precipitation' => :daily_precipdatavalues,
+    'relativehumidity' => :daily_rhdatavalues,
+    'snowdepth' => :daily_snowdepthdatavalues,
+    'swe' => :daily_swedatavalues,
+    'winddirection' => :daily_winddirectiondatavalues,
+    'windspeed' => :daily_windspeeddatavalues
   }
+  
+  # DERIVED_VARIABLES = {
+  #   'airtemp' => DailyAirtempdatavalue,
+  #   'relativehumidity' => DailyRhdatavalue,
+  #   '' => DailyPrecipdatavalue,
+  #   'discharge' => DailyDischargedatavalue,
+  #   'snowdepth' => DailySnowdepthdatavalue,
+  #   'swe' => DailySwedatavalue,
+  #   'windspeed' => DailyWindspeeddatavalue,
+  #   'winddirection' => DailyWinddirectiondatavalue    
+  # }
   
   belongs_to :source, foreign_key: 'sourceid'
   has_many :organizations, through: :source
@@ -64,9 +74,9 @@ class Site < ActiveRecord::Base
   
   def derived_variables
     found = []
-    DERIVED_VARIABLES.keys.each do |variable|
+    DERIVED_VARIABLES.values.each do |variable|
       # found << variable if self.daily_airtempdatavalues.count > 0
-      found << variable if self.respond_to?(variable) and !self.send(variable).first.nil?  
+      found << self.send(variable).first.pretty_name if self.respond_to?(variable) and !self.send(variable).first.nil?  
     end
     
     found

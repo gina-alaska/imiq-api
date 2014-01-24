@@ -22,6 +22,11 @@ class VariablesController < ApplicationController
   end
   
   def list
+    derived_vars = Site::DERIVED_VARIABLES.map do |name,klass|
+      [klass.to_s.classify.constantize.pretty_name, name]
+    end
+    
+    
     respond_to do |format|
       format.json {
         render json: {
@@ -29,7 +34,7 @@ class VariablesController < ApplicationController
           datatypes: Variable.datatypes,
           samplemediums: Variable.samplemediums,
           valuetypes: Variable.valuetypes,
-          derived_variables: Site::DERIVED_VARIABLES,
+          derived_variables: derived_vars,
           generalcategories: Variable.generalcategories
         }
       }
