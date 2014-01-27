@@ -27,6 +27,12 @@ class DailyValuesController < ApplicationController
     
     respond_to do |format|
       format.csv { render 'daily_values' }
+      format.csv { 
+        filename = "Imiq-#{Time.now.strftime("%Y%m%d-%H%M%S")}.csv"
+        headers["Content-type"] = "text/csv"
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+        render 'daily_values' 
+      }
     end
   end
   
