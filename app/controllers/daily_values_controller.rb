@@ -16,7 +16,7 @@ class DailyValuesController < ApplicationController
     if api_params[:siteid].present?
       @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
     end
-
+    
     if api_params[:startdate].present?
       @dailyvalues = @dailyvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
     end
@@ -24,9 +24,10 @@ class DailyValuesController < ApplicationController
     if api_params[:enddate].present?
       @dailyvalues = @dailyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
     end
-    
+  
+    @dailyvalues = @dailyvalues.order(:siteid)
+
     respond_to do |format|
-      format.csv { render 'daily_values' }
       format.csv { 
         filename = "Imiq-#{Time.now.strftime("%Y%m%d-%H%M%S")}.csv"
         headers["Content-type"] = "text/csv"
