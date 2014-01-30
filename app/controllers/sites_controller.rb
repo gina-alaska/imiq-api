@@ -32,6 +32,16 @@ class SitesController < ApplicationController
     if api_params[:organizationcode].present?
       @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
     end
+
+    site_ids = []
+    if api_params[:derived_values].present? and Site::DERIVED_VARIABLES[api_params[:derived_values]].present?
+      site_ids += Site::DERIVED_VARIABLES[api_params[:derived_values]].to_s.classify.constantize.uniq.pluck(:siteid)
+    end
+    
+    site_ids.uniq!
+    if site_ids.count > 0
+      @sites = @sites.where(siteid: site_ids)
+    end
     
     respond_with @sites
   end
@@ -41,7 +51,7 @@ class SitesController < ApplicationController
   # [GET] /sites/1.html 
   def show
     @site = Site.find(params[:id])
-
+    
     respond_with @site    
   end
   
@@ -56,8 +66,8 @@ class SitesController < ApplicationController
   
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :organizationcode)
-    
+                  :valuetype, :generalcategory, :organizationcode, :derived_values)
+                                
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
     api_request[:page] = 1 if api_request[:page].to_i == 0

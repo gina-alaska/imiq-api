@@ -1,40 +1,41 @@
 class DailyValuesController < ApplicationController
-
-  def airtemps
-    @dailyvalues = DailyAirtempdatavalue.order('utcdatetime ASC').has_data
-    @dailyvalues_csv_header = DailyAirtempdatavalue.csv_header    
-    
-    search_dailyvalues
-    
-    respond_to do |format|
-      format.csv { render 'daily_values/daily_values' }
-    end
-  end
-  
-  def rhs
-    @dailyvalues = DailyRhdatavalue.order('utcdatetime ASC').has_data
-    @dailyvalues_csv_header = DailyRhdatavalue.csv_header
-    
-    search_dailyvalues
-    
-    respond_to do |format|
-      format.csv { render 'daily_values/daily_values' }
-    end  
+  def values
+    search_dailyvalues model_for(params[:field])
   end
   
   protected
 
-  def search_dailyvalues 
-    if api_params[:siteid].present?
-      @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
-    end
+  def model_for(field)
+    FIELD_MODELS[field.to_s]
+  end
 
+  def search_dailyvalues(model)
+    @dailyvalues_csv_header = model.csv_header   
+    @dailyvalues = model.order('utcdatetime ASC').has_data
     if api_params[:startdate].present?
       @dailyvalues = @dailyvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
     end
     
     if api_params[:enddate].present?
       @dailyvalues = @dailyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
+    end
+  
+    if api_params[:siteid].present?
+      @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
+      siteids = [params[:siteid]]
+    else
+      siteids = @dailyvalues.pluck(:siteid)
+    end
+    @sites = Site.where(siteid: siteids).uniq
+    @dailyvalues = @dailyvalues.order(:siteid)
+    
+    respond_to do |format|
+      format.csv { 
+        filename = "Imiq-#{Time.now.strftime("%Y%m%d-%H%M%S")}.csv"
+        headers["Content-type"] = "text/csv"
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+        render 'daily_values'
+      }
     end
   end
   
