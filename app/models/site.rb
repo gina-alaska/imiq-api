@@ -9,9 +9,9 @@ class Site < ActiveRecord::Base
   
   DERIVED_VARIABLES = {
     'airtemp' => :daily_airtempdatavalues,
+    'relativehumidity' => :daily_rhdatavalues,
     'discharge' => :daily_dischargedatavalues,
     'precipitation' => :daily_precipdatavalues,
-    'relativehumidity' => :daily_rhdatavalues,
     'snowdepth' => :daily_snowdepthdatavalues,
     'swe' => :daily_swedatavalues,
     'winddirection' => :daily_winddirectiondatavalues,
