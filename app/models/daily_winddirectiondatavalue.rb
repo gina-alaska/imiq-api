@@ -6,7 +6,7 @@ class DailyWinddirectiondatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Wind Direction"
   
   def self.csv_header
-    "Wind Direction (deg)"
+    pretty_name + " (deg)"
   end
   
 end

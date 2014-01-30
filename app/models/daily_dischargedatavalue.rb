@@ -6,7 +6,7 @@ class DailyDischargedatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Discharge"
   
   def self.csv_header
-    "Discharge (cfs)"
+    pretty_name + " (cfs)"
   end
   
 end

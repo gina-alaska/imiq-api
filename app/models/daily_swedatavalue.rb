@@ -6,7 +6,7 @@ class DailySwedatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Snow Water Equivalent"
   
   def self.csv_header
-    "Snow Water Equivalent (m)"
+    pretty_name + " (m)"
   end
   
 end

@@ -6,6 +6,6 @@ class DailyRhdatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Relative Humidity"
   
   def self.csv_header
-    "Relative Humidity (%)"
+    pretty_name + " (%)"
   end
 end

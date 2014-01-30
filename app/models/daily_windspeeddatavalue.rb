@@ -6,7 +6,7 @@ class DailyWindspeeddatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Wind Speed"
   
   def self.csv_header
-    "Wind Speed (m/s)"
+    pretty_name + " (m/s)"
   end
   
 end

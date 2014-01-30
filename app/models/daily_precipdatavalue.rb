@@ -6,7 +6,7 @@ class DailyPrecipdatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Precipitation"
   
   def self.csv_header
-    "Precipitation (inches)"
+    pretty_name + " (inches)"
   end
   
 end

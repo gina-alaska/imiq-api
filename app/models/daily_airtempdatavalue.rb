@@ -6,7 +6,7 @@ class DailyAirtempdatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Air Temperature"
   
   def self.csv_header
-    pretty_name
+    pretty_name + " (C)"
   end
   
 end

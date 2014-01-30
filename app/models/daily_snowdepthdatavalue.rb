@@ -6,7 +6,7 @@ class DailySnowdepthdatavalue < ActiveRecord::Base
   PRETTY_NAME = "Daily Snow Depth"
   
   def self.csv_header
-    "Snow Depth (m)"
+    pretty_name + " (m)"
   end
   
 end
