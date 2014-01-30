@@ -12,6 +12,7 @@ gem 'dalli'
 gem 'haml'
 gem 'will_paginate'
 gem 'activerecord-import', '~> 0.4.0'
+gem 'yajl-ruby'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

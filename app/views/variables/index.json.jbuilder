@@ -1,0 +1,1 @@
+json.array! @variables, partial: 'variable', as: :variable

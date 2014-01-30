@@ -1,14 +1,24 @@
 class VariablesController < ApplicationController
+  respond_to :json
+  
   def index
-    @variables = Variable.select('variableid, variablecode, variablename, samplemedium, datatype, valuetype, generalcategory').order('variablename ASC')
+    @variables = Variable.order('variablename ASC')
     @variables = @variables.includes(:sites)
     @variables = @variables.reject { |v| v.sites.empty? }
     
-    respond_to do |format|
-      format.json {
-        render json: @variables
-      }
-    end
+    # respond_to do |format|
+    #   format.json {
+    #     render json: @variables
+    #   }
+    # end
+    
+    respond_with @variables
+  end
+  
+  def show
+    @variable = Variable.find(params[:id])
+    
+    respond_with @variable
   end
   
   def list
