@@ -18,17 +18,6 @@ class Site < ActiveRecord::Base
     'windspeed' => :daily_windspeeddatavalues
   }
   
-  # DERIVED_VARIABLES = {
-  #   'airtemp' => DailyAirtempdatavalue,
-  #   'relativehumidity' => DailyRhdatavalue,
-  #   '' => DailyPrecipdatavalue,
-  #   'discharge' => DailyDischargedatavalue,
-  #   'snowdepth' => DailySnowdepthdatavalue,
-  #   'swe' => DailySwedatavalue,
-  #   'windspeed' => DailyWindspeeddatavalue,
-  #   'winddirection' => DailyWinddirectiondatavalue    
-  # }
-  
   belongs_to :source, foreign_key: 'sourceid'
   has_many :organizations, through: :source
   has_one :metadata, through: :source
