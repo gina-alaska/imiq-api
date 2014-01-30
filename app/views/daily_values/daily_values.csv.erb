@@ -1,3 +1,4 @@
+<%= @sites.pluck(:sitename) %>
 "Site ID", "Day-Month-Year", "Hour:Min:Sec (UTC)", "<%= @dailyvalues_csv_header %>"
 <% @dailyvalues.each do |row| %>
 <%= row.siteid %>, <%= row.utcdatetime.strftime(%"%d-%m-%Y") %>, <%= row.utcdatetime.strftime(%"%X") %>, <%= row.datavalue %>

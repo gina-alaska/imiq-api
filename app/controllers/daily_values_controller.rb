@@ -10,13 +10,8 @@ class DailyValuesController < ApplicationController
   end
 
   def search_dailyvalues(model)
-    @dailyvalues_csv_header = model.csv_header    
+    @dailyvalues_csv_header = model.csv_header   
     @dailyvalues = model.order('utcdatetime ASC').has_data
-     
-    if api_params[:siteid].present?
-      @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
-    end
-    
     if api_params[:startdate].present?
       @dailyvalues = @dailyvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
     end
@@ -25,14 +20,21 @@ class DailyValuesController < ApplicationController
       @dailyvalues = @dailyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
     end
   
+    if api_params[:siteid].present?
+      @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
+      siteids = [params[:siteid]]
+    else
+      siteids = @dailyvalues.pluck(:siteid)
+    end
+    @sites = Site.where(siteid: siteids).uniq
     @dailyvalues = @dailyvalues.order(:siteid)
-
+    
     respond_to do |format|
       format.csv { 
         filename = "Imiq-#{Time.now.strftime("%Y%m%d-%H%M%S")}.csv"
         headers["Content-type"] = "text/csv"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-        render 'daily_values' 
+        render 'daily_values'
       }
     end
   end
