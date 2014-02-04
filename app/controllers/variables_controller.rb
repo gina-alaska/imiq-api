@@ -26,16 +26,29 @@ class VariablesController < ApplicationController
       [klass.to_s.classify.constantize.pretty_name, name]
     end
     
+    search = Variable.search do 
+      with :has_sites, true
+      with :has_datastreams, true
+      facet :datatype
+      facet :valuetype
+      facet :generalcategory
+      facet :variablename
+    end
+    
+    @datatypes = search.facet(:datatype).rows.map(&:value).sort
+    @valuetypes = search.facet(:valuetype).rows.map(&:value).sort
+    @variablenames = search.facet(:variablename).rows.map(&:value).sort
+    @generalcategories = search.facet(:generalcategory).rows.map(&:value).sort
     
     respond_to do |format|
       format.json {
         render json: {
-          names: Variable.names,
-          datatypes: Variable.datatypes,
-          samplemediums: Variable.samplemediums,
-          valuetypes: Variable.valuetypes,
+          names: @variablenames,
+          datatypes: @datatypes,
+          # samplemediums: Variable.samplemediums,
+          valuetypes: @valuetypes,
           derived_variables: derived_vars,
-          generalcategories: Variable.generalcategories
+          generalcategories: @generalcategories
         }
       }
     end

@@ -29,6 +29,9 @@ module Search
         string :generalcategories, :multiple => true do
           generalcategories_index
         end
+        string :derived_variables, multiple: true do
+          derived_variables
+        end
         string :geomtype do
           spatialcharacteristics
         end

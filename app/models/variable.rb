@@ -1,4 +1,6 @@
 class Variable < ActiveRecord::Base
+  include Search::Variables
+  
   has_many :datastreams, foreign_key: 'variableid'
   has_many :sites, through: :datastreams
   
