@@ -1,4 +1,4 @@
-json.cache! ['v3', site] do
+json.cache! ['v4', site, params[:verbose]] do
   json.url site_url(site, :json)
   json.(site, *Site.column_names.map(&:to_sym))
   if params[:verbose]

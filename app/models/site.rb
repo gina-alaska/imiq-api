@@ -1,7 +1,9 @@
 class Site < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
-  # include SitesTable
-  include SeriesCatalog62View
+  include SitesTable
+  # include SeriesCatalog62View
+  
+  include Search::Sites
   
   # This is the configuration needed to pull the from the correct view with valid sites
   # currently we are not using it because the geolocation field in being set to a binary
@@ -22,6 +24,7 @@ class Site < ActiveRecord::Base
   has_many :organizations, through: :source
   has_one :metadata, through: :source
   has_many :datastreams, foreign_key: 'siteid'
+  has_many :datavalues, through: :datastreams
   has_many :variables, through: :datastreams
   has_many :daily_airtempdatavalues, foreign_key: 'siteid'
   has_many :daily_dischargedatavalues, foreign_key: 'siteid'
@@ -71,8 +74,28 @@ class Site < ActiveRecord::Base
     found
   end  
   
+  def geometry
+    if geolocation.nil?
+      nil
+    else
+      @geometry ||= Geometry.from_ewkt(geolocation) 
+    end
+  end
+  
   def wkt
-    Geometry.from_ewkt(geolocation)
+    geometry
+  end
+  
+  # we can't assume these will always be points
+  # so get bounds and find the center point
+  def lat
+    geometry.try(:envelope).try(:center).try(:lat)
+  end
+  
+  # we can't assume these will always be points
+  # so get bounds and find the center point
+  def lng
+    geometry.try(:envelope).try(:center).try(:lng)
   end
   
   def cache_key

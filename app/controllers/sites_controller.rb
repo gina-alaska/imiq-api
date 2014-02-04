@@ -4,44 +4,60 @@ class SitesController < ApplicationController
   
   # Fetch & Show all of the site records using the api_params
   # [GET] /sites.json => sites#index
-  def index
-    @sites = Site.has_location.uniq
-    @sites = @sites.geomtype(api_params[:geometry]) if api_params[:geometry].present?
-    @sites = @sites.paginate(:page => params[:page], :per_page => api_params[:limit])
-    
-    if api_params[:variablename].present?
-      @sites = @sites.joins(:variables).where('variables.variablename ilike ?', "#{api_params[:variablename]}%")
-    end
-    
-    if api_params[:datatype].present?
-      @sites = @sites.joins(:variables).where('variables.datatype ilike ?', "#{api_params[:datatype]}%" )
-    end
-    
-    if api_params[:samplemedium].present?
-      @sites = @sites.joins(:variables).where('variables.samplemedium ilike ?', "#{api_params[:samplemedium]}%" )
-    end
-    
-    if api_params[:valuetype].present?
-      @sites = @sites.joins(:variables).where('variables.valuetype ilike ?', "#{api_params[:valuetype]}%" )
-    end
-    
-    if api_params[:generalcategory].present?
-      @sites = @sites.joins(:variables).where('variables.generalcategory ilike ?', "#{api_params[:generalcategory]}%" )
-    end
-    
-    if api_params[:organizationcode].present?
-      @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
-    end
+  # def index
+#     @sites = Site.has_location.uniq
+#     @sites = @sites.geomtype(api_params[:geometry]) if api_params[:geometry].present?
+#     
+#     if api_params[:variablename].present?
+#       @sites = @sites.joins(:variables).where('variables.variablename ilike ?', "#{api_params[:variablename]}%")
+#     end
+#     
+#     if api_params[:datatype].present?
+#       @sites = @sites.joins(:variables).where('variables.datatype ilike ?', "#{api_params[:datatype]}%" )
+#     end
+#     
+#     if api_params[:samplemedium].present?
+#       @sites = @sites.joins(:variables).where('variables.samplemedium ilike ?', "#{api_params[:samplemedium]}%" )
+#     end
+#     
+#     if api_params[:valuetype].present?
+#       @sites = @sites.joins(:variables).where('variables.valuetype ilike ?', "#{api_params[:valuetype]}%" )
+#     end
+#     
+#     if api_params[:generalcategory].present?
+#       @sites = @sites.joins(:variables).where('variables.generalcategory ilike ?', "#{api_params[:generalcategory]}%" )
+#     end
+#     
+#     if api_params[:organizationcode].present?
+#       @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
+#     end
+# 
+#     site_ids = []
+#     if api_params[:derived_values].present? and Site::DERIVED_VARIABLES[api_params[:derived_values]].present?
+#       site_ids += Site::DERIVED_VARIABLES[api_params[:derived_values]].to_s.classify.constantize.uniq.pluck(:siteid)
+#     end
+#     
+#     site_ids.uniq!
+#     if site_ids.count > 0
+#       @sites = @sites.where(siteid: site_ids)
+#     end
+#     
+#     @sites = @sites.paginate(:page => params[:page], :per_page => api_params[:limit])
+#     
+#     respond_with @sites
+#   end
 
-    site_ids = []
-    if api_params[:derived_values].present? and Site::DERIVED_VARIABLES[api_params[:derived_values]].present?
-      site_ids += Site::DERIVED_VARIABLES[api_params[:derived_values]].to_s.classify.constantize.uniq.pluck(:siteid)
+  def index
+    @search = Site.search do
+      with :has_data, true
+      with :has_location, true
+      with :geomtype, 'Point'
+      with :variablenames, api_params[:variablename] if api_params[:variablename].present?
+      with(:location).in_bounding_box(*api_params[:bounds]) if api_params[:bounds].present?
+      paginate page: api_params[:page], per_page: api_params[:limit]
     end
     
-    site_ids.uniq!
-    if site_ids.count > 0
-      @sites = @sites.where(siteid: site_ids)
-    end
+    @sites = @search.results
     
     respond_with @sites
   end
@@ -66,12 +82,16 @@ class SitesController < ApplicationController
   
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :organizationcode, :derived_values)
+                  :valuetype, :generalcategory, :organizationcode, :derived_values, :bounds)
                                 
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
     api_request[:page] = 1 if api_request[:page].to_i == 0
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
+    if api_request[:bounds].present?
+      bounds = api_request[:bounds].split(',')
+      api_request[:bounds] = [[bounds[1],bounds[0]], [bounds[3], bounds[2]]]
+    end
     
     api_request
   end

@@ -11,8 +11,12 @@ gem 'bower-tools', github: 'gina-alaska/bower-tools'
 gem 'dalli'
 gem 'haml'
 gem 'will_paginate'
-gem 'activerecord-import', '~> 0.4.0'
+#gem 'activerecord-import', '~> 0.4.0'
 gem 'yajl-ruby'
+#gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+gem 'progress_bar', group: 'development'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
