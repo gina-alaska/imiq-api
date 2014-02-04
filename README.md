@@ -4,9 +4,11 @@
 * Ruby 2.0
 * Rails 4.0.1
 * PostgreSQL
+* Java (if running solr server)
 
 ## Installation
 
+### Rails Setup
     git clone <repo>
     bundle
     cp config/database.yml.example config/database.yml
@@ -19,3 +21,10 @@
     # seed data into the database
     rake db:seed
 
+### Solr Setup
+
+    # start the solr client 
+    rake solr:solr:start
+    # reindex the database (only required the first time you start up solr)
+    rake solr:reindex
+    # profit!
