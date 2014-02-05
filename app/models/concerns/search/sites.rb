@@ -58,17 +58,5 @@ module Search
     def generalcategories_index
       @generalcategories_index ||= variables.map(&:generalcategory)
     end
-    
-    def as_indexed_json(options={})
-      {
-        siteid: siteid,
-        sitename: sitename,
-        variablenames: variables.map(&:variablename),
-        organizationcodes: organizations.map(&:organizationcode),
-        generalcategories: variables.map(&:generalcategory),
-        # derived_variables: derived_variables,
-        datastream_count: datastreams.count
-      }
-    end    
   end
 end
