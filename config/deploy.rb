@@ -23,10 +23,10 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      within release_path do
-        execute :rake, 'sunspot:solr:stop'
-        execute :rake, 'sunspot:solr:start'
-      end
+      # within release_path do
+      #   execute :rake, 'sunspot:solr:stop'
+      #   execute :rake, 'sunspot:solr:start'
+      # end
     end
   end
 

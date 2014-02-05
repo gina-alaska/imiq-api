@@ -52,6 +52,14 @@ class Site < ActiveRecord::Base
   #   super(opts)
   # end
   
+  def begin_date
+    datastreams.where('startdate is not null').order('startdate ASC').first.try(:startdate)
+  end
+  
+  def end_date
+    datastreams.where('startdate is not null').order('enddate DESC').first.try(:enddate)
+  end
+  
   def support_data_sources
     { daily_airtempdatavalue: 'Daily Air Temp' }
   end
