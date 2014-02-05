@@ -66,11 +66,11 @@ class Site < ActiveRecord::Base
   
   def derived_variables
     found = []
-    DERIVED_VARIABLES.values.each do |variable|
+    DERIVED_VARIABLES.each do |key,variable|
       # found << variable if self.daily_airtempdatavalues.count > 0
       dv = self.send(variable) if self.respond_to?(variable)
       if dv.count > 0
-        found << dv.pretty_name 
+        found << key 
       end
     end
     
