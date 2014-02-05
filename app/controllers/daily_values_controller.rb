@@ -1,6 +1,6 @@
 class DailyValuesController < ApplicationController
   def values
-    search_dailyvalues model_for(params[:field])
+    search_dailyvalues model_for(params[:field]), params[:field]
   end
   
   protected
@@ -9,7 +9,7 @@ class DailyValuesController < ApplicationController
     FIELD_MODELS[field.to_s]
   end
 
-  def search_dailyvalues(model)
+  def search_dailyvalues(model, field)
     @dailyvalues_csv_header = model.csv_header   
     @dailyvalues = model.order('utcdatetime ASC').has_data
     if api_params[:startdate].present?
@@ -29,9 +29,16 @@ class DailyValuesController < ApplicationController
     @sites = Site.where(siteid: siteids).uniq
     @dailyvalues = @dailyvalues.order(:siteid)
     
+    filename_parts = ['Imiq']
+    if api_params[:siteid].present?
+      filename_parts << "site-#{api_params[:siteid]}"
+    end
+    
+    filename_parts += [field, Time.now.strftime("%Y%m%d-%H%M%S")]
+    
     respond_to do |format|
       format.csv { 
-        filename = "Imiq-#{Time.now.strftime("%Y%m%d-%H%M%S")}.csv"
+        filename = "#{filename_parts.join('_')}.csv"
         headers["Content-type"] = "text/csv"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
         render 'daily_values'
