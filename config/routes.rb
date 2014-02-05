@@ -19,9 +19,13 @@ ImiqApi::Application.routes.draw do
   #   end
   # end
   
-  get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }
+  get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }, as: 'daily_values'
   
-  resources :sites, except: [:new, :update, :destroy, :create, :edit], defaults: { format: 'json' }
+  resources :sites, except: [:new, :update, :destroy, :create, :edit], defaults: { format: 'json' } do
+    member do
+      get :downloads
+    end
+  end
   resources :sources, except: [:new, :update, :destroy, :create, :edit]
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -67,6 +67,12 @@ class SitesController < ApplicationController
     respond_with @sites
   end
   
+  def downloads
+    @site = Site.find(params[:id])
+    
+    respond_with(@site)
+  end
+  
   # Fetch & Show an individual site record
   # [GET] /sites/1.json
   # [GET] /sites/1.html 
