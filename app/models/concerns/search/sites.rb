@@ -7,6 +7,7 @@ module Search
         integer :siteid
         
         #full-text search indexes
+        text :siteid
         text :sitename
         text :variablenames_text do
           variablenames_index
@@ -17,7 +18,9 @@ module Search
         text :generalcategories do
           generalcategories_index
         end
-        
+        text :source do
+          [source.organization, source.contactname]
+        end
         
         string :sitename
         string :variablenames, :multiple => true do

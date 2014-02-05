@@ -49,6 +49,8 @@ class SitesController < ApplicationController
 
   def index
     @search = Site.search do
+      fulltext api_params[:q] if api_params[:q].present?
+      
       with :has_data, true
       with :has_location, true
       # with :geomtype, 'Point'
@@ -85,7 +87,7 @@ class SitesController < ApplicationController
   
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :organizationcode, :derived_values, :bounds)
+                  :valuetype, :generalcategory, :organizationcode, :derived_values, :bounds, :q)
                                 
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
