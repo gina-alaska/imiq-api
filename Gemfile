@@ -16,7 +16,7 @@ gem 'yajl-ruby'
 #gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
-gem 'progress_bar', group: 'development'
+gem 'progress_bar'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
