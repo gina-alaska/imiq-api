@@ -51,10 +51,11 @@ class SitesController < ApplicationController
     @search = Site.search do
       with :has_data, true
       with :has_location, true
-      with :geomtype, 'Point'
+      # with :geomtype, 'Point'
       with :variablenames, api_params[:variablename] if api_params[:variablename].present?
       with :organizationcodes, api_params[:organizationcode] if api_params[:organizationcode].present?
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
+      with :derived_variables, api_params[:derived_values] if api_params[:derived_values].present?
       with(:location).in_bounding_box(*api_params[:bounds]) if api_params[:bounds].present?
       paginate page: api_params[:page], per_page: api_params[:limit]
     end
