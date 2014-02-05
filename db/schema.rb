@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20140205012640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,6 +216,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "daily_airtempdatavalues", ["siteid"], name: "index_daily_airtempdatavalues_on_siteid", using: :btree
+
   create_table "daily_airtempmax", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -267,6 +269,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "daily_dischargedatavalues", ["siteid"], name: "index_daily_dischargedatavalues_on_siteid", using: :btree
+
   create_table "daily_precip", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -283,6 +287,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
   end
+
+  add_index "daily_precipdatavalues", ["siteid"], name: "index_daily_precipdatavalues_on_siteid", using: :btree
 
   create_table "daily_rh", id: false, force: true do |t|
     t.integer  "valueid",            null: false
@@ -301,6 +307,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "daily_rhdatavalues", ["siteid"], name: "index_daily_rhdatavalues_on_siteid", using: :btree
+
   create_table "daily_snowdepth", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -318,6 +326,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "daily_snowdepthdatavalues", ["siteid"], name: "index_daily_snowdepthdatavalues_on_siteid", using: :btree
+
   create_table "daily_swe", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -334,6 +344,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
   end
+
+  add_index "daily_swedatavalues", ["siteid"], name: "index_daily_swedatavalues_on_siteid", using: :btree
 
   create_table "daily_utcdatetime", id: false, force: true do |t|
     t.integer  "siteid",      null: false
@@ -359,6 +371,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "offsettypeid"
   end
 
+  add_index "daily_winddirectiondatavalues", ["siteid"], name: "index_daily_winddirectiondatavalues_on_siteid", using: :btree
+
   create_table "daily_windspeed", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -377,6 +391,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "offsetvalue"
     t.integer  "offsettypeid"
   end
+
+  add_index "daily_windspeeddatavalues", ["siteid"], name: "index_daily_windspeeddatavalues_on_siteid", using: :btree
 
   create_table "datastreams", primary_key: "datastreamid", force: true do |t|
     t.string  "datastreamname",                                           null: false
@@ -1218,6 +1234,26 @@ ActiveRecord::Schema.define(version: 0) do
     t.float   "nodatavalue",                                 null: false
   end
 
+  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
+  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
+
+  create_table "variables", primary_key: "variableid", force: true do |t|
+    t.string  "variablecode",        limit: 50,              null: false
+    t.string  "variablename",                                null: false
+    t.text    "variabledescription"
+    t.string  "speciation",                     default: "", null: false
+    t.integer "variableunitsid",                             null: false
+    t.string  "samplemedium",                   default: "", null: false
+    t.string  "valuetype",                      default: "", null: false
+    t.boolean "isregular",                                   null: false
+    t.float   "timesupport",                                 null: false
+    t.integer "timeunitsid",                                 null: false
+    t.string  "datatype",                       default: "", null: false
+    t.string  "generalcategory",                default: "", null: false
+    t.float   "nodatavalue",                                 null: false
+  end
+
+  add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
   add_index "variables", ["variablecode"], name: "variables_variablecode", unique: true, using: :btree
 
   create_table "verticaldatumcv", id: false, force: true do |t|

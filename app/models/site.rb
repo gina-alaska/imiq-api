@@ -68,7 +68,10 @@ class Site < ActiveRecord::Base
     found = []
     DERIVED_VARIABLES.values.each do |variable|
       # found << variable if self.daily_airtempdatavalues.count > 0
-      found << self.send(variable).first.pretty_name if self.respond_to?(variable) and !self.send(variable).first.nil?  
+      dv = self.send(variable) if self.respond_to?(variable)
+      if dv.count > 0
+        found << dv.pretty_name 
+      end
     end
     
     found
