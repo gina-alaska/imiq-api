@@ -24,7 +24,7 @@
 ### Solr Setup
 
     # start the solr client 
-    rake sunspot:solr:start
+    bundle exec rake sunspot:solr:start
     # reindex the database (only required the first time you start up solr)
-    rake sunspot:reindex
+    bundle exec rake sunspot:reindex
     # profit!
