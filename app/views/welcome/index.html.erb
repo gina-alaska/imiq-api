@@ -17,6 +17,13 @@
 				    <li>json</li>
 						<li>geojson</li>
 				  </ul>
+  			<p> Optional Parameters </p>
+  				<ul>
+  				  <li>?verbose</li>
+              <ul>
+                <li> = 1 Output site, source, variables, datastreams, derived variable information.</li>
+              </ul>
+          </ul>
 			  <br>
 			  <p> Search Parameters </p>
 				  <table class="table">
@@ -84,6 +91,13 @@
 					    <li>json</li>
 							<li>geojson</li>
 					  </ul>
+  				<p> Optional Parameters </p>
+  					<ul>
+  					  <li>?verbose</li>
+                <ul>
+                  <li> = 1 Output site, source, variables, datastreams, derived variable information.</li>
+                </ul>
+            </ul>
 				  <br>
           <%= render "sitestable"%>
 			  </div>
@@ -101,6 +115,33 @@
     <div id="collapseVariables" class="panel-collapse collapse">
       <div class="panel-body">
 				<%= render "variabledescription"%>     
+      </div>
+    </div>
+	</div>
+	<div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseVariables">
+          /variables/{variableid}.{format}
+        </a>
+      </h4>
+    </div>
+    <div id="collapseVariables" class="panel-collapse collapse">
+      <div class="panel-body">
+			  <div id="name">
+			    <p> Description  </p>
+					<p> A partial list of fields for a given variable from the Variables table.
+				  </ul>		
+					<p> variableid </p>		
+				    <ul>
+				      <li>Unique integer identifying each variable (from Variables table).</li>
+				    </ul>		
+					<p> Format Types </p>
+					  <ul>
+					    <li>json</li>
+					  </ul>
+				  <br>    
+        </div>
       </div>
     </div>
 	</div>
