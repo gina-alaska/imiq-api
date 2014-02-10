@@ -10,7 +10,7 @@
     <div id="collapseSites" class="panel-collapse collapse">
       <div class="panel-body">
 		    <p> Description  </p>
-				<p> Site information that describes the location where the data values were sampled (seriescatalog_62 view).</p>
+				<p> Site information that describes the location where the data values were sampled.</p>
 				<br>
 				<p> Format Types </p>
 				  <ul>
@@ -105,6 +105,40 @@
 		</div>
 	</div>
 	<div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSources">
+	          /sources.{format}
+	        </a>
+	      </h4>
+	    </div>
+    <div id="collapseSources" class="panel-collapse collapse">
+      <div class="panel-body">
+				<%= render "sourcedescription"%>
+			</div>
+		</div>
+  </div>
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	      <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSourcesShow">
+	          /sources/{sourceid}.{format}
+	        </a>
+	      </h4>
+	    </div>
+    <div id="collapseSourcesShow" class="panel-collapse collapse">
+      <div class="panel-body">
+		    <p> Description  </p>
+				<p> Source information for the each sourceid in the Imiq database.</p>
+				<br>
+				<p> Format Types </p>
+				  <ul>
+				    <li>json</li>
+				  </ul>
+			</div>
+		</div>
+  </div>
+	<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseVariables">
@@ -148,49 +182,15 @@
 	<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThreeList">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseVariablesList">
           /variables/list.{format}
         </a>
       </h4>
     </div>
-    <div id="collapseThreeList" class="panel-collapse collapse">
+    <div id="collapseVariablesList" class="panel-collapse collapse">
       <div class="panel-body">
 				<%= render "variablelist"%>     
       </div>
     </div>
 	</div>
-	<div class="panel panel-default">
-	    <div class="panel-heading">
-	      <h4 class="panel-title">
-	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSources">
-	          /sources.{format}
-	        </a>
-	      </h4>
-	    </div>
-    <div id="collapseSources" class="panel-collapse collapse">
-      <div class="panel-body">
-				<%= render "sourcedescription"%>
-			</div>
-		</div>
-  </div>
-	<div class="panel panel-default">
-	    <div class="panel-heading">
-	      <h4 class="panel-title">
-	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseSourcesShow">
-	          /sources/{sourceid}.{format}
-	        </a>
-	      </h4>
-	    </div>
-    <div id="collapseSourcesShow" class="panel-collapse collapse">
-      <div class="panel-body">
-		    <p> Description  </p>
-				<p> Source information for the each sourceid in the Imiq database.</p>
-				<br>
-				<p> Format Types </p>
-				  <ul>
-				    <li>json</li>
-				  </ul>
-			</div>
-		</div>
-  </div>
 </div>
