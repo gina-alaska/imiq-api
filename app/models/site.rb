@@ -34,7 +34,15 @@ class Site < ActiveRecord::Base
   has_many :daily_swedatavalues, foreign_key: 'siteid'
   has_many :daily_winddirectiondatavalues, foreign_key: 'siteid'
   has_many :daily_windspeeddatavalues, foreign_key: 'siteid'
-  
+  has_many :hourly_airtempdatavalues, foreign_key: 'siteid'
+  has_many :hourly_dischargedatavalues, foreign_key: 'siteid'
+  has_many :hourly_precipdatavalues, foreign_key: 'siteid'
+  has_many :hourly_rhdatavalues, foreign_key: 'siteid'  
+  has_many :hourly_snowdepthdatavalues, foreign_key: 'siteid'
+  has_many :hourly_swedatavalues, foreign_key: 'siteid'
+  has_many :hourly_winddirectiondatavalues, foreign_key: 'siteid'
+  has_many :hourly_windspeeddatavalues, foreign_key: 'siteid'
+
   scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
   }

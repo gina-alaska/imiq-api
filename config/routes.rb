@@ -18,8 +18,8 @@ ImiqApi::Application.routes.draw do
   #     # get 'rhs'
   #   end
   # end
-  
   get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }, as: 'daily_values'
+  get '/hourly/:field(.:format)' => 'hourly_values#values', defaults: { format: 'csv' }, as: 'hourly_values'
   
   resources :sites, except: [:new, :update, :destroy, :create, :edit], defaults: { format: 'json' } do
     member do
