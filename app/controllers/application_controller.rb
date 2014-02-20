@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
     'air_temp' => HourlyAirtempdatavalue,
     'relative_humidity' => HourlyRhdatavalue,
     'precipitation' => HourlyPrecipdatavalue,
-    'discharge' => HourlyDischargedatavalue,
     'snow_depth' => HourlySnowdepthdatavalue,
     'snow_water_equivalent' => HourlySwedatavalue,
     'wind_speed' => HourlyWindspeeddatavalue,
