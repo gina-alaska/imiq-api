@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205012640) do
+ActiveRecord::Schema.define(version: 20140220002828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -593,6 +593,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "hourly_airtempdatavalues", ["siteid"], name: "index_hourly_airtempdatavalues_on_siteid", using: :btree
+
   create_table "hourly_precip", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -609,6 +611,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
   end
+
+  add_index "hourly_precipdatavalues", ["siteid"], name: "index_hourly_precipdatavalues_on_siteid", using: :btree
 
   create_table "hourly_rh", id: false, force: true do |t|
     t.integer  "valueid",            null: false
@@ -627,6 +631,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "hourly_rhdatavalues", ["siteid"], name: "index_hourly_rhdatavalues_on_siteid", using: :btree
+
   create_table "hourly_snowdepth", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -644,6 +650,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "originalvariableid", null: false
   end
 
+  add_index "hourly_snowdepthdatavalues", ["siteid"], name: "index_hourly_snowdepthdatavalues_on_siteid", using: :btree
+
   create_table "hourly_swe", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -660,6 +668,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
   end
+
+  add_index "hourly_swedatavalues", ["siteid"], name: "index_hourly_swedatavalues_on_siteid", using: :btree
 
   create_table "hourly_utcdatetime", id: false, force: true do |t|
     t.integer  "siteid",      null: false
@@ -685,6 +695,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "offsettypeid"
   end
 
+  add_index "hourly_winddirectiondatavalues", ["siteid"], name: "index_hourly_winddirectiondatavalues_on_siteid", using: :btree
+
   create_table "hourly_windspeed", id: false, force: true do |t|
     t.integer  "valueid",           null: false
     t.float    "datavalue"
@@ -703,6 +715,8 @@ ActiveRecord::Schema.define(version: 20140205012640) do
     t.integer  "offsetvalue"
     t.integer  "offsettypeid"
   end
+
+  add_index "hourly_windspeeddatavalues", ["siteid"], name: "index_hourly_windspeeddatavalues_on_siteid", using: :btree
 
   create_table "imiqversion", id: false, force: true do |t|
     t.string "versionnumber", limit: 50, null: false
