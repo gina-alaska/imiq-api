@@ -2,7 +2,7 @@
 
 ## Requirements
 * Ruby 2.0
-* Rails 4.0.1
+* Rails 4.0.3
 * PostgreSQL
 * Java (if running solr server)
 
