@@ -24,6 +24,12 @@ class ApplicationController < ActionController::Base
     'wind_speed' => HourlyWindspeeddatavalue,
     'wind_direction' => HourlyWinddirectiondatavalue    
   }  
+  
+  FIELD_MODELS_ALL = {
+    'daily' => FIELD_MODELS,
+    'hourly' => FIELD_MODELS_HOURLY
+  }
+  
   protected
     def self.set_pagination_headers(name, options = {})
       after_filter(options) do |controller|

@@ -1,0 +1,8 @@
+<% if flash[:error] %>
+ERROR: <%= flash[:error] %>
+<% end %>
+Site(s): <%= @site_names.join(', ').html_safe %>
+Site ID, Year-Month-Day, Hour:Min:Sec (UTC), No Units Yet
+<% @values.each do |row| %>
+<%= row.siteid %>, <%= row.utcdatetime.strftime(%"%Y-%m-%d") %>, <%= row.utcdatetime.strftime(%"%X") %>, <%= row.datavalue %>
+<% end %>
