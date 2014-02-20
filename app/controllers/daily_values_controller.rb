@@ -6,7 +6,7 @@ class DailyValuesController < ApplicationController
   protected
 
   def model_for(field)
-    FIELD_MODELS[field.to_s]
+    FIELD_MODELS_DAILY[field.to_s]
   end
 
   def search_dailyvalues(model, field)
