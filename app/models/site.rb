@@ -101,6 +101,10 @@ class Site < ActiveRecord::Base
     end
   end
   
+  def envelope
+    @envelope ||= geometry.try(:envelope)
+  end
+  
   def wkt
     geometry
   end
@@ -108,13 +112,17 @@ class Site < ActiveRecord::Base
   # we can't assume these will always be points
   # so get bounds and find the center point
   def lat
-    geometry.try(:envelope).try(:center).try(:lat)
+    envelope.try(:center).try(:lat)
   end
   
   # we can't assume these will always be points
   # so get bounds and find the center point
   def lng
-    geometry.try(:envelope).try(:center).try(:lng)
+    envelope.try(:center).try(:lng)
+  end
+  
+  def z
+    geometry.try(:envelope).try(:center).try(:z)
   end
   
   def cache_key
