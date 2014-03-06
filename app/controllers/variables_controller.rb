@@ -22,9 +22,9 @@ class VariablesController < ApplicationController
   end
   
   def list
-    derived_vars = Site::DERIVED_VARIABLES.map do |name,klass|
-      [klass.to_s.classify.constantize.pretty_name, name]
-    end
+    # derived_vars = Site::DERIVED_VARIABLES.map do |name,klass|
+    #   [klass.to_s.classify.constantize.pretty_name, name]
+    # end
     
     search = Variable.search do 
       with :has_sites, true
@@ -47,7 +47,7 @@ class VariablesController < ApplicationController
           datatypes: @datatypes,
           # samplemediums: Variable.samplemediums,
           valuetypes: @valuetypes,
-          derived_variables: derived_vars,
+          # derived_variables: derived_vars,
           generalcategories: @generalcategories
         }
       }

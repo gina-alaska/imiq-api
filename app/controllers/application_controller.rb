@@ -4,14 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   FIELD_MODELS_DAILY = { 
-    'air_temp' => DailyAirtempdatavalue,
-    'relative_humidity' => DailyRhdatavalue,
-    'precipitation' => DailyPrecipdatavalue,
-    'discharge' => DailyDischargedatavalue,
-    'snow_depth' => DailySnowdepthdatavalue,
+    'air_temp'              => DailyAirtempdatavalue,
+    'relative_humidity'     => DailyRhdatavalue,
+    'precipitation'         => DailyPrecipdatavalue,
+    'discharge'             => DailyDischargedatavalue,
+    'snow_depth'            => DailySnowdepthdatavalue,
     'snow_water_equivalent' => DailySwedatavalue,
-    'wind_speed' => DailyWindspeeddatavalue,
-    'wind_direction' => DailyWinddirectiondatavalue    
+    'wind_speed'            => DailyWindspeeddatavalue,
+    'wind_direction'        => DailyWinddirectiondatavalue    
   }  
   
   FIELD_MODELS_HOURLY = {

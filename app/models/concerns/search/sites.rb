@@ -33,7 +33,7 @@ module Search
           generalcategories_index
         end
         string :derived_variables, multiple: true do
-          derived_variables.collect { |timestep,vars| vars }.compact!.try(:uniq!)
+          derived_variables.collect { |timestep,vars| vars }.flatten.compact.uniq
         end
         
         string :timesteps, multiple: true do

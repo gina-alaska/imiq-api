@@ -108,13 +108,11 @@ class Site < ActiveRecord::Base
       DERIVED_VARIABLES.each do |timestep, vars|      
         vars.each do |name,relation|
           @derived_variables[timestep] ||= []
-          dv = self.send(relation) if self.respond_to?(relation)
-          @derived_variables[timestep] << key if dv.size > 0
+          @derived_variables[timestep] << name if self.respond_to?(relation) and self.send(relation).size > 0
         end
       end
       
     end
-    
     @derived_variables
   end  
   

@@ -1,5 +1,5 @@
 class AddIndexToHourlyDerived < ActiveRecord::Migration
-  def change
+  def up
     apply_index 'hourly_airtempdatavalues', 'siteid'
     apply_index 'hourly_rhdatavalues', 'siteid'
     apply_index 'hourly_precipdatavalues', 'siteid'
