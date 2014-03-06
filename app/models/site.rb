@@ -9,7 +9,7 @@ class Site < ActiveRecord::Base
   # currently we are not using it because the geolocation field in being set to a binary
   # datatype that we cannot decode
   
-  DERIVED_VARIABLES = {
+  DAILY_DERIVED_VARIABLES = {
     'air_temp' => :daily_airtempdatavalues,
     'relative_humidity' => :daily_rhdatavalues,
     'discharge' => :daily_dischargedatavalues,
@@ -19,6 +19,22 @@ class Site < ActiveRecord::Base
     'wind_direction' => :daily_winddirectiondatavalues,
     'wind_speed' => :daily_windspeeddatavalues
   }
+  
+  HOURLY_DERIVED_VARIABLES = {
+    'air_temp' =>               :hourly_airtempdatavalues,
+    'relative_humidity' =>      :hourly_rhdatavalues,
+    'precipitation' =>          :hourly_precipdatavalues,
+    'snow_depth' =>             :hourly_snowdepthdatavalues,
+    'snow_water_equivalent' =>  :hourly_swedatavalues,
+    'wind_direction' =>         :hourly_winddirectiondatavalues,
+    'wind_speed' =>             :hourly_windspeeddatavalues
+  }
+  
+  DERIVED_VARIABLES = {
+    'daily' => DAILY_DERIVED_VARIABLES,
+    'hourly' => HOURLY_DERIVED_VARIABLES
+  }
+  
   
   belongs_to :source, foreign_key: 'sourceid'
   has_many :organizations, through: :source
@@ -80,17 +96,26 @@ class Site < ActiveRecord::Base
     }
   end
   
+=begin
+@derived_variables = {
+  'daily' => [...],
+  'hourly' => [...]
+}
+=end
   def derived_variables
-    found = []
-    DERIVED_VARIABLES.each do |key,variable|
-      # found << variable if self.daily_airtempdatavalues.count > 0
-      dv = self.send(variable) if self.respond_to?(variable)
-      if dv.count > 0
-        found << key 
+    if @derived_variables.nil?
+      @derived_variables = {}
+      DERIVED_VARIABLES.each do |timestep, vars|      
+        vars.each do |name,relation|
+          @derived_variables[timestep] ||= []
+          dv = self.send(relation) if self.respond_to?(relation)
+          @derived_variables[timestep] << key if dv.size > 0
+        end
       end
+      
     end
     
-    found
+    @derived_variables
   end  
   
   def geometry

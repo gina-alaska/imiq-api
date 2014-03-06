@@ -55,6 +55,7 @@ class SitesController < ApplicationController
       with :has_location, true
       # with :geomtype, 'Point'
       with :variablenames, api_params[:variablename] if api_params[:variablename].present?
+      with :timesteps, api_params[:timesteps] if api_params[:timesteps].present?
       with :organizationcodes, api_params[:organizationcode] if api_params[:organizationcode].present?
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
       with :derived_variables, api_params[:derived_values] if api_params[:derived_values].present?
@@ -93,7 +94,7 @@ class SitesController < ApplicationController
   
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :organizationcode, :derived_values, :bounds, :q)
+                  :valuetype, :generalcategory, :organizationcode, :derived_values, :bounds, :q, :timesteps)
                                 
     api_request[:limit] ||= 50
     api_request[:page] ||= 1

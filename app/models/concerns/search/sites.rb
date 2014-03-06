@@ -33,8 +33,13 @@ module Search
           generalcategories_index
         end
         string :derived_variables, multiple: true do
-          derived_variables
+          derived_variables.collect { |timestep,vars| vars }.compact!.try(:uniq!)
         end
+        
+        string :timesteps, multiple: true do
+          derived_variables.keys
+        end
+        
         string :geomtype do
           spatialcharacteristics
         end
