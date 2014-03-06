@@ -1015,17 +1015,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.text    "citation",                            null: false
   end
 
-  create_table "rasterdatavalues", primary_key: "valueid", force: true do |t|
-    t.text     "datavalue"
-    t.float    "valueaccuracy"
-    t.datetime "localdatetime",            null: false
-    t.float    "utcoffset",                null: false
-    t.integer  "qualifierid"
-    t.integer  "derivedfromid"
-    t.integer  "datastreamid",             null: false
-    t.string   "censorcode",    limit: 50
-  end
-
   create_table "rh_totalyears", id: false, force: true do |t|
     t.integer "siteid",    null: false
     t.string  "sitename"
@@ -1272,11 +1261,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   add_index "sysdiagrams", ["name"], name: "sysdiagrams_name", unique: true, using: :btree
   add_index "sysdiagrams", ["principal_id"], name: "sysdiagrams_principal_id", unique: true, using: :btree
-
-  create_table "topiccategorycv", id: false, force: true do |t|
-    t.string "term",       null: false
-    t.text   "definition"
-  end
 
   create_table "units", primary_key: "unitsid", force: true do |t|
     t.string "unitsname",         null: false
