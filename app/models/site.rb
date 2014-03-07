@@ -2,13 +2,13 @@ class Site < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
   include SitesTable
   # include SeriesCatalog62View
-  
+
   include Search::Sites
-  
+
   # This is the configuration needed to pull the from the correct view with valid sites
   # currently we are not using it because the geolocation field in being set to a binary
   # datatype that we cannot decode
-  
+
   DAILY_DERIVED_VARIABLES = {
     'air_temp' => :daily_airtempdatavalues,
     'relative_humidity' => :daily_rhdatavalues,
@@ -19,7 +19,7 @@ class Site < ActiveRecord::Base
     'wind_direction' => :daily_winddirectiondatavalues,
     'wind_speed' => :daily_windspeeddatavalues
   }
-  
+
   HOURLY_DERIVED_VARIABLES = {
     'air_temp' =>               :hourly_airtempdatavalues,
     'relative_humidity' =>      :hourly_rhdatavalues,
@@ -29,13 +29,13 @@ class Site < ActiveRecord::Base
     'wind_direction' =>         :hourly_winddirectiondatavalues,
     'wind_speed' =>             :hourly_windspeeddatavalues
   }
-  
+
   DERIVED_VARIABLES = {
     'daily' => DAILY_DERIVED_VARIABLES,
     'hourly' => HOURLY_DERIVED_VARIABLES
   }
-  
-  
+
+
   belongs_to :source, foreign_key: 'sourceid'
   has_many :organizations, through: :source
   has_one :metadata, through: :source
@@ -53,7 +53,7 @@ class Site < ActiveRecord::Base
   has_many :hourly_airtempdatavalues, foreign_key: 'siteid'
   has_many :hourly_dischargedatavalues, foreign_key: 'siteid'
   has_many :hourly_precipdatavalues, foreign_key: 'siteid'
-  has_many :hourly_rhdatavalues, foreign_key: 'siteid'  
+  has_many :hourly_rhdatavalues, foreign_key: 'siteid'
   has_many :hourly_snowdepthdatavalues, foreign_key: 'siteid'
   has_many :hourly_swedatavalues, foreign_key: 'siteid'
   has_many :hourly_winddirectiondatavalues, foreign_key: 'siteid'
@@ -72,22 +72,22 @@ class Site < ActiveRecord::Base
   #   # opts[:only] += [:siteid]
   #   # opts[:except] ||= []
   #   # opts[:except] << :sourceid
-  #   
+  #
   #   super(opts)
   # end
-  
+
   def begin_date
-    datastreams.where('startdate is not null').order('startdate ASC').first.try(:startdate)
+    datastreams.where('bdate is not null').order('bdate ASC').first.try(:bdate)
   end
-  
+
   def end_date
-    datastreams.where('startdate is not null').order('enddate DESC').first.try(:enddate)
+    datastreams.where('edate is not null').order('edate DESC').first.try(:edate)
   end
-  
+
   def support_data_sources
     { daily_airtempdatavalue: 'Daily Air Temp' }
   end
-    
+
   def as_geojson
     {
       type: 'Feature',
@@ -95,7 +95,7 @@ class Site < ActiveRecord::Base
       properties: as_json
     }
   end
-  
+
 =begin
 @derived_variables = {
   'daily' => [...],
@@ -105,49 +105,49 @@ class Site < ActiveRecord::Base
   def derived_variables
     if @derived_variables.nil?
       @derived_variables = {}
-      DERIVED_VARIABLES.each do |timestep, vars|      
+      DERIVED_VARIABLES.each do |timestep, vars|
         vars.each do |name,relation|
           @derived_variables[timestep] ||= []
           @derived_variables[timestep] << name if self.respond_to?(relation) and self.send(relation).size > 0
         end
       end
-      
+
     end
     @derived_variables
-  end  
-  
+  end
+
   def geometry
     if geolocation.nil?
       nil
     else
-      @geometry ||= Geometry.from_ewkt(geolocation) 
+      @geometry ||= Geometry.from_ewkt(geolocation)
     end
   end
-  
+
   def envelope
     @envelope ||= geometry.try(:envelope)
   end
-  
+
   def wkt
     geometry
   end
-  
+
   # we can't assume these will always be points
   # so get bounds and find the center point
   def lat
     envelope.try(:center).try(:lat)
   end
-  
+
   # we can't assume these will always be points
   # so get bounds and find the center point
   def lng
     envelope.try(:center).try(:lng)
   end
-  
+
   def z
     geometry.try(:envelope).try(:center).try(:z)
   end
-  
+
   def cache_key
     "site/#{siteid}/v1"
   end

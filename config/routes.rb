@@ -18,10 +18,10 @@ ImiqApi::Application.routes.draw do
   #     # get 'rhs'
   #   end
   # end
-  get '/derived/:field/:timestep' => 'derived_values#index', defaults: { format: 'csv' }, as: 'derived_values'
+  get '/derived/:time_step/*variables' => 'derived_values#index', defaults: { format: 'csv' }, as: 'derived_values'
   get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }, as: 'daily_values'
   get '/hourly/:field(.:format)' => 'hourly_values#values', defaults: { format: 'csv' }, as: 'hourly_values'
-  
+
   resources :sites, except: [:new, :update, :destroy, :create, :edit], defaults: { format: 'json' } do
     member do
       get :downloads
@@ -34,7 +34,7 @@ ImiqApi::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  
+
   get 'help' => 'welcome#help'
 
   # Example of regular route:

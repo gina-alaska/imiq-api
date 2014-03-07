@@ -1,11 +1,11 @@
 module Search
   module Sites
     extend ActiveSupport::Concern
-    
+
     included do
       searchable do
         integer :siteid
-        
+
         #full-text search indexes
         text :siteid
         text :sitename
@@ -21,7 +21,7 @@ module Search
         text :source do
           [source.organization, source.contactname]
         end
-        
+
         string :sitename
         string :variablenames, :multiple => true do
           variablenames_index
@@ -35,11 +35,17 @@ module Search
         string :derived_variables, multiple: true do
           derived_variables.collect { |timestep,vars| vars }.flatten.compact.uniq
         end
-        
+
         string :timesteps, multiple: true do
           derived_variables.keys
         end
-        
+
+        string :timestep_variables, multiple: true do
+          derived_variables.collect { |timestep,vars|
+            vars.map{ |v| "#{timestep}-#{v}" }
+          }.flatten.compact.uniq
+        end
+
         string :geomtype do
           spatialcharacteristics
         end
@@ -54,15 +60,15 @@ module Search
         end
       end
     end
-    
+
     def variablenames_index
       @variablenames_index ||= variables.map(&:variablename)
     end
-    
+
     def organizationcodes_index
       @organizationcodes_index ||= organizations.map(&:organizationcode)
     end
-    
+
     def generalcategories_index
       @generalcategories_index ||= variables.map(&:generalcategory)
     end
