@@ -56,7 +56,7 @@ class SitesController < ApplicationController
       # with :geomtype, 'Point'
 
       if api_params[:variablenames].present? and api_params[:time_step].present?
-        with :timestep_variables, api_params[:variablenames].collect { |name| "#{api_params[:timestep]}-#{name}"}
+        with :timestep_variables, api_params[:variablenames].collect { |name| "#{api_params[:time_step]}-#{name}"}
       elsif api_params[:variablenames].present?
         with :derived_variables, api_params[:variablenames]
       elsif api_params[:time_step].present?
