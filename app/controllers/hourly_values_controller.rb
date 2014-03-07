@@ -1,35 +1,34 @@
-class DailyValuesController < ApplicationController
+class HourlyValuesController < ApplicationController
   def values
-    search_dailyvalues model_for(params[:field]), params[:field]
+    search_hourlyvalues model_for(params[:field]), params[:field]
   end
   
   protected
 
   def model_for(field)
-    FIELD_MODELS_DAILY[field.to_s]
+    FIELD_MODELS_HOURLY[field.to_s]
   end
 
-  def search_dailyvalues(model, field)
-    @dailyvalues_csv_header = model.csv_header   
-    @dailyvalues = model.order('utcdatetime ASC').has_data
+  def search_hourlyvalues(model, field)
+    @hourlyvalues = model.order('utcdatetime ASC').has_data
     if api_params[:startdate].present?
-      @dailyvalues = @dailyvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
+      @hourlyourlyvalues = @hourlyvalues.where("utcdatetime >= ?",Date.parse(params[:startdate]).beginning_of_day)
     end
     
     if api_params[:enddate].present?
-      @dailyvalues = @dailyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
+      @hourlyvalues = @hourlyvalues.where("utcdatetime <= ?",Date.parse(params[:enddate]).end_of_day)
     end
   
     if api_params[:siteid].present?
-      @dailyvalues = @dailyvalues.where(siteid: params[:siteid])
+      @hourlyvalues = @hourlyvalues.where(siteid: params[:siteid])
       siteids = [params[:siteid]]
     else
-      siteids = @dailyvalues.pluck(:siteid)
+      siteids = @hourlyvalues.pluck(:siteid)
     end
     @sites = Site.where(siteid: siteids).uniq
-    @dailyvalues = @dailyvalues.order(:siteid)
+    @hourlyvalues = @hourlyvalues.order(:siteid)
     
-    filename_parts = ['Imiq']
+    filename_parts = ['ImiqHourly']
     if api_params[:siteid].present?
       filename_parts << "site-#{api_params[:siteid]}"
     end
@@ -41,7 +40,7 @@ class DailyValuesController < ApplicationController
         filename = "#{filename_parts.join('_')}.csv"
         headers["Content-type"] = "text/csv"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-        render 'daily_values'
+        render 'hourly_values'
       }
     end
   end

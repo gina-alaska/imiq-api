@@ -1,0 +1,6 @@
+<% site_names = @sites.pluck(:sitename) %>
+Site(s): <%= site_names.join(', ').html_safe %>
+Site ID, Year-Month-Day, Hour:Min:Sec (UTC), No Units Yet
+<% @hourlyvalues.each do |row| %>
+<%= row.siteid %>, <%= row.utcdatetime.strftime(%"%Y-%m-%d") %>, <%= row.utcdatetime.strftime(%"%X") %>, <%= row.datavalue %>
+<% end %>

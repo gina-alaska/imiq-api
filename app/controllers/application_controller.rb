@@ -3,16 +3,31 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  FIELD_MODELS = { 
-    'air_temp' => DailyAirtempdatavalue,
-    'relative_humidity' => DailyRhdatavalue,
-    'precipitation' => DailyPrecipdatavalue,
-    'discharge' => DailyDischargedatavalue,
-    'snow_depth' => DailySnowdepthdatavalue,
+  FIELD_MODELS_DAILY = { 
+    'air_temp'              => DailyAirtempdatavalue,
+    'relative_humidity'     => DailyRhdatavalue,
+    'precipitation'         => DailyPrecipdatavalue,
+    'discharge'             => DailyDischargedatavalue,
+    'snow_depth'            => DailySnowdepthdatavalue,
     'snow_water_equivalent' => DailySwedatavalue,
-    'wind_speed' => DailyWindspeeddatavalue,
-    'wind_direction' => DailyWinddirectiondatavalue    
+    'wind_speed'            => DailyWindspeeddatavalue,
+    'wind_direction'        => DailyWinddirectiondatavalue    
   }  
+  
+  FIELD_MODELS_HOURLY = {
+    'air_temp' => HourlyAirtempdatavalue,
+    'relative_humidity' => HourlyRhdatavalue,
+    'precipitation' => HourlyPrecipdatavalue,
+    'snow_depth' => HourlySnowdepthdatavalue,
+    'snow_water_equivalent' => HourlySwedatavalue,
+    'wind_speed' => HourlyWindspeeddatavalue,
+    'wind_direction' => HourlyWinddirectiondatavalue    
+  }  
+  
+  FIELD_MODELS_ALL = {
+    'daily' => FIELD_MODELS_DAILY,
+    'hourly' => FIELD_MODELS_HOURLY
+  }
   
   protected
     def self.set_pagination_headers(name, options = {})

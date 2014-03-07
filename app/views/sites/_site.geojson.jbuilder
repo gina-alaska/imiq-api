@@ -1,4 +1,4 @@
-json.cache! ['v4', site, params[:verbose]] do
+json.cache! ['v9', site, params[:verbose]] do
   json.type 'Feature'
   json.geometry site.wkt
   json.properties do
@@ -8,9 +8,10 @@ json.cache! ['v4', site, params[:verbose]] do
     json.end_date site.end_date
     json.source site.source
   	json.datastreams site.datastreams.map(&:datastreamname)
-    json.variables site.variables.map(&:variablename).uniq
+    json.derived_variables site.derived_variables.values.flatten.uniq.collect(&:humanize)
     if params[:verbose]
-      json.derived_variables site.derived_variables
+      json.variables site.variables.map(&:variablename).uniq
+      # json.derived_variables site.derived_variables
     end
   end
 end

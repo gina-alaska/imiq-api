@@ -43,3 +43,5 @@ config/database.yml
 *.pid
 
 *.pid
+
+*.pid
