@@ -50,7 +50,7 @@ module Search
           spatialcharacteristics
         end
         boolean :has_data do
-          datastreams.count > 0
+          derived_variables.values.flatten.compact.count > 0
         end
         boolean :has_location do
           !geolocation.nil?
