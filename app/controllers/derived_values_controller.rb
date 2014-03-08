@@ -20,14 +20,14 @@ class DerivedValuesController < ApplicationController
         @values = @values.where("utcdatetime <= ?",Date.parse(api_params[:enddate]).end_of_day)
       end
 
-      if api_params[:siteid].present?
-        @values = @values.where(siteid: api_params[:siteid])
-        siteids = [api_params[:siteid]]
-      else
-        siteids = @values.pluck(:siteid)
+      siteids = []
+      if api_params[:siteids].present?
+        siteids += api_params[:siteids].split(',')
+      elsif api_params[:siteid].present?
+        siteids << api_params[:siteid]
       end
 
-      @values = @values.order(:siteid)
+      @values = @values.includes(:site).where(siteid: siteids).order(:siteid)
 
       @sites = Site.where(siteid: siteids).uniq
       @site_names = @sites.pluck(:sitename)
@@ -53,7 +53,7 @@ class DerivedValuesController < ApplicationController
   protected
 
   def api_params
-    api_request = params.permit(:limit, :page, :siteid, :startdate, :enddate, :variables, :time_step)
+    api_request = params.permit(:limit, :page, :siteid, :siteids, :startdate, :enddate, :time_step, :field)
 
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
