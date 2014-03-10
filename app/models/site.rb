@@ -84,10 +84,6 @@ class Site < ActiveRecord::Base
     datastreams.where('edate is not null').order('edate DESC').first.try(:edate)
   end
 
-  def support_data_sources
-    { daily_airtempdatavalue: 'Daily Air Temp' }
-  end
-
   def as_geojson
     {
       type: 'Feature',
