@@ -100,7 +100,7 @@ class SitesController < ApplicationController
 
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :organizationcode, :bounds, :q, :time_step)
+                  :valuetype, :generalcategory, :organizationcode, :q, :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
 
     api_request[:variablenames] ||= []
     api_request[:limit] ||= 50
@@ -109,10 +109,17 @@ class SitesController < ApplicationController
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
 
     if api_request[:bounds].present?
-      bounds = api_request[:bounds].split(',')
-      api_request[:bounds] = [[bounds[1],bounds[0]], [bounds[3], bounds[2]]]
+      bounds = api_request.delete(:bounds)
+      
+      coord_count = 0
+      %w{ sw_lat sw_lng ne_lat ne_lng }.each do |coord|
+        coord_count += 1 unless bounds[coord.to_sym].to_f == 0.0
+      end
+      
+      if coord_count == 4
+        api_request[:bounds] = [[bounds[:sw_lat],bounds[:sw_lng]], [bounds[:ne_lat], bounds[:ne_lng]]]
+      end
     end
-
 
     if api_request[:variablename].present?
       api_request[:variablenames] << api_request[:variablename]
