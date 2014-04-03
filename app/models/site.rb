@@ -17,7 +17,8 @@ class Site < ActiveRecord::Base
     'snow_depth' => :daily_snowdepthdatavalues,
     'snow_water_equivalent' => :daily_swedatavalues,
     'wind_direction' => :daily_winddirectiondatavalues,
-    'wind_speed' => :daily_windspeeddatavalues
+    'wind_speed' => :daily_windspeeddatavalues,
+    'water_temp' => :daily_watertempdatavalues
   }
 
   HOURLY_DERIVED_VARIABLES = {
@@ -50,6 +51,7 @@ class Site < ActiveRecord::Base
   has_many :daily_swedatavalues, foreign_key: 'siteid'
   has_many :daily_winddirectiondatavalues, foreign_key: 'siteid'
   has_many :daily_windspeeddatavalues, foreign_key: 'siteid'
+  has_many :daily_watertempdatavalues, foreign_key: 'siteid'  
   has_many :hourly_airtempdatavalues, foreign_key: 'siteid'
   has_many :hourly_dischargedatavalues, foreign_key: 'siteid'
   has_many :hourly_precipdatavalues, foreign_key: 'siteid'
