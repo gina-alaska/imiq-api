@@ -5,47 +5,6 @@ class SitesController < ApplicationController
   # Fetch & Show all of the site records using the api_params
   # [GET] /sites.json => sites#index
   # def index
-#     @sites = Site.has_location.uniq
-#     @sites = @sites.geomtype(api_params[:geometry]) if api_params[:geometry].present?
-#
-#     if api_params[:variablename].present?
-#       @sites = @sites.joins(:variables).where('variables.variablename ilike ?', "#{api_params[:variablename]}%")
-#     end
-#
-#     if api_params[:datatype].present?
-#       @sites = @sites.joins(:variables).where('variables.datatype ilike ?', "#{api_params[:datatype]}%" )
-#     end
-#
-#     if api_params[:samplemedium].present?
-#       @sites = @sites.joins(:variables).where('variables.samplemedium ilike ?', "#{api_params[:samplemedium]}%" )
-#     end
-#
-#     if api_params[:valuetype].present?
-#       @sites = @sites.joins(:variables).where('variables.valuetype ilike ?', "#{api_params[:valuetype]}%" )
-#     end
-#
-#     if api_params[:generalcategory].present?
-#       @sites = @sites.joins(:variables).where('variables.generalcategory ilike ?', "#{api_params[:generalcategory]}%" )
-#     end
-#
-#     if api_params[:organizationcode].present?
-#       @sites = @sites.joins(:organizations).where('organizationcode ilike ?', api_params[:organizationcode])
-#     end
-#
-#     site_ids = []
-#     if api_params[:derived_values].present? and Site::DERIVED_VARIABLES[api_params[:derived_values]].present?
-#       site_ids += Site::DERIVED_VARIABLES[api_params[:derived_values]].to_s.classify.constantize.uniq.pluck(:siteid)
-#     end
-#
-#     site_ids.uniq!
-#     if site_ids.count > 0
-#       @sites = @sites.where(siteid: site_ids)
-#     end
-#
-#     @sites = @sites.paginate(:page => params[:page], :per_page => api_params[:limit])
-#
-#     respond_with @sites
-#   end
 
   def index
     @search = Site.search do
@@ -63,6 +22,7 @@ class SitesController < ApplicationController
         with :timesteps, api_params[:time_step]
       end
 
+      with :networkcodes, api_params[:networkcode] if api_params[:networkcode].present?
       with :organizationcodes, api_params[:organizationcode] if api_params[:organizationcode].present?
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
       with(:location).in_bounding_box(*api_params[:bounds]) if api_params[:bounds].present?
@@ -100,7 +60,7 @@ class SitesController < ApplicationController
 
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :organizationcode, :q, :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
+                  :valuetype, :generalcategory, :networkcode, :organizationcode, :q, :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
 
     api_request[:variablenames] ||= []
     api_request[:limit] ||= 50

@@ -12,6 +12,9 @@ module Search
         text :variablenames_text do
           variablenames_index
         end
+        text :networkcodes_text do
+          networkcodes_index
+        end
         text :organizationcodes_text do
           organizationcodes_index
         end
@@ -25,6 +28,9 @@ module Search
         string :sitename
         string :variablenames, :multiple => true do
           variablenames_index
+        end
+        string :networkcodes, :multiple => true do
+          networkcodes_index
         end
         string :organizationcodes, :multiple => true do
           organizationcodes_index
@@ -65,6 +71,10 @@ module Search
       @variablenames_index ||= variables.map(&:variablename)
     end
 
+    def networkcodes_index
+      @networkcodes_index ||= networks.map(&:networkcode)
+    end
+    
     def organizationcodes_index
       @organizationcodes_index ||= organizations.map(&:organizationcode)
     end

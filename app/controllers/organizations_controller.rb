@@ -1,7 +1,5 @@
 class OrganizationsController < ApplicationController
   def list
-    # @organizations = Organization.order(:organizationcode).includes(:sites)
-    # @organizations = @organizations.reject { |org| org.sites.empty? }
     search = Organization.search do
       with :has_sites, true
       order_by :organizationcode, :asc
