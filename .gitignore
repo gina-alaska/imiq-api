@@ -7,8 +7,11 @@
 # Ignore bundler config.
 /.bundle
 # Ignore solr data files
-/solr
-!/solr/conf
+solr/data
+solr/development
+solr/production
+solr/default
+!solr/conf
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
