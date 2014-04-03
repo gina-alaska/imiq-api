@@ -18,7 +18,7 @@ class Site < ActiveRecord::Base
     'snow_water_equivalent' => :daily_swedatavalues,
     'wind_direction' => :daily_winddirectiondatavalues,
     'wind_speed' => :daily_windspeeddatavalues,
-    'water_temp' => :daily_watertempdatavalues,
+    'water_temp' => :daily_watertempdatavalues
   }
 
   HOURLY_DERIVED_VARIABLES = {
