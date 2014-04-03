@@ -10,9 +10,6 @@ json.cache! ['v11', site, params[:verbose]] do
   	json.datastreams site.datastreams.map(&:datastreamname)
   	json.networks site.networks.map(&:networkcode)    
     json.derived_variables site.derived_variables.values.flatten.uniq.collect(&:humanize)
-    if params[:verbose]
-      json.variables site.variables.map(&:variablename).uniq
-      # json.derived_variables site.derived_variables
-    end
+    json.variables site.variables.map(&:variablename).uniq
   end
 end
