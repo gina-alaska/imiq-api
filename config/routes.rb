@@ -1,4 +1,10 @@
 ImiqApi::Application.routes.draw do
+  resources :networks do
+    collection do
+      get 'list'
+    end
+  end
+  
   resources :organizations do
     collection do
       get 'list'
