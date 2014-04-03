@@ -38,7 +38,7 @@ class Site < ActiveRecord::Base
 
 
   belongs_to :source, foreign_key: 'sourceid'
-  has_many :networks, through: :source
+  has_many :networks, through: :source, uniq: true
   has_many :organizations, through: :source
   has_one :metadata, through: :source
   has_many :datastreams, foreign_key: 'siteid'
