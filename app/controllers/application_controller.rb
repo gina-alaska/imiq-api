@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
     'snow_depth'            => DailySnowdepthdatavalue,
     'snow_water_equivalent' => DailySwedatavalue,
     'wind_speed'            => DailyWindspeeddatavalue,
-    'wind_direction'        => DailyWinddirectiondatavalue    
+    'wind_direction'        => DailyWinddirectiondatavalue,
+    'water_temp'            => DailyWatertempdatavalue,        
   }  
   
   FIELD_MODELS_HOURLY = {
