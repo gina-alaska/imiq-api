@@ -24,8 +24,7 @@ class DerivedModel
     end
 
     def basename(timestep, name)
-      # TODO: get rid of 'datavalue' when we load new models that don't use datavalue in name
-      "#{timestep}_#{name}datavalue"
+      "#{timestep}_#{name}"
     end
 
     def from_class(klass)
@@ -33,10 +32,7 @@ class DerivedModel
       timestep = break_down.shift
       name = break_down.join('_')
 
-      # TODO: get rid of this when we load new models that don't use datavalue in name
-      name.gsub!('datavalue', '')
-
-      model(timestep, name)
+      self.new(timestep, name)
     end
 
     def class_filename(klass)
