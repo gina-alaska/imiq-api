@@ -1,6 +1,6 @@
 class DerivedValuesController < ApplicationController
   def index
-    datavalue = DVFactory.slug("#{api_params[:time_step]}_#{api_params[:field]}")
+    datavalue = DVFactory.slug(api_params[:field])
 
     @sites = []
     @values = []

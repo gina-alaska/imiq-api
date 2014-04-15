@@ -45,7 +45,15 @@ class DerivedModel
   end
 
   def slug
-    @klass.name.underscore
+    @slug ||= @klass.name.underscore
+  end
+
+  def timestep
+    @timestep ||= slug.split('_').first
+  end
+
+  def field
+    @field ||= slug.split('_')[1..-1].join('_')
   end
 
   def pretty_name

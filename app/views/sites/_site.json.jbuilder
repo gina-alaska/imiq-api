@@ -1,9 +1,9 @@
-json.cache! ['v11', site, params[:verbose]] do
+json.cache! ['v15', site, params[:verbose]] do
   json.url site_url(site, :json)
   json.(site, *Site.column_names.map(&:to_sym))
   json.begin_date site.begin_date
   json.end_date site.end_date
-  json.derived_variables site.derived_variables.values.flatten.uniq.map(&:humanize)
+  json.derived_variables site.derived_variables
 
   if params[:verbose]
 	  json.source site.source

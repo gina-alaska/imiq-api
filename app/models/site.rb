@@ -5,38 +5,6 @@ class Site < ActiveRecord::Base
 
   include Search::Sites
 
-  # This is the configuration needed to pull the from the correct view with valid sites
-  # currently we are not using it because the geolocation field in being set to a binary
-  # datatype that we cannot decode
-
-  DAILY_DERIVED_VARIABLES = {
-    'air_temp' => :daily_airtempdatavalues,
-    'relative_humidity' => :daily_rhdatavalues,
-    'discharge' => :daily_dischargedatavalues,
-    'precipitation' => :daily_precipdatavalues,
-    'snow_depth' => :daily_snowdepthdatavalues,
-    'snow_water_equivalent' => :daily_swedatavalues,
-    'wind_direction' => :daily_winddirectiondatavalues,
-    'wind_speed' => :daily_windspeeddatavalues,
-    'water_temp' => :daily_watertempdatavalues
-  }
-
-  HOURLY_DERIVED_VARIABLES = {
-    'air_temp' =>               :hourly_airtempdatavalues,
-    'relative_humidity' =>      :hourly_rhdatavalues,
-    'precipitation' =>          :hourly_precipdatavalues,
-    'snow_depth' =>             :hourly_snowdepthdatavalues,
-    'snow_water_equivalent' =>  :hourly_swedatavalues,
-    'wind_direction' =>         :hourly_winddirectiondatavalues,
-    'wind_speed' =>             :hourly_windspeeddatavalues
-  }
-
-  DERIVED_VARIABLES = {
-    'daily' => DAILY_DERIVED_VARIABLES,
-    'hourly' => HOURLY_DERIVED_VARIABLES
-  }
-
-
   belongs_to :source, foreign_key: 'sourceid'
   has_many :networks, through: :source, uniq: true
   has_many :organizations, through: :source
@@ -52,7 +20,7 @@ class Site < ActiveRecord::Base
   has_many :daily_swedatavalues, foreign_key: 'siteid'
   has_many :daily_winddirectiondatavalues, foreign_key: 'siteid'
   has_many :daily_windspeeddatavalues, foreign_key: 'siteid'
-  has_many :daily_watertempdatavalues, foreign_key: 'siteid'  
+  has_many :daily_watertempdatavalues, foreign_key: 'siteid'
   has_many :hourly_airtempdatavalues, foreign_key: 'siteid'
   has_many :hourly_dischargedatavalues, foreign_key: 'siteid'
   has_many :hourly_precipdatavalues, foreign_key: 'siteid'
@@ -104,13 +72,12 @@ class Site < ActiveRecord::Base
   def derived_variables
     if @derived_variables.nil?
       @derived_variables = {}
-      DERIVED_VARIABLES.each do |timestep, vars|
-        vars.each do |name,relation|
+      DVFactory::TIMESTEPS.each do |timestep|
+        DVFactory.send(timestep).each do |model|
           @derived_variables[timestep] ||= []
-          @derived_variables[timestep] << name if self.respond_to?(relation) and self.send(relation).size > 0
+          @derived_variables[timestep] << [model.pretty_name, model.slug] if self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
         end
       end
-
     end
     @derived_variables
   end

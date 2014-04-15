@@ -4,7 +4,7 @@ ImiqApi::Application.routes.draw do
       get 'list'
     end
   end
-  
+
   resources :organizations do
     collection do
       get 'list'
@@ -24,7 +24,7 @@ ImiqApi::Application.routes.draw do
   #     # get 'rhs'
   #   end
   # end
-  get '/export/:time_step/:field' => 'derived_values#index', defaults: { format: 'csv' }, as: 'derived_values'
+  get '/export/:field' => 'derived_values#index', defaults: { format: 'csv' }, as: 'derived_values'
   get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }, as: 'daily_values'
   get '/hourly/:field(.:format)' => 'hourly_values#values', defaults: { format: 'csv' }, as: 'hourly_values'
 
