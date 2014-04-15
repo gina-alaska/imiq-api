@@ -1,23 +1,22 @@
 class DerivedValuesController < ApplicationController
   def index
-    # params[:field], params[:timestep]
-    model = get_model(api_params[:field], api_params[:time_step])
+    datavalue = DVFactory.slug("#{api_params[:time_step]}_#{api_params[:field]}")
 
     @sites = []
     @values = []
     @site_names = []
 
-    if model.nil?
+    if datavalue.model.nil?
       flash.now[:error] = "Invalid field (#{api_params[:field]}) or timestep (#{api_params[:time_step]}) params given"
     else
       # @values_csv_header = model.csv_header
-      @values = model.order('utcdatetime ASC').has_data
+      @values = datavalue.model.order('utcdatetime ASC').has_data
       if api_params[:startdate].present?
-        @values = @values.where("utcdatetime >= ?",Date.parse(api_params[:startdate]).beginning_of_day)
+        @values = @values.startdate(Date.parse(api_params[:startdate]).beginning_of_day)
       end
 
       if api_params[:enddate].present?
-        @values = @values.where("utcdatetime <= ?",Date.parse(api_params[:enddate]).end_of_day)
+        @values = @values.enddate(Date.parse(api_params[:enddate]).end_of_day)
       end
 
       siteids = []
@@ -61,9 +60,5 @@ class DerivedValuesController < ApplicationController
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
 
     api_request
-  end
-
-  def get_model(field, timestep)
-    FIELD_MODELS_ALL[timestep].try(:[], field)
   end
 end
