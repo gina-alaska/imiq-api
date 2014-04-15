@@ -44,6 +44,10 @@ class DerivedModel
     @klass = self.class.model(timestep, name)
   end
 
+  def slug
+    @klass.name.underscore
+  end
+
   def pretty_name
     return '' if @klass.nil?
 

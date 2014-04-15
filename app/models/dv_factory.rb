@@ -1,4 +1,6 @@
 class DVFactory
+  TIMESTEPS = %w{ daily hourly }
+
   class << self
     def daily(name)
       DerivedModel.new(:daily, name)
@@ -10,6 +12,15 @@ class DVFactory
 
     def source(name)
       SourceModel.new(name)
+    end
+
+    def slug(name)
+      breakdown = name.to_s.split('_')
+      if TIMESTEPS.include?(breakdown.first)
+        DerivedModel.new(breakdown.shift, breakdown.join('_'))
+      else
+        SourceModel.new(name)
+      end
     end
 
     def from_class(klass)
