@@ -17,16 +17,7 @@ ImiqApi::Application.routes.draw do
     end
   end
 
-  # resources :daily_values, only: [], as: :daily do
-  #   collection do
-  #     get ':field', to: :daily
-  #     # get 'airtemps'
-  #     # get 'rhs'
-  #   end
-  # end
   get '/export/:field' => 'derived_values#index', defaults: { format: 'csv' }, as: 'derived_values'
-  get '/daily/:field(.:format)' => 'daily_values#values', defaults: { format: 'csv' }, as: 'daily_values'
-  get '/hourly/:field(.:format)' => 'hourly_values#values', defaults: { format: 'csv' }, as: 'hourly_values'
 
   resources :sites, except: [:new, :update, :destroy, :create, :edit], defaults: { format: 'json' } do
     member do
