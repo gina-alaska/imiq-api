@@ -34,10 +34,22 @@ class SitesController < ApplicationController
     respond_with @sites
   end
 
-  def downloads
-    @site = Site.find(params[:id])
-
-    respond_with(@site)
+  def list
+    @sites = Site.order(siteid: :asc)
+#    @search = Site.search do
+#      with :has_data, true
+#    end
+#    @sites = @search.results
+    Rails.logger.info "JSD: #{@sites.count}"
+    filename_parts = ['Imiq-SiteList']
+    filename_parts += [Time.now.strftime("%Y%m%d-%H%M%S")]
+    respond_to do |format|
+      format.text {
+        filename = "#{filename_parts.join('_')}.txt"
+        headers["Content-type"] = "text/plain"
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+      }
+    end
   end
 
   # Fetch & Show an individual site record

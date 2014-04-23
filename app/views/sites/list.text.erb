@@ -1,0 +1,26 @@
+<% @sites.each do |row| %>
+SiteID: <%= row.siteid %>
+Sitename: <%= row.sitename %>
+Latitude: <%= number_with_precision(row.lat, precision: 3) %>; Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation(m): <%= number_with_precision(row.z, precision: 3) %>
+<% if row.networks.empty? %>
+Data Network: None.
+<% else %>
+  <% row.networks.each do |rownet| %>
+Data Network: <%= rownet.networkdescription %> (<%= rownet.networkcode %>)
+  <% end %>
+<% end %>
+<% if row.organizations.empty? %>
+Data Organization: None.
+<% else %>
+  <% row.organizations.each do |rownet| %>
+Data Organization: <%= rownet.organizationdescription %> (<%= rownet.organizationcode %>)
+  <% end %>
+<% end %>
+Data Source Contact Name: <%= row.source.contactname %> 
+(Temporary) SourceID: <%= row.sourceid %>
+Data Source Contact Email: <%= row.source.email %>
+Data Source Web Address: <%= row.source.sourcelink %>
+Site Citation: <%= row.source.citation %>
+
+<% end %>
+
