@@ -1,4 +1,4 @@
-json.cache! ['v18', site, params[:verbose]] do
+json.cache! ['v19', site, params[:verbose]] do
   json.type 'Feature'
   json.geometry site.wkt
   json.properties do
