@@ -26,7 +26,7 @@ class SitesController < ApplicationController
   end
 
   def list
-    @sites = Site.order(siteid: :asc)
+    @sites = site_search.results
 #    @search = Site.search do
 #      with :has_data, true
 #    end
@@ -76,6 +76,8 @@ class SitesController < ApplicationController
       elsif api_params[:time_step].present?
         with :timesteps, api_params[:time_step]
       end
+      
+      order_by(api_params[:order]) if api_params[:order].present?
 
       with :networkcodes, api_params[:networkcode] if api_params[:networkcode].present?
       with :organizationcodes, api_params[:organizationcode] if api_params[:organizationcode].present?
@@ -88,14 +90,14 @@ class SitesController < ApplicationController
 
   def api_params
     api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :networkcode, :organizationcode, :q, :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
+                  :valuetype, :generalcategory, :networkcode, :organizationcode, :q, :time_step, :order, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
 
     api_request[:variablenames] ||= []
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
     api_request[:page] = 1 if api_request[:page].to_i == 0
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
-
+    
     if api_request[:bounds].present?
       bounds = api_request.delete(:bounds)
 
