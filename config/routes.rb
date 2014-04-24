@@ -23,6 +23,9 @@ ImiqApi::Application.routes.draw do
     collection do
       get 'list'
     end
+    collection do
+      get :variables
+    end
   end
   resources :sources, except: [:new, :update, :destroy, :create, :edit]
 
