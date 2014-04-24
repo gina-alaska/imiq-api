@@ -82,6 +82,30 @@ class Site < ActiveRecord::Base
     @derived_variables
   end
 
+  def available_variables
+    dvariables = []
+
+    DVFactory::TIMESTEPS.each do |timestep|
+      dvariables += variables_for(timestep).collect { |v| v.gsub("#{timestep}_", '') }
+    end
+
+    dvariables.flatten.uniq
+  end
+
+  def available_timestep_variables
+    dvariables = []
+
+    DVFactory::TIMESTEPS.each do |timestep|
+      dvariables += variables_for(timestep)
+    end
+
+    dvariables.flatten.uniq
+  end
+
+  def variables_for(timestep)
+    derived_variables[timestep].collect { |v| v[1] }
+  end
+
   def geometry
     if geolocation.nil?
       nil

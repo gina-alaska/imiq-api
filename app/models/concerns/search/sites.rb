@@ -39,17 +39,17 @@ module Search
           generalcategories_index
         end
         string :derived_variables, multiple: true do
-          derived_variables.collect { |timestep,vars| vars }.flatten.compact.uniq
+          available_variables
         end
 
         string :timesteps, multiple: true do
-          derived_variables.keys
+           derived_variables.keys.reject do |key|
+             derived_variables[key].count == 0
+           end
         end
 
         string :timestep_variables, multiple: true do
-          derived_variables.collect { |timestep,vars|
-            vars.map{ |v| "#{timestep}-#{v}" }
-          }.flatten.compact.uniq
+          available_timestep_variables
         end
 
         string :geomtype do
@@ -74,7 +74,7 @@ module Search
     def networkcodes_index
       @networkcodes_index ||= networks.map(&:networkcode)
     end
-    
+
     def organizationcodes_index
       @organizationcodes_index ||= organizations.map(&:organizationcode)
     end
