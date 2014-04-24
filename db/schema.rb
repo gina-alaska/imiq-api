@@ -459,6 +459,15 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   add_index "daily_utcdatetime", ["siteid"], name: "daily_utcdatetime_siteid_idx", using: :btree
 
+  create_table "daily_watertemp", id: false, force: true do |t|
+    t.integer  "valueid",     null: false
+    t.float    "datavalue"
+    t.datetime "utcdatetime", null: false
+    t.integer  "siteid",      null: false
+    t.integer  "variableid",  null: false
+    t.integer  "sourceid",    null: false
+  end
+
   create_table "daily_watertempdatavalues", primary_key: "valueid", force: true do |t|
     t.float    "datavalue"
     t.datetime "utcdatetime",        null: false
