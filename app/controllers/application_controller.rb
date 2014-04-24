@@ -3,47 +3,20 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  FIELD_MODELS_DAILY = { 
-    'air_temp'              => DailyAirtempdatavalue,
-    'relative_humidity'     => DailyRhdatavalue,
-    'precipitation'         => DailyPrecipdatavalue,
-    'discharge'             => DailyDischargedatavalue,
-    'snow_depth'            => DailySnowdepthdatavalue,
-    'snow_water_equivalent' => DailySwedatavalue,
-    'wind_speed'            => DailyWindspeeddatavalue,
-    'wind_direction'        => DailyWinddirectiondatavalue,
-    'water_temp'            => DailyWatertempdatavalue,        
-  }  
-  
-  FIELD_MODELS_HOURLY = {
-    'air_temp' => HourlyAirtempdatavalue,
-    'relative_humidity' => HourlyRhdatavalue,
-    'precipitation' => HourlyPrecipdatavalue,
-    'snow_depth' => HourlySnowdepthdatavalue,
-    'snow_water_equivalent' => HourlySwedatavalue,
-    'wind_speed' => HourlyWindspeeddatavalue,
-    'wind_direction' => HourlyWinddirectiondatavalue    
-  }  
-  
-  FIELD_MODELS_ALL = {
-    'daily' => FIELD_MODELS_DAILY,
-    'hourly' => FIELD_MODELS_HOURLY
-  }
-  
   protected
     def self.set_pagination_headers(name, options = {})
       after_filter(options) do |controller|
         url = request.original_url.sub(/\?.*$/, '')
         results = instance_variable_get("@#{name}")
         links = { prev: '', next: '' }
-        
+
         if results.previous_page
           links[:prev] = "#{url}?#{request.query_parameters.merge({ :page => results.previous_page }).to_param}"
         end
         if results.next_page
           links[:next] =  "#{url}?#{request.query_parameters.merge({ :page => results.next_page }).to_param}"
         end
-        
+
         headers["Access-Control-Expose-Headers"] = 'X-Next-Link,X-Previous-Link,X-Records-Offset,X-Page,X-Total-Pages,X-Total-Records'
         headers["Access-Control-Allow-Origin"] = '*'
         headers["X-Total-Records"] = results.total_entries.to_s

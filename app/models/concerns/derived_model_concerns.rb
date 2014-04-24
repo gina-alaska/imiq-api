@@ -1,10 +1,10 @@
 # encoding: utf-8
-module DerivedValue
+module DerivedModelConcerns
   extend ActiveSupport::Concern
 
   included do
     belongs_to :site, foreign_key: 'siteid'
-    belongs_to :variable, foreign_key: 'originalvariableid'
+    belongs_to :variable, foreign_key: 'variableid'
     has_one :source, through: :site
     has_many :datastreams, :through => :site
 
