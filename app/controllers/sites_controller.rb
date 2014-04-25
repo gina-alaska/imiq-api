@@ -31,7 +31,6 @@ class SitesController < ApplicationController
 #      with :has_data, true
 #    end
 #    @sites = @search.results
-    Rails.logger.info "JSD: #{@sites.count}"
     filename_parts = ['Imiq-SiteList']
     filename_parts += [Time.now.strftime("%Y%m%d-%H%M%S")]
     respond_to do |format|
