@@ -1,7 +1,7 @@
 <% @sites.each do |row| %>
 SiteID: <%= row.siteid %>
 Sitename: <%= row.sitename %>
-Latitude: <%= number_with_precision(row.lat, precision: 3) %>; Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation(m): <%= number_with_precision(row.z, precision: 3) %>
+Latitude: <%= number_with_precision(row.lat, precision: 3) %>, Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation(m): <%= number_with_precision(row.z, precision: 3) %>
 Data Networks: <%= render(row.networks) || "None" %>
 Data Organizations: <%= render(partial: row.organizations, spacer_template: "org_spacer" ) || "None" %>
 Data Source Contact Name: <%= row.source.contactname %>
