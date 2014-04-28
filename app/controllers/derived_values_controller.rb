@@ -33,13 +33,11 @@ class DerivedValuesController < ApplicationController
     end
 
 
-    filename_parts = ['Imiq']
-    if api_params[:siteid].present?
-      filename_parts << "site-#{api_params[:siteid]}"
-    end
-
-    filename_parts += [api_params[:time_step], api_params[:field], Time.now.strftime("%Y%m%d-%H%M%S")]
-
+    filename_parts = ['Imiq_Data']
+    @timenow = Time.now
+    @ffield = api_params[:field]
+    filename_parts += [@ffield, @timenow.strftime("%Y%m%d-%H%M%S")]
+    
     respond_to do |format|
       format.csv {
         filename = "#{filename_parts.join('_')}.csv"
