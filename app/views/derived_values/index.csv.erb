@@ -1,8 +1,14 @@
 <% if flash[:error] %>
 ERROR: <%= flash[:error] %>
 <% end %>
-Site(s): <%= @site_names.join(', ').html_safe %>
-Site ID, Year-Month-Day, Hour:Min:Sec (UTC), Lat, Lon, No Units Yet
+Database ID: ???
+Time of Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
+Site(s): <%= @sites.pluck(:siteid).uniq.join(', ').html_safe %>
+Time Step: <%= @ftimestep %> 
+Data Type: <%= @ffield %> 
+Data Units: ???
+################################################################
+Site ID, Year-Month-Day Hour:Min:Sec (UTC), Lat, Lon, Data Value
 <% @values.each do |row| %>
 <%= row.siteid %>, <%= row.utcdatetime.strftime(%"%Y-%m-%d") %>, <%= row.utcdatetime.strftime(%"%X") %>, <%= row.site.lat %>, <%= row.site.lng %>, <%= row.datavalue %>
 <% end %>
