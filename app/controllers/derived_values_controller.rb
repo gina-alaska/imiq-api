@@ -1,7 +1,6 @@
 class DerivedValuesController < ApplicationController
   def index
     datavalue = DVFactory.slug(api_params[:field])
-
     @sites = []
     @values = []
     @site_names = []
@@ -30,13 +29,17 @@ class DerivedValuesController < ApplicationController
 
       @sites = Site.where(siteid: siteids).uniq
       @site_names = @sites.pluck(:sitename)
+      
+      @units = datavalue.model.units
+      #@ftimeformattext = datavalue.model.timeformattext
+      @fstep = datavalue.timestep
+      @ffield = datavalue.field
+      @fprettyname = datavalue.pretty_name
     end
-
 
     filename_parts = ['Imiq_Data']
     @timenow = Time.now
-    @ffield = api_params[:field]
-    filename_parts += [@ffield, @timenow.strftime("%Y%m%d-%H%M%S")]
+    filename_parts += [@ffield,@fstep,@timenow.strftime("%Y%m%d-%H%M%S")]
     
     respond_to do |format|
       format.csv {

@@ -2,13 +2,17 @@
 ERROR: <%= flash[:error] %>
 <% end %>
 Database ID: ???
-Time of Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
+Time of Data Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
 Site(s): <%= @sites.pluck(:siteid).uniq.join(', ').html_safe %>
-Time Step: <%= @ftimestep %> 
-Data Type: <%= @ffield %> 
-Data Units: ???
+Data Description: <%= @fprettyname %> 
+SiteID Units: unitless
+Date Units: <%= @values.first.timeformattext %> 
+Latitude Units: decimal degrees
+Longitude Units: decimal degrees
+Elevation Units: meters above sea level
+DataValue Units: <%= @units %> 
+CSV Format: SiteID,Date,Latitude,Longitude,Elevation,DataValue
 ################################################################
-Site ID, Year-Month-Day Hour:Min:Sec (UTC), Lat, Lon, Data Value
 <% @values.each do |row| %>
-<%= row.siteid %>, <%= row.utcdatetime.strftime(%"%Y-%m-%d") %>, <%= row.utcdatetime.strftime(%"%X") %>, <%= row.site.lat %>, <%= row.site.lng %>, <%= row.datavalue %>
+<%= row.siteid %>,<%= row.utcdatetime.strftime(row.timeformat) %>,<%= number_with_precision(row.site.lat, precision: 3) %>,<%= number_with_precision(row.site.lng, precision: 3) %>,<%= number_with_precision(row.site.z, precision: 3) %>,<%= number_with_precision(row.datavalue, precision: 3) %>
 <% end %>
