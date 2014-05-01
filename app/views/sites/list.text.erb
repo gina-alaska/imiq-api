@@ -1,13 +1,15 @@
 <% @sites.each do |row| %>
 SiteID: <%= row.siteid %>
-Sitename: <%= row.sitename %>
-Latitude: <%= number_with_precision(row.lat, precision: 3) %>, Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation(m): <%= number_with_precision(row.z, precision: 3) %>
-Data Networks: <%= render(row.networks) || "None" %>
-Data Organizations: <%= render(partial: row.organizations, spacer_template: "org_spacer" ) || "None" %>
-Data Source Contact Name: <%= row.source.contactname %>
-(Temporary) SourceID: <%= row.sourceid %>
-Data Source Contact Email: <%= row.source.email %>
-Data Source Web Address: <%= row.source.sourcelink %>
-Site Citation: <%= row.source.citation %>
+  Sitename: <%= row.sitename %>
+  Latitude: <%= number_with_precision(row.lat, precision: 3) %>, Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation(m): <%= number_with_precision(row.z, precision: 3) %>
+  Data Networks: <%= render(row.networks) || "None" %>
+  Data Organizations: <%= render(partial: row.organizations, spacer_template: "org_spacer" ) || "None" %>
+  Data Source Contact Name: <%= row.source.contactname %>
+  (Temporary) SourceID: <%= row.sourceid %>
+  Data Source Contact Email: <%= row.source.email %>
+  Data Source Contact Address: <%= row.source.address %>, <%= row.source.city %>, <%= row.source.state %> <%= row.source.zipcode %> 
+  Data Source Web Address: <%= row.source.sourcelink %>
+  Data Source Description: <%= row.source.sourcedescription %>
+  Site Citation: <%= row.source.citation %>
 
 <% end %>
