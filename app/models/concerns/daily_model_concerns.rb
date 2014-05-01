@@ -4,10 +4,8 @@ module DailyModelConcerns
     "%Y-%m-%d"
   end
 
-#  module ClassMethods
   def timeformattext
     "Year-Month-Day (UTC)"
   end
-#  end
 
 end
