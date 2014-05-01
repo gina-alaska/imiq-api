@@ -3,7 +3,7 @@ ERROR: <%= flash[:error] %>
 <% end %>
 Database ID: ???
 Time of Data Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
-Site(s): <%= @sites.pluck(:siteid).uniq.join(', ').html_safe %>
+Site(s): <%= @values.pluck(:siteid).uniq.join(', ').html_safe %>
 Data Description: <%= @fprettyname %> 
 SiteID Units: unitless
 Date Units: <%= @values.first.timeformattext %> 

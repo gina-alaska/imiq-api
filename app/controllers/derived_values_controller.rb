@@ -9,7 +9,7 @@ class DerivedValuesController < ApplicationController
       flash.now[:error] = "Invalid field (#{api_params[:field]}) or timestep (#{api_params[:time_step]}) params given"
     else
       # @values_csv_header = model.csv_header
-      @values = datavalue.model.order('utcdatetime ASC').has_data
+      @values = datavalue.model.order(siteid: :asc, utcdatetime: :asc).has_data
       if api_params[:startdate].present?
         @values = @values.startdate(Date.parse(api_params[:startdate]).beginning_of_day)
       end
@@ -25,13 +25,9 @@ class DerivedValuesController < ApplicationController
         siteids << api_params[:siteid]
       end
 
-      @values = @values.includes(:site).where(siteid: siteids).order(:siteid)
-
-      @sites = Site.where(siteid: siteids).uniq
-      @site_names = @sites.pluck(:sitename)
+      @values = @values.includes(:site).where(siteid: siteids)
       
       @units = datavalue.model.units
-      #@ftimeformattext = datavalue.model.timeformattext
       @fstep = datavalue.timestep
       @ffield = datavalue.field
       @fprettyname = datavalue.pretty_name
