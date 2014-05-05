@@ -78,6 +78,7 @@ class SitesController < ApplicationController
       
       order_by(api_params[:order]) if api_params[:order].present?
 
+      with :siteid, api_params[:siteids] if api_params[:siteids].present?
       with :networkcodes, api_params[:networkcode] if api_params[:networkcode].present?
       with :organizationcodes, api_params[:organizationcode] if api_params[:organizationcode].present?
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
@@ -88,7 +89,7 @@ class SitesController < ApplicationController
   end
 
   def api_params
-    api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium,
+    api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium, :siteids,
                   :valuetype, :generalcategory, :networkcode, :organizationcode, :q, :time_step, :order, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
 
     api_request[:variablenames] ||= []
@@ -96,6 +97,7 @@ class SitesController < ApplicationController
     api_request[:page] ||= 1
     api_request[:page] = 1 if api_request[:page].to_i == 0
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
+    api_request[:siteids] = api_request[:siteids].split(',') if api_request[:siteids].present?
     
     if api_request[:bounds].present?
       bounds = api_request.delete(:bounds)
