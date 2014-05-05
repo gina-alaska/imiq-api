@@ -31,18 +31,18 @@ class DerivedValuesController < ApplicationController
       @fstep = datavalue.timestep
       @ffield = datavalue.field
       @fprettyname = datavalue.pretty_name
-    end
 
-    filename_parts = ['Imiq_Data']
-    @timenow = Time.now
-    filename_parts += [@ffield,@fstep,@timenow.strftime("%Y%m%d-%H%M%S")]
+      filename_parts = ['Imiq_Data']
+      @timenow = Time.now
+      filename_parts += [@ffield,@fstep,@timenow.strftime("%Y%m%d-%H%M%S")]
     
-    respond_to do |format|
-      format.csv {
-        filename = "#{filename_parts.join('_')}.csv"
-        headers["Content-type"] = "text/csv"
-        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-      }
+      respond_to do |format|
+        format.csv {
+          filename = "#{filename_parts.join('_')}.csv"
+          headers["Content-type"] = "text/csv"
+          headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+        }
+      end
     end
   end
 
