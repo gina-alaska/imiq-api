@@ -25,10 +25,21 @@ class SitesController < ApplicationController
     end
   end
 
-  def downloads
-    @site = Site.find(params[:id])
-
-    respond_with(@site)
+  def list
+    @sites = site_search.results
+#    @search = Site.search do
+#      with :has_data, true
+#    end
+#    @sites = @search.results
+    filename_parts = ['Imiq-SiteList']
+    filename_parts += [Time.now.strftime("%Y%m%d-%H%M%S")]
+    respond_to do |format|
+      format.text {
+        filename = "#{filename_parts.join('_')}.txt"
+        headers["Content-type"] = "text/plain"
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+      }
+    end
   end
 
   # Fetch & Show an individual site record
@@ -64,7 +75,10 @@ class SitesController < ApplicationController
       elsif api_params[:time_step].present?
         with :timesteps, api_params[:time_step]
       end
+      
+      order_by(api_params[:order]) if api_params[:order].present?
 
+      with :siteid, api_params[:siteids] if api_params[:siteids].present?
       with :networkcodes, api_params[:networkcode] if api_params[:networkcode].present?
       with :organizationcodes, api_params[:organizationcode] if api_params[:organizationcode].present?
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
@@ -75,15 +89,16 @@ class SitesController < ApplicationController
   end
 
   def api_params
-    api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium,
-                  :valuetype, :generalcategory, :networkcode, :organizationcode, :q, :time_step, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
+    api_request = params.permit(:limit, :page, :geometry, :variablenames, :variablename, :datatype, :samplemedium, :siteids,
+                  :valuetype, :generalcategory, :networkcode, :organizationcode, :q, :time_step, :order, bounds: [:sw_lat, :sw_lng, :ne_lat, :ne_lng])
 
     api_request[:variablenames] ||= []
     api_request[:limit] ||= 50
     api_request[:page] ||= 1
     api_request[:page] = 1 if api_request[:page].to_i == 0
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
-
+    api_request[:siteids] = api_request[:siteids].split(',') if api_request[:siteids].present?
+    
     if api_request[:bounds].present?
       bounds = api_request.delete(:bounds)
 

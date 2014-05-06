@@ -20,8 +20,8 @@ ImiqApi::Application.routes.draw do
   get '/export/:field' => 'derived_values#index', defaults: { format: 'csv' }, as: 'derived_values'
 
   resources :sites, except: [:new, :update, :destroy, :create, :edit], defaults: { format: 'json' } do
-    member do
-      get :downloads
+    collection do
+      get 'list'
     end
     collection do
       get :variables

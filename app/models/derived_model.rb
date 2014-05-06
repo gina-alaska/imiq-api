@@ -66,7 +66,7 @@ class DerivedModel
 
     name
   end
-
+ 
   def model
     @klass
   end

@@ -1,7 +1,6 @@
 class DerivedValuesController < ApplicationController
   def index
     datavalue = DVFactory.slug(api_params[:field])
-
     @sites = []
     @values = []
     @site_names = []
@@ -10,7 +9,7 @@ class DerivedValuesController < ApplicationController
       flash.now[:error] = "Invalid field (#{api_params[:field]}) or timestep (#{api_params[:time_step]}) params given"
     else
       # @values_csv_header = model.csv_header
-      @values = datavalue.model.order('utcdatetime ASC').has_data
+      @values = datavalue.model.order(siteid: :asc, utcdatetime: :asc).has_data
       if api_params[:startdate].present?
         @values = @values.startdate(Date.parse(api_params[:startdate]).beginning_of_day)
       end
@@ -26,26 +25,24 @@ class DerivedValuesController < ApplicationController
         siteids << api_params[:siteid]
       end
 
-      @values = @values.includes(:site).where(siteid: siteids).order(:siteid)
+      @values = @values.includes(:site).where(siteid: siteids)
+      
+      @units = datavalue.model.units
+      @fstep = datavalue.timestep
+      @ffield = datavalue.field
+      @fprettyname = datavalue.pretty_name
 
-      @sites = Site.where(siteid: siteids).uniq
-      @site_names = @sites.pluck(:sitename)
-    end
-
-
-    filename_parts = ['Imiq']
-    if api_params[:siteid].present?
-      filename_parts << "site-#{api_params[:siteid]}"
-    end
-
-    filename_parts += [api_params[:time_step], api_params[:field], Time.now.strftime("%Y%m%d-%H%M%S")]
-
-    respond_to do |format|
-      format.csv {
-        filename = "#{filename_parts.join('_')}.csv"
-        headers["Content-type"] = "text/csv"
-        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
-      }
+      filename_parts = ['Imiq_Data']
+      @timenow = Time.now
+      filename_parts += [@ffield,@fstep,@timenow.strftime("%Y%m%d-%H%M%S")]
+    
+      respond_to do |format|
+        format.csv {
+          filename = "#{filename_parts.join('_')}.csv"
+          headers["Content-type"] = "text/csv"
+          headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
+        }
+      end
     end
   end
 
