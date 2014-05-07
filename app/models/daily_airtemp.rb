@@ -2,9 +2,7 @@ class DailyAirtemp < ActiveRecord::Base
   include DerivedModelConcerns
   include DailyModelConcerns 
 
-  self.table_name = 'daily_airtemp'
+  belongs_to :unit, foreign_key: 'variableunitsid'
   
-  def self.units
-    'degrees celsius'
-  end
+  self.table_name = 'daily_airtemp'
 end

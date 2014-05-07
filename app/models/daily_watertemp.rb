@@ -1,9 +1,8 @@
 class DailyWatertemp < ActiveRecord::Base
   include DerivedModelConcerns
   include DailyModelConcerns  
-  self.table_name = 'daily_watertemp'
   
-  def self.units
-    'degrees celsius'
-  end
+  belongs_to :unit, foreign_key: 'variableunitsid'
+  
+  self.table_name = 'daily_watertemp' 
 end

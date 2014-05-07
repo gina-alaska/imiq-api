@@ -1,9 +1,8 @@
 class DailyDischarge < ActiveRecord::Base
   include DerivedModelConcerns
   include DailyModelConcerns
-  self.table_name = 'daily_discharge'
   
-  def self.units
-    'centimers per second'
-  end
+  belongs_to :unit, foreign_key: 'variableunitsid'
+  
+  self.table_name = 'daily_discharge'
 end

@@ -1,9 +1,8 @@
 class HourlyWinddirection < ActiveRecord::Base
   include DerivedModelConcerns
   include HourlyModelConcerns   
-  self.table_name = 'hourly_winddirection'
   
-  def self.units
-    'degrees'
-  end
+  belongs_to :unit, foreign_key: 'variableunitsid'
+  
+  self.table_name = 'hourly_winddirection'
 end

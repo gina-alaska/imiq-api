@@ -1,9 +1,8 @@
 class HourlySwe < ActiveRecord::Base
   include DerivedModelConcerns
   include HourlyModelConcerns   
-  self.table_name = 'hourly_swe'
   
-  def self.units
-    'millimeters'
-  end
+  belongs_to :unit, foreign_key: 'variableunitsid'
+  
+  self.table_name = 'hourly_swe'
 end

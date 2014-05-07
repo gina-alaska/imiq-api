@@ -1,4 +1,6 @@
 class DerivedValuesController < ApplicationController
+  rescue_from ActionView::Template::Error, with: :csv_error if Rails.env.production?
+  
   def index
     datavalue = DVFactory.slug(api_params[:field])
     @sites = []
@@ -27,7 +29,6 @@ class DerivedValuesController < ApplicationController
 
       @values = @values.includes(:site).where(siteid: siteids)
       
-      @units = datavalue.model.units
       @fstep = datavalue.timestep
       @ffield = datavalue.field
       @fprettyname = datavalue.pretty_name
@@ -47,6 +48,10 @@ class DerivedValuesController < ApplicationController
   end
 
   protected
+  
+  def csv_error
+    render text: 'An error was encountered while trying to create the CSV file'
+  end
 
   def api_params
     api_request = params.permit(:limit, :page, :siteid, :siteids, :startdate, :enddate, :time_step, :field)

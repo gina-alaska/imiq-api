@@ -1,9 +1,8 @@
 class DailySnowdepth < ActiveRecord::Base
   include DerivedModelConcerns
-  include DailyModelConcerns 
-  self.table_name = 'daily_snowdepth'
+  include DailyModelConcerns
   
-  def self.units
-    'meters'
-  end
+  belongs_to :unit, foreign_key: 'variableunitsid'
+  
+  self.table_name = 'daily_snowdepth'
 end

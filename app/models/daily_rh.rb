@@ -1,9 +1,8 @@
 class DailyRh < ActiveRecord::Base
   include DerivedModelConcerns
   include DailyModelConcerns
-  self.table_name = 'daily_rh'
   
-  def self.units
-    'percent'
-  end
+  belongs_to :unit, foreign_key: 'variableunitsid'
+  
+  self.table_name = 'daily_rh'
 end
