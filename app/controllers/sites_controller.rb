@@ -26,7 +26,7 @@ class SitesController < ApplicationController
   end
 
   def list
-    @sites = site_search.results
+    @sites = site_search(100000).results
 #    @search = Site.search do
 #      with :has_data, true
 #    end
@@ -60,7 +60,7 @@ class SitesController < ApplicationController
 
   protected
 
-  def site_search
+  def site_search(limit = nil)
     Site.search do
       fulltext api_params[:q] if api_params[:q].present?
 
@@ -84,7 +84,7 @@ class SitesController < ApplicationController
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
       with(:location).in_bounding_box(*api_params[:bounds]) if api_params[:bounds].present?
       facet :derived_variables
-      paginate page: api_params[:page], per_page: api_params[:limit]
+      paginate page: api_params[:page], per_page: limit || api_params[:limit]
     end
   end
 
