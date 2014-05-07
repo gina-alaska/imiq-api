@@ -11,8 +11,8 @@ Latitude Units: decimal degrees
 Longitude Units: decimal degrees
 Elevation Units: meters above sea level
 DataValue Units: <%= @values.first.unit.unitsname %> 
-CSV Format: SiteID,Date,Latitude,Longitude,Elevation,DataValue
 ################################################################
+SiteID,Date,Latitude,Longitude,Elevation,DataValue
 <% @values.each do |row| %>
 <%= row.siteid %>,<%= row.utcdatetime.strftime(row.timeformat) %>,<%= number_with_precision(row.site.lat, precision: 3) %>,<%= number_with_precision(row.site.lng, precision: 3) %>,<%= number_with_precision(row.site.z, precision: 3) %>,<%= number_with_precision(row.datavalue, precision: 3) %>
 <% end %>
