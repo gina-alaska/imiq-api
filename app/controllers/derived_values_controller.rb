@@ -27,7 +27,6 @@ class DerivedValuesController < ApplicationController
 
       @values = @values.includes(:site).where(siteid: siteids)
       
-      @units = datavalue.model.units
       @fstep = datavalue.timestep
       @ffield = datavalue.field
       @fprettyname = datavalue.pretty_name

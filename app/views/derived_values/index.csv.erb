@@ -10,7 +10,7 @@ Date Units: <%= @values.first.timeformattext %>
 Latitude Units: decimal degrees
 Longitude Units: decimal degrees
 Elevation Units: meters above sea level
-DataValue Units: <%= @units %> 
+DataValue Units: <%= @values.first.unit.unitsname %> 
 CSV Format: SiteID,Date,Latitude,Longitude,Elevation,DataValue
 ################################################################
 <% @values.each do |row| %>
