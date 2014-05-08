@@ -31,11 +31,9 @@ class SitesController < ApplicationController
 #      with :has_data, true
 #    end
 #    @sites = @search.results
-    filename_parts = ['Imiq-SiteList']
-    filename_parts += [Time.now.strftime("%Y%m%d-%H%M%S")]
     respond_to do |format|
       format.text {
-        filename = "#{filename_parts.join('_')}.txt"
+        filename = "Imiq_Site_List.txt"
         headers["Content-type"] = "text/plain"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
       }

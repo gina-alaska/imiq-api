@@ -35,7 +35,7 @@ class DerivedValuesController < ApplicationController
 
       filename_parts = ['Imiq_Data']
       @timenow = Time.now
-      filename_parts += [@ffield,@fstep,@timenow.strftime("%Y%m%d-%H%M%S")]
+      filename_parts += [@fstep,@ffield]
     
       respond_to do |format|
         format.csv {
