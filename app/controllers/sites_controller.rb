@@ -1,5 +1,7 @@
 class SitesController < ApplicationController
   respond_to :geojson, :json
+  
+  # before_action :set_cors_headers, only: [:index,:show,:list,:variables]
   set_pagination_headers :sites, only: [:index]
 
   # Fetch & Show all of the site records using the api_params
