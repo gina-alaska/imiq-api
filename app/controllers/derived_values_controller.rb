@@ -29,7 +29,11 @@ class DerivedValuesController < ApplicationController
         }
         format.json {
           set_cors_headers
-          render json: get_json_data
+          if params[:graph]
+            render json: get_graph_data
+          else
+            render json: @values
+          end
         }
       end
     end
@@ -38,9 +42,9 @@ class DerivedValuesController < ApplicationController
   protected
   
   def get_data_values
-    datavalue = DVFactory.slug(api_params[:field])
+    @datavalue = DVFactory.slug(api_params[:field])
     @sites = Site.where(siteid: api_params[:siteids])
-    @values = datavalue.model.order(utcdatetime: :asc)
+    @values = @datavalue.model.order(utcdatetime: :asc)
     if api_params[:startdate].present?
       @values = @values.startdate(Date.parse(api_params[:startdate]).beginning_of_day)
     end
@@ -51,17 +55,25 @@ class DerivedValuesController < ApplicationController
     @values = @values.where(siteid: api_params[:siteids])
   end
   
-  def get_json_data
+  def get_graph_data
     get_data_values
-    
-    @sites.collect do |site|
-      {
-        name: site.sitename,
-        data: @values.where(siteid: site.siteid).collect do |dv|
-          [dv.utcdatetime, dv.datavalue]
-        end
-      }
-    end
+   
+    {
+      title: {
+        text: @datavalue.pretty_name
+      },
+      yAxis: {
+        title: { text: @values.first.try(:unit).try(:unitsname) }
+      },
+      series: @sites.collect do |site|
+        {
+          name: site.sitename,
+          data: @values.where(siteid: site.siteid).collect do |dv|
+            [dv.utcdatetime.to_i * 1000, dv.datavalue]
+          end
+        }
+      end
+    }
   end
   
   def csv_error
