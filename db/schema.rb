@@ -16,6 +16,19 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "_sites_summary", id: false, force: true do |t|
+    t.integer "siteid",                 null: false
+    t.text    "geolocation",            null: false
+    t.string  "begindate",   limit: 10, null: false
+    t.string  "enddate",     limit: 10, null: false
+  end
+
+  create_table "_siteswithelevations", id: false, force: true do |t|
+    t.integer "siteid"
+    t.text    "geolocation"
+    t.text    "sourcedatum"
+  end
+
   create_table "airtemp_totalyears", id: false, force: true do |t|
     t.integer "siteid",    null: false
     t.string  "sitename"
@@ -217,6 +230,44 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "totalvalues"
   end
 
+  create_table "boundarycatalog_all", id: false, force: true do |t|
+    t.integer "datastreamid",                        null: false
+    t.string  "datastreamname",                      null: false
+    t.integer "siteid",                              null: false
+    t.string  "sitecode",                limit: 50,  null: false
+    t.string  "sitename"
+    t.float   "offsetvalue"
+    t.integer "offsettypeid"
+    t.integer "variableid",                          null: false
+    t.string  "variablecode",            limit: 50,  null: false
+    t.string  "variablename",                        null: false
+    t.string  "speciation",                          null: false
+    t.integer "variableunitsid",                     null: false
+    t.string  "samplemedium",                        null: false
+    t.string  "valuetype",                           null: false
+    t.float   "timesupport",                         null: false
+    t.integer "timeunitsid",                         null: false
+    t.string  "datatype",                            null: false
+    t.string  "generalcategory",                     null: false
+    t.integer "methodid",                            null: false
+    t.integer "deviceid",                            null: false
+    t.text    "methoddescription",                   null: false
+    t.integer "sourceid",                            null: false
+    t.string  "organization",                        null: false
+    t.text    "sourcedescription",                   null: false
+    t.text    "citation",                            null: false
+    t.integer "qualitycontrollevelid"
+    t.string  "qualitycontrollevelcode", limit: 50,  null: false
+    t.string  "begindatetime",           limit: 100
+    t.string  "enddatetime",             limit: 100
+    t.string  "begindatetimeutc",        limit: 100
+    t.string  "enddatetimeutc",          limit: 100
+    t.binary  "geolocation"
+    t.text    "geolocationtext"
+    t.string  "spatialcharacteristics",  limit: 50,  null: false
+    t.integer "totalvalues"
+  end
+
   create_table "catalog", id: false, force: true do |t|
     t.integer "datastreamid",                        null: false
     t.string  "datastreamname",                      null: false
@@ -270,12 +321,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   end
 
   create_table "daily_airtemp", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_airtemp", ["siteid"], name: "daily_airtemp_siteid_idx", using: :btree
@@ -300,12 +351,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_airtempdatavalues_test", ["siteid"], name: "daily_airtempdatavalues_test_siteid_idx", using: :btree
 
   create_table "daily_airtempmax", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_airtempmax", ["siteid"], name: "daily_airtempmax_siteid_idx", using: :btree
@@ -321,12 +372,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_airtempmaxdatavalues", ["siteid"], name: "daily_airtempmaxdatavalues_siteid_idx", using: :btree
 
   create_table "daily_airtempmin", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_airtempmin", ["siteid"], name: "daily_airtempmin_siteid_idx", using: :btree
@@ -347,7 +398,7 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.integer  "sourceid",           null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_discharge", ["siteid"], name: "daily_discharge_siteid_idx", using: :btree
@@ -362,12 +413,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_dischargedatavalues", ["siteid"], name: "daily_dischargedatavalues_siteid_idx", using: :btree
 
   create_table "daily_precip", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_precip", ["siteid"], name: "daily_precip_siteid_idx", using: :btree
@@ -388,7 +439,7 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.integer  "sourceid",           null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_rh", ["siteid"], name: "daily_rh_siteid_idx", using: :btree
@@ -404,12 +455,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_rhdatavalues", ["siteid"], name: "daily_rhdatavalues_siteid_idx", using: :btree
 
   create_table "daily_snowdepth", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_snowdepth", ["siteid"], name: "daily_snowdepth_siteid_idx", using: :btree
@@ -432,12 +483,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_soils_utcdatetime", ["siteid"], name: "daily_soils_utcdatetime_siteid_idx", using: :btree
 
   create_table "daily_swe", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_swe", ["siteid"], name: "daily_swe_siteid_idx", using: :btree
@@ -460,13 +511,15 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_utcdatetime", ["siteid"], name: "daily_utcdatetime_siteid_idx", using: :btree
 
   create_table "daily_watertemp", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
+
+  add_index "daily_watertemp", ["siteid"], name: "daily_watertemp_siteid_idx", using: :btree
 
   create_table "daily_watertempdatavalues", primary_key: "valueid", force: true do |t|
     t.float    "datavalue"
@@ -492,12 +545,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_watertempstations", ["siteid"], name: "daily_watertempstations_siteid_idx", using: :btree
 
   create_table "daily_winddirection", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_winddirection", ["siteid"], name: "daily_winddirection_siteid_idx", using: :btree
@@ -515,12 +568,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "daily_winddirectiondatavalues", ["siteid"], name: "daily_winddirectiondatavalues_siteid_idx", using: :btree
 
   create_table "daily_windspeed", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "daily_windspeed", ["siteid"], name: "daily_windspeed_siteid_idx", using: :btree
@@ -710,13 +763,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   end
 
   create_table "hourly_airtemp", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
-    t.datetime "insertdate"
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_airtemp", ["siteid"], name: "hourly_airtemp_siteid_idx", using: :btree
@@ -732,12 +784,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "hourly_airtempdatavalues", ["siteid"], name: "hourly_airtempdatavalues_siteid_idx", using: :btree
 
   create_table "hourly_precip", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_precip", ["siteid"], name: "hourly_precip_siteid_idx", using: :btree
@@ -758,7 +810,7 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.datetime "utcdatetime",        null: false
     t.integer  "siteid",             null: false
     t.integer  "originalvariableid", null: false
-    t.integer  "sourceid",           null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_rh", ["siteid"], name: "hourly_rh_siteid_idx", using: :btree
@@ -774,12 +826,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "hourly_rhdatavalues", ["siteid"], name: "hourly_rhdatavalues_siteid_idx", using: :btree
 
   create_table "hourly_snowdepth", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_snowdepth", ["siteid"], name: "hourly_snowdepth_siteid_idx", using: :btree
@@ -802,12 +854,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "hourly_soil_utcdatetime", ["siteid"], name: "hourly_soil_utcdatetime_siteid_idx", using: :btree
 
   create_table "hourly_swe", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_swe", ["siteid"], name: "hourly_swe_siteid_idx", using: :btree
@@ -830,12 +882,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "hourly_utcdatetime", ["siteid"], name: "hourly_utcdatetime_siteid_idx", using: :btree
 
   create_table "hourly_winddirection", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_winddirection", ["siteid"], name: "hourly_winddirection_siteid_idx", using: :btree
@@ -853,12 +905,12 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "hourly_winddirectiondatavalues", ["siteid"], name: "hourly_winddirectiondatavalues_siteid_idx", using: :btree
 
   create_table "hourly_windspeed", id: false, force: true do |t|
-    t.integer  "valueid",     null: false
+    t.integer  "valueid",            null: false
     t.float    "datavalue"
-    t.datetime "utcdatetime", null: false
-    t.integer  "siteid",      null: false
-    t.integer  "variableid",  null: false
-    t.integer  "sourceid",    null: false
+    t.datetime "utcdatetime",        null: false
+    t.integer  "siteid",             null: false
+    t.integer  "originalvariableid", null: false
+    t.integer  "variableid",         null: false
   end
 
   add_index "hourly_windspeed", ["siteid"], name: "hourly_windspeed_siteid_idx", using: :btree
@@ -1203,6 +1255,47 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   end
 
   create_table "seriescatalog_62", id: false, force: true do |t|
+    t.integer "datastreamid",                        null: false
+    t.string  "datastreamname",                      null: false
+    t.integer "siteid",                              null: false
+    t.string  "sitecode",                limit: 50,  null: false
+    t.string  "sitename"
+    t.float   "offsetvalue"
+    t.string  "unitsabbreviation"
+    t.integer "offsettypeid"
+    t.integer "variableid",                          null: false
+    t.string  "variablecode",            limit: 50,  null: false
+    t.string  "variablename",                        null: false
+    t.string  "speciation",                          null: false
+    t.integer "variableunitsid",                     null: false
+    t.string  "samplemedium",                        null: false
+    t.string  "valuetype",                           null: false
+    t.float   "timesupport",                         null: false
+    t.integer "timeunitsid",                         null: false
+    t.string  "datatype",                            null: false
+    t.string  "generalcategory",                     null: false
+    t.integer "methodid",                            null: false
+    t.text    "methoddescription",                   null: false
+    t.integer "sourceid",                            null: false
+    t.string  "organization",                        null: false
+    t.text    "sourcedescription",                   null: false
+    t.text    "citation",                            null: false
+    t.integer "qualitycontrollevelid"
+    t.string  "qualitycontrollevelcode", limit: 50,  null: false
+    t.string  "begindatetime",           limit: 100
+    t.string  "enddatetime",             limit: 100
+    t.string  "begindatetimeutc",        limit: 100
+    t.string  "enddatetimeutc",          limit: 100
+    t.binary  "geolocation"
+    t.text    "geolocationtext"
+    t.string  "spatialcharacteristics",  limit: 50,  null: false
+    t.integer "totalvalues"
+    t.integer "startdecade"
+    t.integer "enddecade"
+    t.integer "totalyears"
+  end
+
+  create_table "seriescatalog_all", id: false, force: true do |t|
     t.integer "datastreamid",                        null: false
     t.string  "datastreamname",                      null: false
     t.integer "siteid",                              null: false

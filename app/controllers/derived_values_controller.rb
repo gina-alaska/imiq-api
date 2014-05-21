@@ -29,7 +29,7 @@ class DerivedValuesController < ApplicationController
         }
         format.json {
           set_cors_headers
-          render json: get_json_data(datavalue)
+          render json: get_json_data
         }
       end
     end
@@ -51,14 +51,14 @@ class DerivedValuesController < ApplicationController
     @values = @values.where(siteid: api_params[:siteids])
   end
   
-  def get_json_data()
+  def get_json_data
     get_data_values
     
     @sites.collect do |site|
       {
         name: site.sitename,
         data: @values.where(siteid: site.siteid).collect do |dv|
-          [@values.utcdatetime, @values.datavalue]
+          [dv.utcdatetime, dv.datavalue]
         end
       }
     end
