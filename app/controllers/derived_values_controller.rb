@@ -64,27 +64,6 @@ class DerivedValuesController < ApplicationController
     end
   end
   
-  def get_csv_data
-    # @values_csv_header = model.csv_header
-    @values = datavalue.model.order(siteid: :asc, utcdatetime: :asc).has_data
-    if api_params[:startdate].present?
-      @values = @values.startdate(Date.parse(api_params[:startdate]).beginning_of_day)
-    end
-
-    if api_params[:enddate].present?
-      @values = @values.enddate(Date.parse(api_params[:enddate]).end_of_day)
-    end
-
-    siteids = []
-    if api_params[:siteids].present?
-      siteids += api_params[:siteids].split(',')
-    elsif api_params[:siteid].present?
-      siteids << api_params[:siteid]
-    end
-
-    @values = @values.includes(:site).where(siteid: siteids)
-  end
-  
   def csv_error
     render text: 'An error was encountered while trying to create the CSV file'
   end
