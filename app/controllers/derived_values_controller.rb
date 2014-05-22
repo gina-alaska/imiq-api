@@ -62,6 +62,9 @@ class DerivedValuesController < ApplicationController
       title: {
         text: @datavalue.pretty_name
       },
+      xAxis: {
+        title: { text: 'Date (UTC)' }
+      },
       yAxis: {
         title: { text: @values.first.try(:unit).try(:unitsname) }
       },
