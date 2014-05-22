@@ -2,7 +2,7 @@
 ERROR: <%= flash[:error] %>
 <% end %>
 NOTE: Data are provisional and subject to revision; Imiq application still in beta-testing (as of May 2014)
-Database ID: ???
+Database ID: <%= render(partial: dbversion) %>
 Time of Data Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
 Site(s): <%= @values.pluck(:siteid).uniq.join(', ').html_safe %>
 Data Description: <%= @fprettyname %> 
