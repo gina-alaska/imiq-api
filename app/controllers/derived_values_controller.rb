@@ -26,7 +26,7 @@ class DerivedValuesController < ApplicationController
       elsif api_params[:siteid].present?
         siteids << api_params[:siteid]
       end
-
+      
       @values = @values.includes(:site).where(siteid: siteids)
       
       @fstep = datavalue.timestep
