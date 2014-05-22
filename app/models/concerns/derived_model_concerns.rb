@@ -5,6 +5,8 @@ module DerivedModelConcerns
   included do
     belongs_to :site, foreign_key: 'siteid'
     belongs_to :variable, foreign_key: 'variableid'
+    has_one :unit, through: :variable
+    
     has_one :source, through: :site
     has_many :datastreams, :through => :site
 
