@@ -1,13 +1,13 @@
 <% @sites.each do |row| %>
 SiteID: <%= row.siteid %>
-  Sitename (Sitecode): <%= row.sitename %> (<%= row.sitecode %>)
-  Latitude: <%= number_with_precision(row.lat, precision: 3) %>, Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation(m): <%= number_with_precision(row.z, precision: 3) %>
+  Site Name (Site Code): <%= row.sitename %> (<%= row.sitecode %>)
+  Latitude: <%= number_with_precision(row.lat, precision: 3) %>, Longitude: <%= number_with_precision(row.lng, precision: 3) %>, Elevation (m): <%= number_with_precision(row.z, precision: 3) %>
   County, State: <%= row.county || "Unknown" %>, <%= row.state || "Unknown" %>
   Data Networks: <%= render(row.networks) || "None" %>
   Data Organizations: <%= render(partial: row.organizations, spacer_template: "org_spacer" ) || "Unknown" %>
   Data Source Contact Name: <%= row.source.contactname || "Unknown" %>
   Data Source Contact Email: <%= row.source.email || "Unknown" %>
-  Data Source Contact Address: <%= row.source.address || "Unknown" %>, <%= row.source.city || "Unknown" %>,<%= row.source.state || "Unknown" %> <%= row.source.zipcode || "Unknown" %>
+  Data Source Contact Address: <%= row.source.address || "Unknown" %>, <%= row.source.city || "Unknown" %>, <%= row.source.state || "Unknown" %> <%= row.source.zipcode || "Unknown" %>
   Data Source Web Address: <%= row.source.sourcelink || "Unknown" %>
   Data Source Description: <%= row.source.sourcedescription || "Unknown" %>
   Site Citation: <%= row.source.citation || "Unknown" %>
