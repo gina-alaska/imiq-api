@@ -18,7 +18,7 @@ class DerivedValuesController < ApplicationController
 
           filename_parts = ['Imiq_Data']
           @timenow = Time.now
-          filename_parts += [@ffield,@fstep,@timenow.strftime("%Y%m%d-%H%M%S")]
+          filename_parts += [@fstep,@ffield]
     
           filename = "#{filename_parts.join('_')}.csv"
           
