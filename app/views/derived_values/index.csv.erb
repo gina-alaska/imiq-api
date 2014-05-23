@@ -1,11 +1,12 @@
 <% if flash[:error] %>
 ERROR: <%= flash[:error] %>
 <% end %>
-Database ID: ???
+NOTE: Data are provisional and subject to revision; Imiq application still in beta-testing (as of May 2014)
+Database ID: <%= render(partial: "dbversion.text") %>
 Time of Data Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
-Site(s): <%= @values.pluck(:siteid).uniq.join(', ').html_safe %>
+Site ID(s): <%= @values.pluck(:siteid).uniq.join(', ').html_safe %>
 Data Description: <%= @fprettyname %> 
-SiteID Units: unitless
+Site ID Units: unitless
 Date Units: <%= @values.first.try(:timeformattext) %> 
 Latitude Units: decimal degrees
 Longitude Units: decimal degrees
