@@ -69,13 +69,27 @@ class Site < ActiveRecord::Base
   'hourly' => [...]
 }
 =end
+  
+  def has_data_for(model)
+    puts model.inspect
+    case model.slug.split('_').first
+    when 'source'
+      puts model.variablenames
+      self.variables.where(variablename: model.variablenames).count > 0
+    else
+      self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
+    end
+  end
+  
   def derived_variables
     if @derived_variables.nil?
       @derived_variables = {}
       DVFactory::TIMESTEPS.each do |timestep|
         DVFactory.send(timestep).each do |model|
+          puts has_data_for(model)
           @derived_variables[timestep] ||= []
-          @derived_variables[timestep] << [model.pretty_name, model.slug] if self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
+          @derived_variables[timestep] << [model.pretty_name, model.slug] if has_data_for(model)
+          #if self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
         end
       end
     end
@@ -86,7 +100,7 @@ class Site < ActiveRecord::Base
     dvariables = []
 
     DVFactory::TIMESTEPS.each do |timestep|
-      dvariables += variables_for(timestep).collect { |v| v.gsub("#{timestep}_", '') }
+      dvariables += variables_for(timestep) { |v| v.gsub("#{timestep}_", '') }
     end
 
     dvariables.flatten.uniq
@@ -102,8 +116,15 @@ class Site < ActiveRecord::Base
     dvariables.flatten.uniq
   end
 
-  def variables_for(timestep)
-    derived_variables[timestep].collect { |v| v[1] }
+  def variables_for(timestep, &block)
+    derived_variables[timestep].collect do |v| 
+      a = v[1] 
+      if block_given?
+        a = yield a
+      end
+      
+      a
+    end
   end
 
   def geometry

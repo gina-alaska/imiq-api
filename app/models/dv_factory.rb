@@ -1,5 +1,5 @@
 class DVFactory
-  TIMESTEPS = %w{ daily hourly }
+  TIMESTEPS = %w{ daily hourly source }
 
   class << self
     def daily(name=nil)
@@ -20,7 +20,10 @@ class DVFactory
 
     def source(name=nil)
       if name.nil?
-        []
+        [
+          SourceModel.new('Ablation'),
+          SourceModel.new('Dissolved oxygen', 'source_dissolved_oxygen', ['Luminescent dissolved oxygen', 'Oxygen, dissolved'])
+        ]
       else
         SourceModel.new(name)
       end
