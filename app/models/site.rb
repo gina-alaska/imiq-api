@@ -71,10 +71,8 @@ class Site < ActiveRecord::Base
 =end
   
   def has_data_for(model)
-    puts model.inspect
     case model.slug.split('_').first
     when 'source'
-      puts model.variablenames
       self.variables.where(variablename: model.variablenames).count > 0
     else
       self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
@@ -86,7 +84,6 @@ class Site < ActiveRecord::Base
       @derived_variables = {}
       DVFactory::TIMESTEPS.each do |timestep|
         DVFactory.send(timestep).each do |model|
-          puts has_data_for(model)
           @derived_variables[timestep] ||= []
           @derived_variables[timestep] << [model.pretty_name, model.slug] if has_data_for(model)
           #if self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
