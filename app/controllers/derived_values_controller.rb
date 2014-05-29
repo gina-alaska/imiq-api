@@ -66,7 +66,8 @@ class DerivedValuesController < ApplicationController
         title: { text: 'Date (UTC)' }
       },
       yAxis: {
-        title: { text: @values.first.try(:unit).try(:unitsname) }
+        title: { text: @values.first.try(:unit).try(:unitsname) },
+        floor: 0
       },
       series: @sites.collect do |site|
         {
