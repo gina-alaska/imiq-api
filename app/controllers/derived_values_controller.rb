@@ -1,7 +1,16 @@
 class DerivedValuesController < ApplicationController
   rescue_from ActionView::Template::Error, with: :csv_error if Rails.env.production?
-  
+
   def index
+    proclevels = {
+      "a1" => "Calibration factors applied and converted to geophysical units.",
+      "b1" => "Some QC checks applied to measurements.",
+      "c1" => "Summary, time-averaged product using one or more measurements from Imiq database."
+    }
+    procinfo = {
+      "hourly" => "c1",
+      "daily" => "c1"
+    }
     datavalue = DVFactory.slug(api_params[:field])
     @sites = []
     @values = []
@@ -15,12 +24,13 @@ class DerivedValuesController < ApplicationController
           @fstep = datavalue.timestep
           @ffield = datavalue.field
           @fprettyname = datavalue.pretty_name
+          @fext = procinfo["#{@fstep}"]
+          @fprocdescrip = proclevels["#{@fext}"]
 
           filename_parts = ['Imiq_Data']
           @timenow = Time.now
           filename_parts += [@fstep,@ffield]
-    
-          filename = "#{filename_parts.join('_')}.csv"
+          filename = "#{filename_parts.join('_')}.#{@fext}.csv"
           
           headers["Content-type"] = "text/csv"
           headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
