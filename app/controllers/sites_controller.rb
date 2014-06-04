@@ -29,14 +29,11 @@ class SitesController < ApplicationController
 
   def list
     @sites = site_search(100000).results
-#    @search = Site.search do
-#      with :has_data, true
-#    end
-#    @sites = @search.results
+    
     respond_to do |format|
       format.text {
-        filename = "Imiq_Site_List.txt"
-        headers["Content-type"] = "text/plain"
+        filename = "Imiq_Site_List.rtf"
+        headers["Content-type"] = "text/rtf"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
       }
     end
