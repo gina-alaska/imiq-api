@@ -79,6 +79,7 @@ class DerivedValuesController < ApplicationController
     }
   end
   
+  
   def csv_error
     render text: 'An error was encountered while trying to create the CSV file'
   end
