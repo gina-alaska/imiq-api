@@ -73,7 +73,7 @@ class Site < ActiveRecord::Base
   def has_data_for(model)
     case model.slug.split('_').first
     when 'source'
-      self.variables.where(variablename: model.variablenames).count > 0
+      self.variables.where(model.query).count > 0
     else
       self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
     end

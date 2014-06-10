@@ -60,7 +60,7 @@ class DerivedValuesController < ApplicationController
    
     {
       title: {
-        text: @datavalue.pretty_name
+        text: "#{@datavalue.timestep} #{@datavalue.pretty_name}".capitalize
       },
       xAxis: {
         title: { text: 'Date (UTC)' }

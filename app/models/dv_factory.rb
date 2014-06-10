@@ -21,12 +21,17 @@ class DVFactory
     def source(name=nil)
       if name.nil?
         [
-          SourceModel.new('Ablation'),
-          SourceModel.new('Dissolved oxygen', 'source_dissolved_oxygen', ['Luminescent dissolved oxygen', 'Oxygen, dissolved'])
-        ]
+          ['Ablation'], 
+          ['Snowfall precipitation', 'source_snowfall_precip', { variablename: 'Snowfall', samplemedium: 'Precipitation' }],
+          ['Disolved oxygen', 'source_dissolved_oxygen', { variablename: ['Luminescent dissolved oxygen', 'Oxygen, dissolved'] }]
+        ].collect { |item| SourceModel.new(*item) }
       else
         SourceModel.new(name)
       end
+    end
+    
+    def source_options
+      source.collect(&:select_option)
     end
 
     def slug(name)

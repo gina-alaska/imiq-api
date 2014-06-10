@@ -1,6 +1,8 @@
 class DerivedModel
   # order is important here!!!
   ALIASES = [
+    ['Daily ', ''],
+    ['Hourly ', ''],
     ['datavalue', ''],
     ['temp', 'temperature'],
     ['precip', 'precipitation'],
@@ -64,7 +66,7 @@ class DerivedModel
       name.gsub!(*substitution)
     end
 
-    name
+    name.capitalize
   end
  
   def model
