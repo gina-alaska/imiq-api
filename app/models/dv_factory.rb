@@ -21,9 +21,34 @@ class DVFactory
     def source(name=nil)
       if name.nil?
         [
-          ['Ablation'], 
-          ['Snowfall precipitation', 'source_snowfall_precip', { variablename: 'Snowfall', samplemedium: 'Precipitation' }],
-          ['Disolved oxygen', 'source_dissolved_oxygen', { variablename: ['Luminescent dissolved oxygen', 'Oxygen, dissolved'] }]
+          ['Barometric Pressure', 'source_air_barometric_pressure', { variablename: 'Barometric pressure', samplemedium: 'Air' }],
+          ['Clouds', 'source_air_clouds', { variablename: ['Ceiling height','Sky cover'], samplemedium: 'Air' }],
+          ['Humidity', 'source_air_humidity', { variablename: ['Relative humidity','Vapor pressure'], samplemedium: 'Air'}],
+          ['Radiation, Longwave/Shortwave', 'source_air_radiation_lwsw', { variablename: ['Radiation, incoming longwave','Radiation, outgoing longwave','Radiation, global','Radiation, incoming shortwave','Radiation, outgoing shortwave','Radiation, global','Radiation, net','Radiation, net longwave','Radiation, total incoming','Radiation, total outgoing'], samplemedium: 'Air' }],
+          ['Radiation, PAR', 'source_radiation_par', { variablename: ['Radiation, PAR', 'Radiation, incoming PAR'] }],
+          ['Temperature, Air', 'source_air_temperature', { variablename: ['Temperature'], samplemedium: 'Air' }],
+          ['Visibility', 'source_air_visibility', { variablename: ['Visibility'], samplemedium: 'Air' }],
+          ['Wind, Direction/Speed', 'source_air_wind', { variablename: ['Wind direction', 'Wind sector', 'Wind speed', 'Wind vector magnitude'], samplemedium: 'Air' }],
+          ['Pan Evaporation', 'source_precipitation_pan_evaporation', { variablename: ['Evaporation'], samplemedium: 'Air' }],
+          ['Precipitation', 'source_precipitation_precipitation', { variablename: ['Precipitation'], samplemedium: 'Air' }],
+          ['Snowfall', 'source_precipitation_snowfall', { variablename: ['Snowfall'], samplemedium: ['Precipitation', 'Snow'] }],
+          ['Ablation', 'source_snow_ablation', { variablename: ['Ablation'], samplemedium: 'Snow' }],
+          ['Snow Density', 'source_snow_density', { variablename: ['Density'], samplemedium: 'Snow' }],
+          ['Snow Depth', 'source_snow_depth', { variablename: 'Snow depth', samplemedium: 'Snow' }],
+          ['Snow Temperature', 'source_snow_temperature', { variablename: 'Temperature', samplemedium: 'Snow' }],
+          ['Snow Water Equivalent', 'source_snow_swe', { variablename: 'Snow water equivalent', samplemedium: 'Snow' }],
+          ['Soil Albedo', 'source_soil_albedo', { variablename: 'Albedo', samplemedium: 'Soil' }],
+          ['Frost Free Days', 'source_soil_frost_free_days', { variablename: 'Frost free day', samplemedium: 'Soil' }],
+          ['Soil Temperature', 'source_soil_temperature', { variablename: 'Temperature', samplemedium: 'Soil' }],
+          ['Thaw Depth', 'source_soil_thaw_depth', { variablename: 'Thaw depth', samplemedium: 'Soil' }],
+          ['Soil Water Content', 'source_soil_water_content', { variablename: ['Water content','Volumetric water content'], samplemedium: 'Soil' }],
+          ['Water Chemistry', 'source_sw_chemistry', { variablename: ['Carbon, total organic', 'Electrical Conductivity', 'Luminescent, dissolved oxygen', 'Oxygen, dissolved', 'Reduction potential', 'Turbidity', 'pH'], samplemedium: 'Surface Water' }],
+          ['Discharge/Runoff', 'source_sw_discharge', { variablename: ['Discharge','Runoff'], samplemedium: 'Surface Water' }],
+          ['Fish Detected', 'source_sw_fish_detected', { variablename: 'Fish detected', samplemedium: 'Surface Water' }],
+          ['Ice Properties', 'source_sw_ice', { variablename: ['Ice','Ice thickness'] }],
+          ['Physical Water Properties', 'source_sw_physical', { variablename: ['Area, Surface', 'Free board', 'Gage height', 'Volume', 'Water depth', 'Water level'], samplemedium: 'Surface Water' }],
+          ['Water Pressure', 'source_sw_pressure', { variablename: ['Barometric pressure', 'Water pressure'], samplemedium: 'Surface Water' }],
+          ['Surface Water Temperature', 'source_sw_temperature', { variablename: ['Temperature, temperature'], samplemedium: 'Surface Water' }]
         ].collect { |item| SourceModel.new(*item) }
       else
         SourceModel.new(name)
