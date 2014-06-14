@@ -31,9 +31,13 @@ class SitesController < ApplicationController
     @sites = site_search(100000).results
     
     respond_to do |format|
-      format.text {
+      format.rtf {
         filename = "Imiq_Site_List.rtf"
-        headers["Content-type"] = "text/rtf"
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""        
+        render 'list.txt'
+      }
+      format.txt {
+        filename = "Imiq_Site_List.txt"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
       }
     end
