@@ -50,6 +50,9 @@ end
 # Use unicorn as the app server
 gem 'unicorn'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Use Capistrano for deployment
 gem 'capistrano', group: :development
 gem 'capistrano-chruby', github: "capistrano/chruby"

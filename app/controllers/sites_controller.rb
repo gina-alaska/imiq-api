@@ -31,6 +31,11 @@ class SitesController < ApplicationController
     @sites = site_search(100000).results
     
     respond_to do |format|
+      format.html
+      format.pdf {
+        render pdf: 'imiq_site_list', layout: 'sites.html'
+      }
+      
       format.rtf {
         filename = "Imiq_Site_List.rtf"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""        
@@ -62,7 +67,7 @@ class SitesController < ApplicationController
   protected
 
   def site_search(limit = nil)
-    Site.search do
+    Site.search(include: [:networks, :organizations]) do
       fulltext api_params[:q] if api_params[:q].present?
 
       with :has_data, true
@@ -85,7 +90,7 @@ class SitesController < ApplicationController
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
       with(:location).in_bounding_box(*api_params[:bounds]) if api_params[:bounds].present?
       facet :derived_variables
-      paginate page: api_params[:page], per_page: limit || api_params[:limit]
+      paginate page: api_params[:page], per_page: api_params[:limit] || limit
     end
   end
 
