@@ -33,7 +33,7 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
-        render pdf: 'imiq_site_list', layout: 'sites.html'
+        render pdf: 'Imiq_Site_List', layout: 'sites.html'
       }
       
       format.rtf {
