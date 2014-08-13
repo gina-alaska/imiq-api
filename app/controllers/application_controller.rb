@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
       after_filter(options) do |controller|
         url = request.original_url.sub(/\?.*$/, '')
         results = instance_variable_get("@#{name}")
+
+        set_cors_headers()
+        return if results.nil?
+        
         links = { prev: '', next: '' }
 
         if results.previous_page
@@ -17,7 +21,6 @@ class ApplicationController < ActionController::Base
           links[:next] =  "#{url}?#{request.query_parameters.merge({ :page => results.next_page }).to_param}"
         end
 
-        set_cors_headers()
         headers["X-Total-Records"] = results.total_entries.to_s
         headers["X-Total-Pages"] = results.total_pages.to_s
         headers["X-Page"] = results.current_page.to_s

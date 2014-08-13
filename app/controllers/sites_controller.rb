@@ -2,7 +2,7 @@ class SitesController < ApplicationController
   respond_to :geojson, :json
   
   # before_action :set_cors_headers, only: [:index,:show,:list,:variables]
-  set_pagination_headers :sites, only: [:index]
+  set_pagination_headers :sites, only: [:index, :show]
 
   # Fetch & Show all of the site records using the api_params
   # [GET] /sites.json => sites#index
@@ -33,7 +33,7 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf {
-        render pdf: 'Imiq_Site_List', layout: 'sites.html'
+        render pdf: 'Imiq_Site_List', layout: 'pdf.html'
       }
       
       format.rtf {
@@ -53,8 +53,12 @@ class SitesController < ApplicationController
   # [GET] /sites/1.html
   def show
     @site = Site.find(params[:id])
-
-    respond_with @site
+    
+    respond_to do |format|
+      format.html { render layout: false }
+      format.json
+      format.geojson
+    end
   end
 
   #
@@ -67,7 +71,7 @@ class SitesController < ApplicationController
   protected
 
   def site_search(limit = nil)
-    Site.search(include: [:networks, :organizations]) do
+    Site.search(include: [:networks, :organizations, :datastreams]) do
       fulltext api_params[:q] if api_params[:q].present?
 
       with :has_data, true
