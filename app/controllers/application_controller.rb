@@ -10,26 +10,26 @@ class ApplicationController < ActionController::Base
         results = instance_variable_get("@#{name}")
 
         set_cors_headers()
-        return if results.nil?
-        
-        links = { prev: '', next: '' }
+        unless results.nil?        
+          links = { prev: '', next: '' }
 
-        if results.previous_page
-          links[:prev] = "#{url}?#{request.query_parameters.merge({ :page => results.previous_page }).to_param}"
-        end
-        if results.next_page
-          links[:next] =  "#{url}?#{request.query_parameters.merge({ :page => results.next_page }).to_param}"
-        end
+          if results.previous_page
+            links[:prev] = "#{url}?#{request.query_parameters.merge({ :page => results.previous_page }).to_param}"
+          end
+          if results.next_page
+            links[:next] =  "#{url}?#{request.query_parameters.merge({ :page => results.next_page }).to_param}"
+          end
 
-        headers["X-Total-Records"] = results.total_entries.to_s
-        headers["X-Total-Pages"] = results.total_pages.to_s
-        headers["X-Page"] = results.current_page.to_s
-        headers["X-Records-Offset"] = (results.offset + (results.length)).to_s
-        headers["X-Previous-Link"] = links[:prev].to_s
-        headers["X-Next-Link"] = links[:next].to_s
+          headers["X-Total-Records"] = results.total_entries.to_s
+          headers["X-Total-Pages"] = results.total_pages.to_s
+          headers["X-Page"] = results.current_page.to_s
+          headers["X-Records-Offset"] = (results.offset + (results.length)).to_s
+          headers["X-Previous-Link"] = links[:prev].to_s
+          headers["X-Next-Link"] = links[:next].to_s
+        end
       end
     end
-  
+    
     def set_cors_headers
       if request.headers["HTTP_ORIGIN"]
         # better way check origin
