@@ -168,8 +168,4 @@ class Site < ActiveRecord::Base
       nil
     end
   end
-
-  def cache_key
-    "site/#{siteid}/v1"
-  end
 end
