@@ -1,11 +1,12 @@
 app_name = 'imiq_api'
+account = node[app_name]['account']
 
-template "#{node[app_name]['shared_path']}/config/sunspot.yml" do
+template "#{node[app_name]['paths']['config']}/sunspot.yml" do
   owner account
   group account
-  mode 00644  
-  variables(
-    :production_host => node[app_name]["sunspot"]["hostname"],
-    :production_port => node[app_name]["sunspot"]["port"]
-  )
+  mode 00644
+  variables({
+    environment: node[app_name]['environment'],
+    solr: node[app_name]['sunspot']['solr']
+  })
 end

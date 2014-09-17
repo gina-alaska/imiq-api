@@ -1,28 +1,40 @@
-app_name = "imiq_api"
+user node['imiq_api']['account']
 
-unicorn_config "#{node['unicorn_config_path']}/#{app_name}.rb" do
-  preload_app true
-  listen("#{node[app_name]['shared_path']}/tmp/sockets/unicorn.socket" => {backlog: 1024})
-  pid("#{node[app_name]['shared_path']}/tmp/pids/unicorn.pid")
-  stderr_path("#{node[app_name]['shared_path']}/log/unicorn.stderr.log")
-  stdout_path("#{node[app_name]['shared_path']}/log/unicorn.stdout.log")
-  worker_timeout 60
-  worker_processes [node['cpu']['total'].to_i * 4, 8].min
-  working_directory "#{node[app_name]['deploy_path']}"
-  before_fork node[app_name]['before_fork']
-  after_fork node[app_name]['after_fork']
+directory node['unicorn']['listen'] do
+ user node['imiq_api']['account']
+ group node['imiq_api']['account']
+ recursive true
+ action :create
 end
 
-template "/etc/init.d/unicorn_#{app_name}" do
+unicorn_config node['unicorn']['config_path'] do
+  # preload_app node['unicorn']['preload_app']
+  preload false
+  listen ::File.join(node['imiq_api']['paths']['sockets'], node['unicorn']['listen']).to_s => {backlog: 1024}
+  pid ::File.join(node['imiq_api']['paths']['pids'], node['unicorn']['pid']).to_s
+  stderr_path ::File.join(node['imiq_api']['paths']['log'], node['unicorn']['stderr']).to_s
+  stdout_path ::File.join(node['imiq_api']['paths']['log'], node['unicorn']['stdout']).to_s
+  worker_timeout node['unicorn']['worker_timeout']
+  worker_processes [node['cpu']['total'].to_i * 4, 2].min
+  working_directory node['imiq_api']['paths']['deploy']
+  before_fork node['unicorn']['before_fork']
+  after_fork node['unicorn']['after_fork']
+end
+
+template "/etc/init.d/unicorn" do
   source "unicorn_init.erb"
   action :create
   mode 00755
   variables({
-    install_path: node[app_name]['deploy_path'],
-    unicorn_config_file: "#{node['unicorn_config_path']}/#{app_name}.rb"
+    install_path: node['imiq_api']['paths']['deploy'],
+    user: node['imiq_api']['account'],
+    pidfile: ::File.join(node['imiq_api']['paths']['pids'], node['unicorn']['pid']).to_s,
+    unicorn_config_file: node['unicorn']['config_path'],
+    environment: node['imiq_api']['environment'],
+    ruby_version: "2.1"
   })
 end
 
-service "unicorn_#{app_name}" do 
-  action :enable
+service "unicorn" do 
+  action [:enable]
 end

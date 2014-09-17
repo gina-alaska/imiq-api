@@ -9,10 +9,12 @@ version          '0.1.1'
 supports "centos", ">= 6.0"
 
 depends "chruby"
-depends "npm"
-depends "user"
-depends "application_ruby"
-depends "gina", "~> 0.4.5"
+depends 'yum-gina'
+depends 'yum-epel'
 depends "postgresql"
-depends "gina-postgresql"
-depends "nginx"
+depends 'unicorn'
+depends 'nginx'
+depends 'java'
+depends 'memcached'
+depends 'now'
+depends 'magic_shell'

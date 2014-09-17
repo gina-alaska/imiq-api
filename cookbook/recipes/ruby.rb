@@ -1,8 +1,11 @@
-include_recipe "gina::repo"
+include_recipe "yum-gina"
 
 package "gina-ruby-19" do
   action :install
 end
 
-node.default['chruby']['default'] = "ruby-1.9.3-p448"
+package "gina-ruby-21" do
+  action :install
+end
+
 include_recipe "chruby"
