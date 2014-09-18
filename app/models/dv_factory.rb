@@ -1,5 +1,5 @@
 class DVFactory
-  TIMESTEPS = %w{ daily hourly source }
+  TIMESTEPS = %w{ daily hourly monthly source }
 
   class << self
     def daily(name=nil)
@@ -18,6 +18,14 @@ class DVFactory
       end
     end
 
+    def monthly(name=nil)
+      if name.nil?
+        self.find_models(:monthly)
+      else
+        DerivedModel.new(:monthly, name)
+      end
+    end
+    
     def source(name=nil)
       if name.nil?
         [

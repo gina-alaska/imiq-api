@@ -3,6 +3,7 @@ class DerivedModel
   ALIASES = [
     ['Daily ', ''],
     ['Hourly ', ''],
+    ['Monthly ', ''],
     ['datavalue', ''],
     ['temp', 'temperature'],
     ['precip', 'precipitation'],

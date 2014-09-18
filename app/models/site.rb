@@ -29,6 +29,12 @@ class Site < ActiveRecord::Base
   has_many :hourly_swes, foreign_key: 'siteid'
   has_many :hourly_winddirections, foreign_key: 'siteid'
   has_many :hourly_windspeeds, foreign_key: 'siteid'
+  has_many :monthly_airtemps, foreign_key: 'siteid'
+  has_many :monthly_discharges, foreign_key: 'siteid'
+  has_many :monthly_precips, foreign_key: 'siteid'
+  has_many :monthly_rhs, foreign_key: 'siteid'
+  has_many :monthly_snowdepths, foreign_key: 'siteid'
+
 
   scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
@@ -66,7 +72,8 @@ class Site < ActiveRecord::Base
 =begin
 @derived_variables = {
   'daily' => [...],
-  'hourly' => [...]
+  'hourly' => [...],
+  'monthly' => [...]
 }
 =end
   
