@@ -1,0 +1,46 @@
+%html
+  %head
+    = wicked_pdf_stylesheet_link_tag "application"
+  %body
+    :css
+      legend {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: inherit;
+        color: #333333;
+        border: 0;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      
+      .dl-horizontal dt {
+        float: left;
+        width: 160px;
+        overflow: hidden;
+        clear: left;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .dl-horizontal dd {
+        margin-left: 180px;
+      }
+      .dl-horizontal dd:before,
+      .dl-horizontal dd:after {
+        display: table;
+        content: " ";
+      }
+      .dl-horizontal dd:after {
+        clear: both;
+      }
+      .dl-horizontal dd:before,
+      .dl-horizontal dd:after {
+        display: table;
+        content: " ";
+      }
+      .dl-horizontal dd:after {
+        clear: both;
+      }
+    = yield

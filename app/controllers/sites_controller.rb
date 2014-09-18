@@ -2,7 +2,7 @@ class SitesController < ApplicationController
   respond_to :geojson, :json
   
   # before_action :set_cors_headers, only: [:index,:show,:list,:variables]
-  set_pagination_headers :sites, only: [:index]
+  set_pagination_headers :sites, only: [:index, :show]
 
   # Fetch & Show all of the site records using the api_params
   # [GET] /sites.json => sites#index
@@ -31,6 +31,11 @@ class SitesController < ApplicationController
     @sites = site_search(100000).results
     
     respond_to do |format|
+      format.html
+      format.pdf {
+        render pdf: 'Imiq_Site_List', layout: 'pdf.html'
+      }
+      
       format.rtf {
         filename = "Imiq_Site_List.rtf"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""        
@@ -48,8 +53,12 @@ class SitesController < ApplicationController
   # [GET] /sites/1.html
   def show
     @site = Site.find(params[:id])
-
-    respond_with @site
+    
+    respond_to do |format|
+      format.html { render layout: false }
+      format.json
+      format.geojson
+    end
   end
 
   #
@@ -62,7 +71,7 @@ class SitesController < ApplicationController
   protected
 
   def site_search(limit = nil)
-    Site.search do
+    Site.search(include: [:networks, :organizations, :datastreams]) do
       fulltext api_params[:q] if api_params[:q].present?
 
       with :has_data, true
@@ -85,7 +94,7 @@ class SitesController < ApplicationController
       with :generalcategories, api_params[:generalcategory] if api_params[:generalcategory].present?
       with(:location).in_bounding_box(*api_params[:bounds]) if api_params[:bounds].present?
       facet :derived_variables
-      paginate page: api_params[:page], per_page: limit || api_params[:limit]
+      paginate page: api_params[:page], per_page: api_params[:limit] || limit
     end
   end
 

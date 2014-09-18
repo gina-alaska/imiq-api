@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.5'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 gem 'georuby'
 gem 'quiet_assets'
-gem 'bower-tools', github: 'gina-alaska/bower-tools'
+#gem 'bower-tools', github: 'gina-alaska/bower-tools'
+gem 'bower-rails'
 gem 'dalli'
 gem 'haml'
 gem 'will_paginate'
@@ -49,6 +50,10 @@ end
 
 # Use unicorn as the app server
 gem 'unicorn'
+gem 'spring', group: :development 
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 # Use Capistrano for deployment
 gem 'capistrano', group: :development
