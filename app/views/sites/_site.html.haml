@@ -1,63 +1,64 @@
-%fieldset
-  %legend= site.sitename
-  %dl.dl-horizontal
-    %dt SiteID:
-    %dd= site.siteid
-    %dt Site Name (Site Code):
-    %dd #{site.sitename} (#{site.sitecode})
-    %dt Latitude:
-    %dd= number_with_precision(site.lat, precision: 3)
-    %dt Longitude:
-    %dd= number_with_precision(site.lng, precision: 3)
-    %dt Elevation (m):
-    %dd= number_with_precision(site.z, precision: 3)
-    %dt
-      County, State:
-    %dd
-      = site.county || "Unknown"
-      ,
-      = site.state || "Unknown"
+- cache site do
+  %fieldset
+    %legend= site.sitename
+    %dl.dl-horizontal
+      %dt SiteID:
+      %dd= site.siteid
+      %dt Site Name (Site Code):
+      %dd #{site.sitename} (#{site.sitecode})
+      %dt Latitude:
+      %dd= number_with_precision(site.lat, precision: 3)
+      %dt Longitude:
+      %dd= number_with_precision(site.lng, precision: 3)
+      %dt Elevation (m):
+      %dd= number_with_precision(site.z, precision: 3)
+      %dt
+        County, State:
+      %dd
+        = site.county || "Unknown"
+        ,
+        = site.state || "Unknown"
 
-    %dt Networks:
-    %dd= render(site.networks) || "None"
-    %dt Organizations:
-    %dd= render(partial: site.organizations, spacer_template: "org_spacer" ) || "Unknown"
+      %dt Networks:
+      %dd= render(site.networks) || "None"
+      %dt Organizations:
+      %dd= render(partial: site.organizations, spacer_template: "org_spacer" ) || "Unknown"
 
-    %dt Source Contact
-    %dd
-      %address{ style: 'margin-bottom: 0;' }
-        %strong= site.source.contactname || "Unknown"
-        %br/
-        = site.source.email || "Unknown"
-        %br/
-        = site.source.address
-        %br/
-        = "#{site.source.city}, #{site.source.state} #{site.source.zipcode}"
-    %dt Web Address:
-    %dd= site.source.sourcelink || "Unknown"
-    %dt Description:
-    %dd= site.source.sourcedescription || "Unknown"
-    %dt Site Citation:
-    %dd= site.source.citation || "Unknown"
+      %dt Source Contact
+      %dd
+        %address{ style: 'margin-bottom: 0;' }
+          %strong= site.source.contactname || "Unknown"
+          %br/
+          = site.source.email || "Unknown"
+          %br/
+          = site.source.address
+          %br/
+          = "#{site.source.city}, #{site.source.state} #{site.source.zipcode}"
+      %dt Web Address:
+      %dd= site.source.sourcelink || "Unknown"
+      %dt Description:
+      %dd= site.source.sourcedescription || "Unknown"
+      %dt Site Citation:
+      %dd= site.source.citation || "Unknown"
 
-  %dl.dl-horizontal
-    %dt Metadata Title:
-    %dd= site.source.metadata.title || "Unknown"
-    %dt Abstract:
-    %dd= site.source.metadata.abstract || "Unknown"
-    %dt Topic Category:
-    %dd= site.source.metadata.topiccategory || "Unknown"
-    %dt Profile Version:
-    %dd= site.source.metadata.profileversion || "Unknown"
-    %dt Link:
-    %dd= site.source.metadata.metadatalink || "Unknown"
+    %dl.dl-horizontal
+      %dt Metadata Title:
+      %dd= site.source.metadata.title || "Unknown"
+      %dt Abstract:
+      %dd= site.source.metadata.abstract || "Unknown"
+      %dt Topic Category:
+      %dd= site.source.metadata.topiccategory || "Unknown"
+      %dt Profile Version:
+      %dd= site.source.metadata.profileversion || "Unknown"
+      %dt Link:
+      %dd= site.source.metadata.metadatalink || "Unknown"
     
-  %dl.dl-horizontal
-    %dt Source data:
-    %dd
-      - if site.variables.empty?
-        No source data available yet
-      - else
-        = site.variables.pluck(:variablename).uniq.sort.join('; ')  
-    %dt Summary products:
-    %dd= site.derived_variables.values.map{ |v| v.map{ |i| i[0] } }.flatten.uniq.sort.join('; ')
+    %dl.dl-horizontal
+      %dt Source data:
+      %dd
+        - if site.variables.empty?
+          No source data available yet
+        - else
+          = site.variables.pluck(:variablename).uniq.sort.join('; ')  
+      %dt Summary products:
+      %dd= site.derived_variables.values.map{ |v| v.map{ |i| i[0] } }.flatten.uniq.sort.join('; ')
