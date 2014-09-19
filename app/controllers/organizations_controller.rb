@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   def list
     search = Organization.search do
-      with :has_sites, true
+      with :has_data, true
       order_by :organizationcode, :asc
     end
     

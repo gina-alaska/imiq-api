@@ -1,1 +1,1 @@
-<%= Imiqversion.pluck(:versionnumber).first %> BETA
+<%= Imiqversion.order(creationdate: :desc).first.version %> BETA

@@ -51,3 +51,13 @@
     %dd= site.source.metadata.profileversion || "Unknown"
     %dt Link:
     %dd= site.source.metadata.metadatalink || "Unknown"
+    
+  %dl.dl-horizontal
+    %dt Source data:
+    %dd
+      - if site.variables.empty?
+        No source data available yet
+      - else
+        = site.variables.pluck(:variablename).uniq.sort.join('; ')  
+    %dt Summary products:
+    %dd= site.derived_variables.values.map{ |v| v.map{ |i| i[0] } }.flatten.uniq.sort.join('; ')

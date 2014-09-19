@@ -11,6 +11,7 @@ default['imiq_api']['paths'] = {
 }
 
 default['imiq_api']['account'] = "webdev"
+default['imiq_api']['environment'] = "production"
 
 # default['imiq_api']['database']['adapter']  = "postgresql"
 # default['imiq_api']['database']['hostname'] = ""

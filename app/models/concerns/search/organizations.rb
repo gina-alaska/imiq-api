@@ -10,6 +10,10 @@ module Search
         boolean :has_sites do
           self.sites.count > 0
         end
+        
+        boolean :has_data do
+          self.datastreams.count > 0
+        end
       end
     end
   end
