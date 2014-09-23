@@ -8,6 +8,7 @@ class DerivedValuesController < ApplicationController
       "c1" => "Summary product using one or more measurements from Imiq database."
     }
     procinfo = {
+      "monthly" => "c1",
       "hourly" => "c1",
       "daily" => "c1"
     }
