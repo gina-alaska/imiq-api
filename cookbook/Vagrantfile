@@ -43,6 +43,11 @@ Vagrant.configure("2") do |config|
             log_level: 'INFO'
           }
         },
+        database: {
+          development: {
+            database: 'iarcod_staging'
+          }
+        },
         paths: {
           shared: "/www/imiq_api/current",
           config: "/www/imiq_api/current/config",
