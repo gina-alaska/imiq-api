@@ -10,7 +10,13 @@ class SitesController < ApplicationController
 
   def index
     @sites = site_search.results
-    respond_with @sites
+    respond_to do |format| 
+      format.json 
+      format.geojson
+      format.pdf {
+        render pdf: 'Imiq_Site_List', layout: 'pdf.html'
+      }
+    end
   end
 
   def variables
@@ -71,6 +77,8 @@ class SitesController < ApplicationController
   protected
 
   def site_search(limit = nil)
+    Rails.logger.info api_params.inspect
+    
     Site.search(include: [:networks, :organizations, :datastreams]) do
       fulltext api_params[:q] if api_params[:q].present?
 

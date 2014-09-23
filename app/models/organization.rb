@@ -8,6 +8,7 @@ class Organization < ActiveRecord::Base
   # has_many :networks, through: :organizations_sources
   has_many :sources, through: :organizations_sources
   has_many :sites, through: :sources
+  has_many :datastreams, through: :sites
   
   
   def description_with_code

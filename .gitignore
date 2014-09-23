@@ -52,3 +52,4 @@ config/database.yml
 solr/pids/development/sunspot-solr-development.pid
 
 cookbook/.kitchen/logs/kitchen.log
+cookbook/.kitchen
