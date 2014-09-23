@@ -5,7 +5,7 @@ class DerivedValuesController < ApplicationController
     proclevels = {
       "a1" => "Calibration factors applied and converted to geophysical units.",
       "b1" => "Some QC checks applied to measurements.",
-      "c1" => "Summary, time-averaged product using one or more measurements from Imiq database."
+      "c1" => "Summary product using one or more measurements from Imiq database."
     }
     procinfo = {
       "hourly" => "c1",
