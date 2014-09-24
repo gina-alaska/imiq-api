@@ -4,7 +4,7 @@ maintainer_email 'will@gina.alaska.edu'
 license          'All rights reserved'
 description      'Installs/Configures imiq_api application server'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.0'
+version          '1.0.1'
 
 supports "centos", ">= 6.0"
 

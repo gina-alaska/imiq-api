@@ -49,6 +49,15 @@ default['imiq_api']['database'] = {
   }
 }
 
+default['imiq_api']['sunspot'] = {
+  solr: {
+    hostname: 'localhost',
+    port: 8983,
+    path: '/solr/default',
+    log_level: 'INFO'
+  }
+}
+
 default['imiq_api']['rails']['secret'] = '95cdd1a99dcb956797ee819b0565801427c68aaf963149e9e1dedfa232d9ee94ac0633fcf5104b976f8f01f752a4dceda27e1de846657ce79f9b01490bb16926'
 
 default['unicorn']['preload_app'] = true
