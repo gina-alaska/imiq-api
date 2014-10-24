@@ -5,7 +5,7 @@ module DerivedValuesApiConcern
     title: "Export",
     description: "The export endpoint accesses summary-products in the Imiq Hydroclimate Database and builds a .csv file for download. 
     The timestep and the summary-product data field are declared in the URL. Choices for timestep are: hourly, daily, monthly, annual.  
-    Choices for summary-products fields are (with an informational description given in the parentheses): 
+    Choices for field are (with an informational description given in the parentheses): 
     airtemp (air temperature at surface height of 2 m), discharge (river/stream discharge), precip (accumulated precipitation), 
     rh (relative humidity at the surface height of 2 m), snowdepth (accumulated snow depth), swe (snow water equivalent), 
     watertemp (temperature of lakes, etc at the surface), winddirection (wind direction near surface), 
