@@ -1,4 +1,5 @@
 class SourcesController < ApplicationController
+  include SourcesApiConcern
   respond_to :json
   
   def index

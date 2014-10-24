@@ -1,0 +1,14 @@
+.panel-group{:id => "accordian"}
+  - api.each do |endpoint,config|
+    .panel.panel-default
+      .panel-heading
+        %h4.panel-title
+          %a.accordion-toggle{"data-toggle" => "collapse", "data-parent" => "#accordian", :href => "##{endpoint.parameterize}"}
+            = endpoint
+      .panel-collapse.collapse{:id => endpoint.parameterize}
+        .panel-body
+          = render partial: 'welcome/api_description', locals: config
+          = render partial: 'welcome/api_params', locals: config unless config[:api_params].blank?    
+          = render partial: 'welcome/api_url', locals: config
+          = render partial: 'welcome/api_response', locals: config         
+        

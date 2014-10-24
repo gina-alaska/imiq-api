@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  include OrganizationsApiConcern
   def list
     search = Organization.search do
       with :has_data, true

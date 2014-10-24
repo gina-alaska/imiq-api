@@ -1,0 +1,39 @@
+%h3 Organizations
+%p The organizations endpoint provides a list of the institutions (federal, state, academic, etc.) that have contributed data to Imiq.  Contributing organizations include NOAA, UAF, FWS-ALCC.
+#accordion.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseOrganizationsList"}
+      %p /organizations/list.{json}
+    #collapseOrganizationsList.panel-collapse.collapse
+      .panel-body
+        #name
+          %p Description
+          %p List organization descriptions and codes
+          %br/
+          %p Format Types
+          %ul
+            %li json
+          %br/
+          %p Output
+          %ul
+            %li organization
+            %li description_with_code
+          %br/
+          %p Example JSON Request
+          %pre
+            :preserve
+              
+              http://imiq-api.dev/organizations/list.json
+                                    %br/
+          %p Example JSON Response Body
+          %pre
+            :preserve
+              
+              [
+              {organizationcode: NPS
+              description_with_code: NPS - National Park Service},          
+              etc.
+              ]             
+                                    %br/

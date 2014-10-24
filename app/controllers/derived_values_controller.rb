@@ -1,4 +1,5 @@
 class DerivedValuesController < ApplicationController
+  include DerivedValuesApiConcern
   rescue_from ActionView::Template::Error, with: :csv_error if Rails.env.production?
 
   def index

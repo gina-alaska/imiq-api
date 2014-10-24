@@ -1,0 +1,19 @@
+%h3 Query Parameters
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Field Name
+      %th Description
+      %th Type
+      %th Default
+      %th Required?
+  %tbody
+    - api_params.each do |p|
+      %tr
+        %td= p[:name]
+        %td= p[:description]
+        %td= p[:type]
+        %td= p[:default]        
+        %td= p[:required] ? 'Yes' : 'No'
+        
+/ = render partial: 'api_params', locals: { api_params: [{ name: 'foo', description: 'The foo column is awesome', type: 'string', required: true }, { name: 'bar', description: 'The bar column is a little more awesome than the foo column', type: 'string', required: false }] }

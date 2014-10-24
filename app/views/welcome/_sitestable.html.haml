@@ -1,0 +1,63 @@
+%p Table Fields
+%table.table
+  %tr
+    %th Field Name
+    %th Description
+    %th Data Type
+  %tr
+    %td siteid
+    %td Primary key; Unique integer identifier
+    %td integer
+  %tr
+    %td sitecode
+    %td Unique text code for site
+    %td nvarchar(50)
+  %tr
+    %td sitename
+    %td Site name by organization that collects data
+    %td nvarchar(255)
+  %tr
+    %td spatialcharacteristics
+    %td Indicates whether site is a point, polygon, or linestring.
+    %td nvarchar(50)
+  %tr
+    %td sourceid
+    %td Integer identifier referencing the record in the Sources table
+    %td integer
+  %tr
+    %td verticaldatum
+    %td Vertical datum of the elevation.  Use controlled vocabulary.
+    %td nvarchar(255)
+    %td
+  %tr
+    %td localprojectionid
+    %td Integer identifer referencing a record in the SpatialReferences table
+    %td integer
+  %tr
+    %td posaccuracy_m
+    %td Positional accuracy of coordinates in meters
+    %td float
+  %tr
+    %td state
+    %td State/territory where site is located
+    %td nvarchar(255)
+  %tr
+    %td county
+    %td County/country where site is located
+    %td nvarchar(255)
+  %tr
+    %td comments
+    %td Additional site comments not related to location
+    %td nvarchar(MAX)
+  %tr
+    %td latlongdatumid
+    %td References SpatialReferenceID in SpatialReferences table.  To enable spatial calculations, all datum should be WGS84(the code for this is three).
+    %td integer
+  %tr
+    %td geolocation
+    %td Coordinates and elevation given in a specific format for points and polygons. Latitude and longitude should be in decimal degrees. Elevation is in meters. Point locations are stored as "Point (long lat elevation)"
+    %td nvarchar(MAX)
+  %tr
+    %td locationdescription
+    %td None
+    %td nvarchar(MAX)

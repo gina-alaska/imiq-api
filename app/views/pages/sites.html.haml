@@ -1,0 +1,3 @@
+%h1.page-header= SitesController::TITLE[:title]
+%p.lead= SitesController::TITLE[:description]
+= render partial: 'welcome/collapse_api_params', locals:{api:SitesController::API}

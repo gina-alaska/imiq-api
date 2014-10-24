@@ -1,0 +1,65 @@
+%p Description
+%p Source information for the sites in the Imiq database.
+%br/
+%p Format Types
+%ul
+  %li json
+%br/
+%p Table Fields
+%table.table
+  %tr
+    %th Field Name
+    %th Description
+    %th Data Type
+  %tr
+    %td sourceid
+    %td Primary key.  Unique integer identifier.
+    %td integer
+  %tr
+    %td organization
+    %td Name of the organization that collected or published the data.
+    %td nvarchar(255)
+  %tr
+    %td sourcedescription
+    %td A more detailed description of where the dadta was actually obtained and/or is currently stored.
+    %td nvarchar(MAX)
+  %tr
+    %td sourcerole
+    %td Notes whether the source is the 'originator', 'publisher', or both.
+    %td nvarchar(50)
+  %tr
+    %td sourcelink
+    %td Link that can be pointed at the original data file, associated metadata, and/or project website.
+    %td nvarchar(255)
+  %tr
+    %td phone
+    %td Phone number of contact
+    %td nvarchar(255)
+  %tr
+    %td email
+    %td Email address of contact
+    %td nvarchar(255)
+  %tr
+    %td address
+    %td Stress address of contact
+    %td nvarchar(255)
+  %tr
+    %td city
+    %td City associated with contact person's mailing address
+    %td nvarchar(255)
+  %tr
+    %td state
+    %td State/territory associated with contact person's mailing address
+    %td nvarchar(255)
+  %tr
+    %td zipcode
+    %td Zip code associated with contact's mailing address
+    %td nvarchar(255)
+  %tr
+    %td citation
+    %td Citation to be used when the data from this source is used.
+    %td nvarchar(MAX)
+  %tr
+    %td metadataid
+    %td Integer identifier that references the record in the ISOMetadata table.
+    %td integer

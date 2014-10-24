@@ -1,0 +1,125 @@
+%h3 Variables
+%p The organizations endpoint provides a list of the institutions (federal, state, academic, etc.) that have contributed data to Imiq.  Contributing organizations include NOAA, UAF, FWS-ALCC.
+#accordion.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariablesList"}
+      %p /variables/list.{json}
+    #collapseVariablesList.panel-collapse.collapse
+      .panel-body
+        #name
+          %p Description
+          %p List variables, data classifcations, value types, and general geophysical classifications.
+          %br/
+          %p Format Types
+          %ul
+            %li json
+          %br/
+          %p Output
+          %ul
+            %li names
+            %li datatypes
+            %li valuetypes
+            %li generalcategories
+          %br/
+          %p Example JSON Request
+          %pre
+            :preserve
+              
+              http://imiq-api.dev/variables/list.json
+                                    %br/
+          %p Example JSON Response Body
+          %pre
+            :preserve
+              
+              {
+              names: [
+                      "Average",
+                      "Categorial",
+                      etc...
+              ], 
+              datatypes: [
+                      "Ablation",
+                      "Albedo",
+                      etc...
+              ],
+              valuetypes: [
+                      "Derived Value"
+                      "Field Observation"
+              ],
+              generalcategories: [
+                     "Biota",
+                     "Climate",
+                     etc...
+              ]
+              }            
+                                    %br/
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariables"}
+          \/variables.{format}
+    #collapseVariables.panel-collapse.collapse
+      .panel-body
+        = render "variabledescription"
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariablesShow"}
+          \/variables/{variableid}.{format}
+    #collapseVariablesShow.panel-collapse.collapse
+      .panel-body
+        #name
+          %p Description
+          %p
+            A partial list of fields for a given variable from the Variables table.
+          %p variableid
+          %ul
+            %li Unique integer identifying each variable (from Variables table).
+          %p Format Types
+          %ul
+            %li json
+          %br/
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariablesList"}
+          \/variables/list.{format}
+    #collapseVariablesList.panel-collapse.collapse
+      .panel-body
+        = render "variablelist"
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariables"}
+        \/variables.{format}
+  #collapseVariables.panel-collapse.collapse
+    .panel-body
+      = render "variabledescription"
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariablesShow"}
+        \/variables/{variableid}.{format}
+  #collapseVariablesShow.panel-collapse.collapse
+    .panel-body
+      #name
+        %p Description
+        %p
+          A partial list of fields for a given variable from the Variables table.
+        %p variableid
+        %ul
+          %li Unique integer identifying each variable (from Variables table).
+        %p Format Types
+        %ul
+          %li json
+        %br/
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseVariablesList"}
+        \/variables/list.{format}
+  #collapseVariablesList.panel-collapse.collapse
+    .panel-body
+      = render "variablelist"
