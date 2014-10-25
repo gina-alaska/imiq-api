@@ -64,6 +64,7 @@ GEM
     georuby (2.2.1)
     haml (4.0.5)
       tilt
+    high_voltage (2.2.1)
     highline (1.6.21)
     hike (1.2.3)
     i18n (0.6.11)
@@ -193,6 +194,7 @@ DEPENDENCIES
   dalli
   georuby
   haml
+  high_voltage (~> 2.2.1)
   jbuilder (~> 1.2)
   jquery-rails
   pg
