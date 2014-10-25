@@ -1,3 +1,35 @@
 %h1.page-header= DerivedValuesController::TITLE[:title]
 %p.lead= DerivedValuesController::TITLE[:description]
+%p
+  Choices for timestep
+  %ul
+    %li
+      hourly
+    %li
+      daily
+    %li
+      monthly
+    %li
+      annual  
+%p
+  Choices for field (with an informational description given in the parentheses)
+  %ul
+    %li
+      airtemp (air temperature at surface height of 2 m)
+    %li
+      discharge (river/stream discharge)
+    %li
+      precip (accumulated precipitation)
+    %li
+      rh (relative humidity at the surface height of 2 m)
+    %li
+      snowdepth (accumulated snow depth)
+    %li
+      swe (snow water equivalent)
+    %li
+      watertemp (temperature of lakes, etc at the surface)
+    %li
+      winddirection (wind direction near surface)
+    %li
+      windspeed (wind direction near surface)                   
 = render partial: 'welcome/collapse_api_params', locals:{api:DerivedValuesController::API}
