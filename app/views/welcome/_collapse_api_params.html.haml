@@ -5,10 +5,10 @@
         %h4.panel-title
           %a.accordion-toggle{"data-toggle" => "collapse", "data-parent" => "#accordian", :href => "##{endpoint.parameterize}"}
             = endpoint
-      .panel-collapse.collapse{:id => endpoint.parameterize}
+      .panel-collapse.collapse{:id => endpoint.parameterize, class: (api.count == 1 and endpoint == api.keys.first) ? 'in' : '' }
         .panel-body
           = render partial: 'welcome/api_description', locals: config
+          = render partial: 'welcome/url_params', locals: config unless config[:url_params].blank?    
           = render partial: 'welcome/api_params', locals: config unless config[:api_params].blank?    
           = render partial: 'welcome/api_url', locals: config
           = render partial: 'welcome/api_response', locals: config         
-        

@@ -1,0 +1,17 @@
+%h3 URL Parameters
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Field Name
+      %th Required?
+      %th Valid values
+      %th Default value
+  %tbody
+    - url_params.each do |p|
+      %tr
+        %td= p[:name]
+        %td= p[:required] ? 'Yes' : 'No'
+        %td= p[:values].try(:join, ', ')
+        %td= p[:default]
+        
+/ = render partial: 'api_params', locals: { api_params: [{ name: 'foo', description: 'The foo column is awesome', type: 'string', required: true }, { name: 'bar', description: 'The bar column is a little more awesome than the foo column', type: 'string', required: false }] }

@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title ImiqApi
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    %section#header
+      = render 'layouts/header'
+    %section#content.container
+      .row
+        .col-md-2
+          = render :partial => 'welcome/sidebar'
+        .col-md-10
+          = yield
+    %section#footer
+      = render 'layouts/footer'

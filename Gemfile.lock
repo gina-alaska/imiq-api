@@ -118,6 +118,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
+    rdiscount (2.1.6)
     rdoc (4.1.1)
       json (~> 1.4)
     ref (1.0.5)
@@ -201,6 +202,7 @@ DEPENDENCIES
   progress_bar
   quiet_assets
   rails (= 4.1.5)
+  rdiscount
   sass-rails (~> 4.0.0)
   sdoc
   spring
