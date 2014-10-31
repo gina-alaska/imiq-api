@@ -10,7 +10,7 @@ The timestep and the summary-product data field are declared in the URL. "
   }
   
   API = {
-    '/export/{timestep}_{field}.{format}' => {
+    '/export/{timestep}_{field}.{format}?{query}' => {
       description: "
 
 Export \"field\" value descriptions:

@@ -7,9 +7,15 @@ module SitesApiConcern
   }
   
   API = {
-    '/sites.{geojson,json,pdf}?{params}' => {
+    '/sites.{format}?{query}' => {
       description: "Parse list of data sources within Imiq. Restricted to those sites that have summary data products available for immediate export.",
       url: "http://imiq-api.gina.alaska.edu/sites.json",
+      url_params: [
+        {
+          name: 'format',
+          required: true,
+          values: %w{ geojson,json,pdf }
+          }],
       api_params: [
       {
         name: 'bounds', 
@@ -216,9 +222,21 @@ Water content
 }
 "
     },
-    '/sites/{siteid}.{geojson,json}}' => {
+    '/sites/{siteid}.{format}}' => {
       description: "Individual foos",
       url: "http://imiq-api.gina.alaska.edu/sites/1.json",
+      url_params: [
+        {
+          name: 'siteid',
+          required: true,
+          values: %w{ integer }
+          },
+        {
+          name: 'format',
+          required: true,
+          values: %w{ geojson,json,pdf }
+          },
+        ],     
       api_params: [],
       response: 
 "

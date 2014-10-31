@@ -7,7 +7,7 @@ module SourcesApiConcern
   }
   
   API = {
-    '/sources.json?{params}' => {
+    '/sources.json?{query}' => {
       description: "Parse list of data sources within Imiq.",
       url: "http://imiq-api.gina.alaska.edu/sources.json?limit=2&page=1",
       api_params: [{ 
@@ -67,6 +67,12 @@ updated_at: 2014-08-25T14:52:46.403Z
     '/sources/{sourceid}.json' => {
       description: "Parse single data source (defined by source id) within Imiq.",
       url: "http://imiq-api.gina.alaska.edu/sources/1.json",
+      url_params: [
+        {
+          name: 'sourceid',
+          required: true,
+          values: %w{ integer }
+          }],      
       api_params: [
       ],
       response:
