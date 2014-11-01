@@ -1,4 +1,5 @@
 class NetworksController < ApplicationController
+  include NetworksApiConcern
   def list
     search = Network.search do
       with :has_sites, true

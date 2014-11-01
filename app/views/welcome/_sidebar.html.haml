@@ -1,0 +1,13 @@
+.list-group
+  %a.list-group-item{:href => root_path, class: current_page?(root_path) ? 'active' : '' }
+    Introduction
+  %a.list-group-item{:href => page_path('export'), class: current_page?(page_path('export')) ? 'active' : ''}
+    Export
+  %a.list-group-item{:href => page_path('networks'), class: current_page?(page_path('networks')) ? 'active' : ''}
+    Networks
+  %a.list-group-item{:href => page_path('organizations'), class: current_page?(page_path('organizations')) ? 'active' : ''}
+    Organizations
+  %a.list-group-item{:href => page_path('sites'), class: current_page?(page_path('sites')) ? 'active' : ''}
+    Sites
+  %a.list-group-item{:href => page_path('sources'), class: current_page?(page_path('sources')) ? 'active' : ''}
+    Sources

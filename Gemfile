@@ -11,6 +11,7 @@ gem 'quiet_assets'
 gem 'bower-rails'
 gem 'dalli'
 gem 'haml'
+gem 'rdiscount'
 gem 'will_paginate'
 #gem 'activerecord-import', '~> 0.4.0'
 gem 'yajl-ruby'
@@ -39,6 +40,9 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+# Use high_voltage for storing static pages.
+gem 'high_voltage', '~> 2.2.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

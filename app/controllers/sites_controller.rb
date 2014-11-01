@@ -1,4 +1,5 @@
 class SitesController < ApplicationController
+  include SitesApiConcern
   respond_to :geojson, :json
   
   # before_action :set_cors_headers, only: [:index,:show,:list,:variables]

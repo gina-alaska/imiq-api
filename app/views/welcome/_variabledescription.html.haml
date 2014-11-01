@@ -1,0 +1,41 @@
+%p Description
+%p A partial list of fields from the Variables table
+%br/
+%p Format Types
+%ul
+  %li json
+%br/
+%p Table Fields
+%table.table
+  %tr
+    %th Field Name
+    %th Description
+    %th Data Type
+  %tr
+    %td variableid
+    %td Primary key. Unique integer identifier.
+    %td integer
+  %tr
+    %td variablecode
+    %td Text to identify the variable
+    %td nvarchar(50)
+  %tr
+    %td variablename
+    %td Selected from the VariableNameCV table's controlled vocabulary
+    %td nvarchar(255)
+  %tr
+    %td samplemedium
+    %td Selected from the SampleMediumCV table's controlled vocabulary
+    %td nvarchar(255)
+  %tr
+    %td valuetype
+    %td Selected from the ValueTypeCV table's controlled vocabulary
+    %td nvarchar(255)
+  %tr
+    %td datatype
+    %td Selected from the DataTypeCV table's controlled vocabulary.  If the data type is categorical, then there must be at least one associated CategoricalID to the VariableID.
+    %td nvarchar(255)
+  %tr
+    %td generalcategory
+    %td Selected from the GeneralCategoryCV table's controlled vocabulary
+    %td nvarchar(255)

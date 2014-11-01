@@ -1,0 +1,39 @@
+%h3 Networks
+%p The networks endpoint provides listings of the data networks that have contributed data to Imiq.  Contributing networks include RAWS and NCDC ISH.
+#accordion.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseNetworksList"}
+      %p /networks/list.{json}
+    #collapseNetworksList.panel-collapse.collapse
+      .panel-body
+        #name
+          %p Description
+          %p List of network descriptions and codes
+          %br/
+          %p Format Types
+          %ul
+            %li json
+          %br/
+          %p Output
+          %ul
+            %li networkcode
+            %li description_with_code
+          %br/
+          %p Example JSON Request
+          %pre
+            :preserve
+              
+              http://imiq-api.dev/networks/list.json
+                                    %br/
+          %p Example JSON Response Body
+          %pre
+            :preserve
+              
+              [
+              {networkcode: NCDC ISH
+              description_with_code: NCDC ISH - National Cpmatic Data Center, Integrated Surface Hourly},          
+              etc.
+              ]             
+                                    %br/

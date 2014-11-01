@@ -1,0 +1,21 @@
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseSources"}
+        \/sources.{format}
+  #collapseSources.panel-collapse.collapse
+    .panel-body
+      = render "sourcedescription"
+.panel.panel-default
+  .panel-heading
+    %h4.panel-title
+      %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseSourcesShow"}
+        \/sources/{sourceid}.{format}
+  #collapseSourcesShow.panel-collapse.collapse
+    .panel-body
+      %p Description
+      %p Source information for the each sourceid in the Imiq database.
+      %br/
+      %p Format Types
+      %ul
+        %li json

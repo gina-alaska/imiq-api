@@ -1,0 +1,80 @@
+%h3 Sites
+%p The sites endpoint provides a list of locations/descriptions where data values in the Imiq database were sampled.
+#accordion.panel-group
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseSites"}
+          \/sites.{geojson,json}
+    #collapseSites.panel-collapse.collapse
+      .panel-body
+        %p Description
+        %p Site information that describes the location where the data values were sampled.
+        %br/
+        %p Format Types
+        %ul
+          %li json
+          %li geojson
+        %p Optional Parameters
+        %ul
+          %li ?verbose
+        %ul
+          %li = 1 Output site, source, variables, datastreams, derived variable information.
+        %br/
+        %p Search Parameters
+        %table.table
+          %tr
+            %th Field Name
+            %th Table
+            %th Data Type
+          %tr
+            %td datatype
+            %td Variables
+            %td string
+          %tr
+            %td generalcategory
+            %td Variables
+            %td string
+          %tr
+            %td samplemedium
+            %td Variables
+            %td string
+          %tr
+            %td variablename
+            %td Variables
+            %td string
+          %tr
+            %td valuetype
+            %td Variables
+            %td string
+          %tr
+            %td organizationcode
+            %td Organization Descriptions
+            %td string
+        %br/
+        = render "sitestable"
+  .panel.panel-default
+    .panel-heading
+      %h4.panel-title
+        %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseSitesShow"}
+          \/sites/{siteid}.{geojson,json}
+    #collapseSitesShow.panel-collapse.collapse
+      .panel-body
+        #name
+          %p Description
+          %p
+            Site information for individual sites from the seriescatalog_62 view.
+          %p siteid
+          %ul
+            %li Unique integer identifying each site (from Sites table).
+          %p Format Types
+          %ul
+            %li json
+            %li geojson
+          %p Optional Parameters
+          %ul
+            %li ?verbose
+          %ul
+            %li = 1 Output site, source, variables, datastreams, derived variable information.
+          %br/
+          = render "sitestable"
