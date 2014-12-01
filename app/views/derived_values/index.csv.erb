@@ -1,7 +1,7 @@
 <% if flash[:error] %>
 ERROR: <%= flash[:error] %>
 <% end %>
-NOTE: Data are provisional and subject to revision; Imiq application still in beta-testing.  See README.txt for citation information.
+NOTE: Data are provisional and subject to revision.  See README.txt for citation information.
 Database ID: <%= render("dbversion.text") %>
 Time of Data Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
 Site ID(s): <%= @values.pluck(:siteid).uniq.join(', ').html_safe %>
