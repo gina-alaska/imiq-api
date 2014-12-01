@@ -8,7 +8,7 @@ module SitesApiConcern
   
   API = {
     '/sites.{format}?{query}' => {
-      description: "Parse list of data sources within Imiq. Restricted to those sites that have summary data products available for immediate export.",
+      description: "Parse list of sites within Imiq. Restricted to those sites that have summary data products available for immediate export.",
       url: "http://imiq-api.gina.alaska.edu/sites.json",
       url_params: [
         {
@@ -61,7 +61,7 @@ module SitesApiConcern
       },
       {
         name: 'variablename', 
-        description: 'select sites by variablename (i.e. airtemp, rh, watertemp, etc., see /sites/variables endpoint)', 
+        description: 'select sites by variablename (i.e. airtemp, rh, watertemp, etc., see http://imiq-api.gina.alaska.edu/sites/variables.json)', 
         type: 'string', 
         default: '',
         required: false        
@@ -223,7 +223,7 @@ Water content
 "
     },
     '/sites/{siteid}.{format}}' => {
-      description: "Individual foos",
+      description: "Parse individual site within Imiq. Restricted to those sites that have summary data products available for immediate export.",
       url: "http://imiq-api.gina.alaska.edu/sites/1.json",
       url_params: [
         {

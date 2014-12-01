@@ -3,7 +3,7 @@ module SourcesApiConcern
   
   TITLE = {
     title: "Sources",
-    description: "The sources endpoint provides a list of sources that have provided data to the Imiq database."
+    description: "The sources endpoint provides a list of dataset sources that have been ingested into the Imiq database."
   }
   
   API = {
