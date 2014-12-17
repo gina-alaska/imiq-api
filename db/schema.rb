@@ -15,26 +15,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "xml2"
-  enable_extension "uuid-ossp"
-  enable_extension "tsearch2"
-  enable_extension "timetravel"
-  enable_extension "tablefunc"
-  enable_extension "pgstattuple"
-  enable_extension "pgrowlocks"
-  enable_extension "pgcrypto"
-  enable_extension "pg_stat_statements"
-  enable_extension "pg_freespacemap"
-  enable_extension "pg_buffercache"
-  enable_extension "pageinspect"
-  enable_extension "moddatetime"
-  enable_extension "ltree"
-  enable_extension "lo"
-  enable_extension "intarray"
-  enable_extension "insert_username"
-  enable_extension "fuzzystrmatch"
-  enable_extension "file_fdw"
   enable_extension "adminpack"
   enable_extension "autoinc"
   enable_extension "btree_gin"
@@ -45,148 +25,301 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   enable_extension "dict_int"
   enable_extension "dict_xsyn"
   enable_extension "earthdistance"
-  enable_extension "dblink"
+  enable_extension "file_fdw"
+  enable_extension "fuzzystrmatch"
+  enable_extension "hstore"
+  enable_extension "insert_username"
   enable_extension "intagg"
+  enable_extension "intarray"
+  enable_extension "lo"
+  enable_extension "ltree"
+  enable_extension "moddatetime"
+  enable_extension "pageinspect"
+  enable_extension "pg_buffercache"
+  enable_extension "pg_freespacemap"
+  enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
+  enable_extension "pgcrypto"
+  enable_extension "pgrowlocks"
+  enable_extension "pgstattuple"
   enable_extension "refint"
   enable_extension "seg"
+  enable_extension "tablefunc"
+  enable_extension "timetravel"
+  enable_extension "tsearch2"
   enable_extension "unaccent"
+  enable_extension "uuid-ossp"
+  enable_extension "xml2"
+  enable_extension "dblink"
 
-  create_table "_sites_summary", id: false, force: true do |t|
-    t.integer "siteid",                 null: false
-    t.text    "geolocation",            null: false
-    t.string  "begindate",   limit: 10, null: false
-    t.string  "enddate",     limit: 10, null: false
+  create_table "annual_avgairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
-  create_table "_siteswithelevations", id: false, force: true do |t|
-    t.integer "siteid"
-    t.text    "geolocation"
-    t.text    "sourcedatum"
+  create_table "annual_avgdischarge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
-  create_table "airtemp_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
+  create_table "annual_avgfallairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
-  create_table "annual_airtemp_1900_to_2013", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_1900_to_2013_nouaf", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_2000_to_2013_all", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_2000_to_2013_nouaf", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_2008_to_2011", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "avg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_airtemp_2009_to_2010", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "avg"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "annual_avgairtemps", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "annualavg"
-  end
-
-  create_table "annual_avgpeakmayjunedischarge_yearcount", id: false, force: true do |t|
-    t.integer "siteid",           null: false
-    t.string  "sitename"
-    t.float   "avgpeakdischarge"
-    t.integer "totalyears"
-    t.float   "elevation"
-    t.binary  "geolocation"
-  end
-
-  create_table "annual_avgprecips", id: false, force: true do |t|
+  create_table "annual_avgfallairtemp_all", id: false, force: true do |t|
     t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "annualtotal"
-  end
-
-  create_table "annual_avgsummerprecip_yearcount", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.integer "totalyears"
-    t.float   "elevation"
-    t.binary  "geolocation"
-  end
-
-  create_table "annual_avgsummerprecips", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
     t.integer "year"
     t.float   "seasonalavg"
   end
 
-  create_table "annual_avgwinterprecip_yearcount", id: false, force: true do |t|
+  create_table "annual_avgfallprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgfallprecip_all", id: false, force: true do |t|
     t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.float   "annualavg"
-    t.integer "totalyears"
-    t.float   "elevation"
-    t.binary  "geolocation"
+    t.integer "year"
+    t.float   "seasonalavg"
   end
 
-  create_table "annual_peakmayjunedischargedatavalues", primary_key: "valueid", force: true do |t|
-    t.float   "datavalue"
-    t.integer "year",               null: false
-    t.integer "siteid",             null: false
-    t.integer "originalvariableid", null: false
+  create_table "annual_avgprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
-  create_table "annual_winterprecips", id: false, force: true do |t|
+  create_table "annual_avgrh", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgrh_all", id: false, force: true do |t|
+    t.integer "siteid", null: false
+    t.integer "year"
+    t.float   "rh"
+    t.float   "at"
+  end
+
+  create_table "annual_avgspringairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgspringairtemp_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgspringprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgspringprecip_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgsummerairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgsummerairtemp_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgsummerdischarge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgsummerdischarge_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgsummerprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgsummerprecip_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgsummerrh", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgsummerrh_all", id: false, force: true do |t|
     t.integer "siteid",        null: false
     t.integer "year"
-    t.float   "seasonalvalue"
+    t.float   "seasonalavgrh"
+    t.float   "seasonalavgat"
+  end
+
+  create_table "annual_avgwinterairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgwinterairtemp_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgwinterprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgwinterprecip_all", id: false, force: true do |t|
+    t.integer "siteid",      null: false
+    t.integer "year"
+    t.float   "seasonalavg"
+  end
+
+  create_table "annual_avgwinterrh", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_avgwinterrh_all", id: false, force: true do |t|
+    t.integer "siteid",        null: false
+    t.integer "year"
+    t.float   "seasonalavgrh"
+    t.float   "seasonalavgat"
+  end
+
+  create_table "annual_peakdischarge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_peakdischarge_all", id: false, force: true do |t|
+    t.integer "siteid",    null: false
+    t.integer "year"
+    t.float   "datavalue"
+  end
+
+  create_table "annual_peaksnowdepth", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_peaksnowdepth_all", id: false, force: true do |t|
+    t.integer "siteid",    null: false
+    t.integer "year"
+    t.float   "datavalue"
+  end
+
+  create_table "annual_peakswe", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_peakswe_all", id: false, force: true do |t|
+    t.integer "siteid",    null: false
+    t.integer "year"
+    t.float   "datavalue"
+  end
+
+  create_table "annual_totalprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "annual_totalprecip_all", id: false, force: true do |t|
+    t.integer "siteid",    null: false
+    t.integer "year"
+    t.float   "datavalue"
   end
 
   create_table "attributes", primary_key: "attributeid", force: true do |t|
@@ -199,41 +332,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "siteid",                              null: false
     t.string  "sitecode",                limit: 50,  null: false
     t.string  "sitename"
-    t.integer "variableid",                          null: false
-    t.string  "variablecode",            limit: 50,  null: false
-    t.string  "variablename",                        null: false
-    t.string  "speciation",                          null: false
-    t.integer "variableunitsid",                     null: false
-    t.string  "samplemedium",                        null: false
-    t.string  "valuetype",                           null: false
-    t.float   "timesupport",                         null: false
-    t.integer "timeunitsid",                         null: false
-    t.string  "datatype",                            null: false
-    t.string  "generalcategory",                     null: false
-    t.integer "methodid",                            null: false
-    t.integer "deviceid",                            null: false
-    t.text    "methoddescription",                   null: false
-    t.integer "sourceid",                            null: false
-    t.string  "organization",                        null: false
-    t.text    "sourcedescription",                   null: false
-    t.text    "citation",                            null: false
-    t.integer "qualitycontrollevelid"
-    t.string  "qualitycontrollevelcode", limit: 50,  null: false
-    t.string  "begindatetime",           limit: 100
-    t.string  "enddatetime",             limit: 100
-    t.string  "begindatetimeutc",        limit: 100
-    t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geolocation"
-    t.string  "spatialcharacteristics",  limit: 50,  null: false
-    t.integer "totalvalues"
-  end
-
-  create_table "boundarycatalog_62", id: false, force: true do |t|
-    t.integer "datastreamid",                        null: false
-    t.string  "datastreamname",                      null: false
-    t.integer "siteid",                              null: false
-    t.string  "sitecode",                limit: 50,  null: false
-    t.string  "sitename"
     t.float   "offsetvalue"
     t.integer "offsettypeid"
     t.integer "variableid",                          null: false
@@ -260,80 +358,10 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.string  "enddatetime",             limit: 100
     t.string  "begindatetimeutc",        limit: 100
     t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geolocation"
+    t.float   "lat"
+    t.float   "long"
+    t.float   "elev"
     t.text    "geolocationtext"
-    t.string  "spatialcharacteristics",  limit: 50,  null: false
-    t.integer "totalvalues"
-  end
-
-  create_table "boundarycatalog_all", id: false, force: true do |t|
-    t.integer "datastreamid",                        null: false
-    t.string  "datastreamname",                      null: false
-    t.integer "siteid",                              null: false
-    t.string  "sitecode",                limit: 50,  null: false
-    t.string  "sitename"
-    t.float   "offsetvalue"
-    t.integer "offsettypeid"
-    t.integer "variableid",                          null: false
-    t.string  "variablecode",            limit: 50,  null: false
-    t.string  "variablename",                        null: false
-    t.string  "speciation",                          null: false
-    t.integer "variableunitsid",                     null: false
-    t.string  "samplemedium",                        null: false
-    t.string  "valuetype",                           null: false
-    t.float   "timesupport",                         null: false
-    t.integer "timeunitsid",                         null: false
-    t.string  "datatype",                            null: false
-    t.string  "generalcategory",                     null: false
-    t.integer "methodid",                            null: false
-    t.integer "deviceid",                            null: false
-    t.text    "methoddescription",                   null: false
-    t.integer "sourceid",                            null: false
-    t.string  "organization",                        null: false
-    t.text    "sourcedescription",                   null: false
-    t.text    "citation",                            null: false
-    t.integer "qualitycontrollevelid"
-    t.string  "qualitycontrollevelcode", limit: 50,  null: false
-    t.string  "begindatetime",           limit: 100
-    t.string  "enddatetime",             limit: 100
-    t.string  "begindatetimeutc",        limit: 100
-    t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geolocation"
-    t.text    "geolocationtext"
-    t.string  "spatialcharacteristics",  limit: 50,  null: false
-    t.integer "totalvalues"
-  end
-
-  create_table "catalog", id: false, force: true do |t|
-    t.integer "datastreamid",                        null: false
-    t.string  "datastreamname",                      null: false
-    t.integer "siteid",                              null: false
-    t.string  "sitecode",                limit: 50,  null: false
-    t.string  "sitename"
-    t.integer "variableid",                          null: false
-    t.string  "variablecode",            limit: 50,  null: false
-    t.string  "variablename",                        null: false
-    t.string  "speciation",                          null: false
-    t.integer "variableunitsid",                     null: false
-    t.string  "samplemedium",                        null: false
-    t.string  "valuetype",                           null: false
-    t.float   "timesupport",                         null: false
-    t.integer "timeunitsid",                         null: false
-    t.string  "datatype",                            null: false
-    t.string  "generalcategory",                     null: false
-    t.integer "methodid",                            null: false
-    t.text    "methoddescription",                   null: false
-    t.integer "sourceid",                            null: false
-    t.string  "organization",                        null: false
-    t.text    "sourcedescription",                   null: false
-    t.text    "citation",                            null: false
-    t.integer "qualitycontrollevelid"
-    t.string  "qualitycontrollevelcode", limit: 50,  null: false
-    t.string  "begindatetime",           limit: 100
-    t.string  "enddatetime",             limit: 100
-    t.string  "begindatetimeutc",        limit: 100
-    t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geographylocation"
     t.string  "spatialcharacteristics",  limit: 50,  null: false
     t.integer "totalvalues"
   end
@@ -347,13 +375,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   create_table "censorcodecv", id: false, force: true do |t|
     t.string "term",       limit: 50, null: false
     t.text   "definition"
-  end
-
-  create_table "currentsites", id: false, force: true do |t|
-    t.integer "siteid",       null: false
-    t.string  "sitename"
-    t.string  "organization", null: false
-    t.integer "sourceid",     null: false
   end
 
   create_table "daily_airtemp", id: false, force: true do |t|
@@ -376,15 +397,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   end
 
   add_index "daily_airtempdatavalues", ["siteid"], name: "daily_airtempdatavalues_siteid_idx", using: :btree
-
-  create_table "daily_airtempdatavalues_test", primary_key: "valueid", force: true do |t|
-    t.float    "datavalue"
-    t.datetime "utcdatetime",        null: false
-    t.integer  "siteid",             null: false
-    t.integer  "originalvariableid", null: false
-  end
-
-  add_index "daily_airtempdatavalues_test", ["siteid"], name: "daily_airtempdatavalues_test_siteid_idx", using: :btree
 
   create_table "daily_airtempmax", id: false, force: true do |t|
     t.integer  "valueid",            null: false
@@ -459,6 +471,14 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   add_index "daily_precip", ["siteid"], name: "daily_precip_siteid_idx", using: :btree
 
+  create_table "daily_precip_thresholds", id: false, force: true do |t|
+    t.integer "siteid",       null: false
+    t.integer "minthreshold", null: false
+    t.integer "maxthreshold", null: false
+  end
+
+  add_index "daily_precip_thresholds", ["siteid"], name: "daily_precip_thresholds_siteid_idx", using: :btree
+
   create_table "daily_precipdatavalues", primary_key: "valueid", force: true do |t|
     t.float    "datavalue"
     t.datetime "utcdatetime",        null: false
@@ -511,13 +531,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   add_index "daily_snowdepthdatavalues", ["siteid"], name: "daily_snowdepthdatavalues_siteid_idx", using: :btree
 
-  create_table "daily_soils_utcdatetime", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.date    "datetimeutc"
-  end
-
-  add_index "daily_soils_utcdatetime", ["siteid"], name: "daily_soils_utcdatetime_siteid_idx", using: :btree
-
   create_table "daily_swe", id: false, force: true do |t|
     t.integer  "valueid",            null: false
     t.float    "datavalue"
@@ -566,19 +579,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   end
 
   add_index "daily_watertempdatavalues", ["siteid"], name: "daily_watertempdatavalues_siteid_idx", using: :btree
-
-  create_table "daily_watertempstations", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "daily_watertempstations", ["siteid"], name: "daily_watertempstations_siteid_idx", using: :btree
 
   create_table "daily_winddirection", id: false, force: true do |t|
     t.integer  "valueid",            null: false
@@ -637,8 +637,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "qualitycontrollevelid"
     t.decimal "rangemin",                         precision: 8, scale: 2
     t.decimal "rangemax",                         precision: 8, scale: 2
-    t.date    "startdate"
-    t.date    "enddate"
     t.string  "annualtiming"
     t.date    "downloaddate"
     t.string  "bdate",                 limit: 10
@@ -650,8 +648,8 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   create_table "datastreamvariables", id: false, force: true do |t|
     t.string  "datastreamname",                 null: false
     t.integer "siteid",                         null: false
-    t.date    "startdate"
-    t.date    "enddate"
+    t.string  "bdate",               limit: 10
+    t.string  "edate",               limit: 10
     t.string  "fieldname",           limit: 50
     t.string  "variablename",                   null: false
     t.text    "variabledescription"
@@ -710,15 +708,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.date   "dateactivated"
     t.date   "datedeactivated"
     t.text   "comments"
-  end
-
-  create_table "discharge_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
   end
 
 # Could not dump table "ext_arc_arc" because of following StandardError
@@ -882,13 +871,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   add_index "hourly_snowdepthdatavalues", ["siteid"], name: "hourly_snowdepthdatavalues_siteid_idx", using: :btree
 
-  create_table "hourly_soil_utcdatetime", id: false, force: true do |t|
-    t.integer  "siteid",      null: false
-    t.datetime "datetimeutc"
-  end
-
-  add_index "hourly_soil_utcdatetime", ["siteid"], name: "hourly_soil_utcdatetime_siteid_idx", using: :btree
-
   create_table "hourly_swe", id: false, force: true do |t|
     t.integer  "valueid",            null: false
     t.float    "datavalue"
@@ -963,8 +945,31 @@ ActiveRecord::Schema.define(version: 20140220002828) do
 
   add_index "hourly_windspeeddatavalues", ["siteid"], name: "hourly_windspeeddatavalues_siteid_idx", using: :btree
 
+  create_table "iarcod_summaries", id: false, force: true do |t|
+    t.string  "tablename",                                      limit: 80
+    t.text    "description"
+    t.integer "variableid"
+    t.string  "datatype",                                       limit: 80
+    t.string  "variablename",                                   limit: 80
+    t.string  "sensor_height",                                  limit: 80
+    t.string  "sensor_height_units",                            limit: 80
+    t.float   "minumum_value"
+    t.float   "maximum_value"
+    t.float   "maximum_value_for_hucs_60_61_62_63"
+    t.float   "maximum_value_for_hucs_35_36_37_38_39_41_40_42"
+    t.float   "maximum_value_for_arctic"
+    t.float   "maximum_value_excluding_arctic"
+    t.string  "units",                                          limit: 80
+    t.string  "timestep",                                       limit: 80
+    t.string  "timezone",                                       limit: 80
+    t.text    "method"
+    t.string  "minimum_datavalue_count",                        limit: 80
+  end
+
   create_table "imiqversion", id: false, force: true do |t|
-    t.string "versionnumber", limit: 50, null: false
+    t.string   "versionnumber",      limit: 50, null: false
+    t.datetime "creationdate"
+    t.text     "versiondescription"
   end
 
   create_table "incidents", primary_key: "incidentid", force: true do |t|
@@ -997,44 +1002,81 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   add_index "methods", ["methodname"], name: "methods_methodname", unique: true, using: :btree
 
   create_table "monthly_airtemp", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.integer "month"
-    t.float   "monthlyavg"
-    t.integer "total"
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
   add_index "monthly_airtemp", ["siteid"], name: "monthly_airtemp_siteid_idx", using: :btree
 
-  create_table "monthly_discharge", id: false, force: true do |t|
-    t.integer "siteid",            null: false
-    t.string  "sitename"
-    t.binary  "geographylocation"
+  create_table "monthly_airtemp_all", id: false, force: true do |t|
+    t.integer "siteid",     null: false
     t.integer "year"
     t.integer "month"
     t.float   "monthlyavg"
     t.integer "total"
   end
 
+  add_index "monthly_airtemp_all", ["siteid"], name: "monthly_airtemp_all_siteid_idx", using: :btree
+
+  create_table "monthly_discharge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
   add_index "monthly_discharge", ["siteid"], name: "monthly_discharge_siteid_idx", using: :btree
 
+  create_table "monthly_discharge_all", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.integer "year"
+    t.integer "month"
+    t.float   "monthlyavg"
+    t.integer "total"
+  end
+
+  add_index "monthly_discharge_all", ["siteid"], name: "monthly_discharge_all_siteid_idx", using: :btree
+
   create_table "monthly_precip", id: false, force: true do |t|
-    t.integer "siteid",            null: false
-    t.string  "sitename"
-    t.binary  "geographylocation"
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  add_index "monthly_precip", ["siteid"], name: "monthly_precip_siteid_idx", using: :btree
+
+  create_table "monthly_precip_all", id: false, force: true do |t|
+    t.integer "siteid",       null: false
     t.integer "year"
     t.integer "month"
     t.float   "monthlytotal"
     t.integer "total"
   end
 
-  add_index "monthly_precip", ["siteid"], name: "monthly_precip_siteid_idx", using: :btree
+  add_index "monthly_precip_all", ["siteid"], name: "monthly_precip_all_siteid_idx", using: :btree
 
   create_table "monthly_rh", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.text    "geolocation"
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  add_index "monthly_rh", ["siteid"], name: "monthly_rh_siteid_idx", using: :btree
+
+  create_table "monthly_rh_all", id: false, force: true do |t|
+    t.integer "siteid", null: false
     t.integer "year"
     t.integer "month"
     t.float   "rh"
@@ -1042,62 +1084,341 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "total"
   end
 
-  add_index "monthly_rh", ["siteid"], name: "monthly_rh_siteid_idx", using: :btree
+  add_index "monthly_rh_all", ["siteid"], name: "monthly_rh_all_siteid_idx", using: :btree
 
   create_table "monthly_snowdepth", id: false, force: true do |t|
-    t.integer "siteid",            null: false
-    t.string  "sitename"
-    t.binary  "geographylocation"
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  add_index "monthly_snowdepth", ["siteid"], name: "monthly_snowdepthavg_siteid_idx", using: :btree
+
+  create_table "monthly_snowdepth_all", id: false, force: true do |t|
+    t.integer "siteid",     null: false
     t.integer "year"
     t.integer "month"
     t.float   "monthlyavg"
     t.integer "total"
   end
 
-  add_index "monthly_snowdepth", ["siteid"], name: "monthly_snowdepth_siteid_idx", using: :btree
+  add_index "monthly_snowdepth_all", ["siteid"], name: "monthly_snowdepthavg_all_siteid_idx", using: :btree
 
-  create_table "nasa_met", id: false, force: true do |t|
-    t.string "sitename"
-    t.float  "long"
-    t.float  "lat"
-    t.float  "elev"
+  create_table "monthly_snowdepthavg", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
-  create_table "nasa_snowfall", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
+  add_index "monthly_snowdepthavg", ["siteid"], name: "monthly_snowdepthavg_siteid_idx", using: :btree
+
+  create_table "monthly_snowdepthavg_all", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.integer "year"
+    t.integer "month"
+    t.float   "monthlyavg"
+    t.integer "total"
   end
 
-  add_index "nasa_snowfall", ["siteid"], name: "nasa_snowfall_siteid_idx", using: :btree
+  add_index "monthly_snowdepthavg_all", ["siteid"], name: "monthly_snowdepthavg_all_siteid_idx", using: :btree
 
-  create_table "nasa_soilmoisture", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
+  create_table "monthly_sweavg", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
   end
 
-  add_index "nasa_soilmoisture", ["siteid"], name: "nasa_soilmoisture_siteid_idx", using: :btree
+  add_index "monthly_sweavg", ["siteid"], name: "monthly_sweavg_siteid_idx", using: :btree
 
-  create_table "nasa_soiltemperature", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
+  create_table "monthly_sweavg_all", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.integer "year"
+    t.integer "month"
+    t.float   "monthlyavg"
+    t.integer "total"
   end
 
-  add_index "nasa_soiltemperature", ["siteid"], name: "nasa_soiltemperature_siteid_idx", using: :btree
+  add_index "monthly_sweavg_all", ["siteid"], name: "monthly_sweavg_all_siteid_idx", using: :btree
+
+  create_table "multiyear_annual_all_avgairtemp", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgdischarge", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgfallairtemp", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgfallprecip", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgpeakdischarge", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgpeaksnowdepth", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgpeakswe", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgprecip", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgrh", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "rh"
+    t.float   "at"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgspringairtemp", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgspringprecip", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgsummerairtemp", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgsummerdischarge", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgsummerprecip", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgsummerrh", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgwinterairtemp", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgwinterprecip", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_all_avgwinterrh", id: false, force: true do |t|
+    t.integer "siteid",     null: false
+    t.float   "avgannual"
+    t.integer "totalyears"
+  end
+
+  create_table "multiyear_annual_avgairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgdischarge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgfallairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgfallprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgpeakdischarge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgpeaksnowdepth", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgpeakswe", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgrh", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgspringairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgspringprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgsummerairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgsummerdischarge", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgsummerprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgsummerrh", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgwinterairtemp", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgwinterprecip", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
+
+  create_table "multiyear_annual_avgwinterrh", id: false, force: true do |t|
+    t.integer  "valueid",            limit: 8
+    t.float    "datavalue"
+    t.integer  "siteid",                       null: false
+    t.datetime "utcdatetime"
+    t.integer  "originalvariableid",           null: false
+    t.integer  "variableid",                   null: false
+  end
 
   create_table "networkdescriptions", id: false, force: true do |t|
     t.integer "networkid",                     null: false
@@ -1182,15 +1503,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "networkid"
   end
 
-  create_table "precip_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
   create_table "processing", primary_key: "processingid", force: true do |t|
     t.integer "sourceid"
     t.integer "siteid"
@@ -1239,15 +1551,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.string   "censorcode",    limit: 50
   end
 
-  create_table "rh_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
   create_table "samplemediumcv", id: false, force: true do |t|
     t.string "term",       null: false
     t.text   "definition"
@@ -1259,43 +1562,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "siteid",                              null: false
     t.string  "sitecode",                limit: 50,  null: false
     t.string  "sitename"
-    t.integer "variableid",                          null: false
-    t.string  "variablecode",            limit: 50,  null: false
-    t.string  "variablename",                        null: false
-    t.string  "speciation",                          null: false
-    t.integer "variableunitsid",                     null: false
-    t.string  "samplemedium",                        null: false
-    t.string  "valuetype",                           null: false
-    t.float   "timesupport",                         null: false
-    t.integer "timeunitsid",                         null: false
-    t.string  "datatype",                            null: false
-    t.string  "generalcategory",                     null: false
-    t.integer "methodid",                            null: false
-    t.text    "methoddescription",                   null: false
-    t.integer "sourceid",                            null: false
-    t.string  "organization",                        null: false
-    t.text    "sourcedescription",                   null: false
-    t.text    "citation",                            null: false
-    t.integer "qualitycontrollevelid"
-    t.string  "qualitycontrollevelcode", limit: 50,  null: false
-    t.string  "begindatetime",           limit: 100
-    t.string  "enddatetime",             limit: 100
-    t.string  "begindatetimeutc",        limit: 100
-    t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geolocation"
-    t.string  "spatialcharacteristics",  limit: 50,  null: false
-    t.integer "totalvalues"
-    t.integer "startdecade"
-    t.integer "enddecade"
-    t.integer "totalyears"
-  end
-
-  create_table "seriescatalog_62", id: false, force: true do |t|
-    t.integer "datastreamid",                        null: false
-    t.string  "datastreamname",                      null: false
-    t.integer "siteid",                              null: false
-    t.string  "sitecode",                limit: 50,  null: false
-    t.string  "sitename"
     t.float   "offsetvalue"
     t.string  "unitsabbreviation"
     t.integer "offsettypeid"
@@ -1322,48 +1588,9 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.string  "enddatetime",             limit: 100
     t.string  "begindatetimeutc",        limit: 100
     t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geolocation"
-    t.text    "geolocationtext"
-    t.string  "spatialcharacteristics",  limit: 50,  null: false
-    t.integer "totalvalues"
-    t.integer "startdecade"
-    t.integer "enddecade"
-    t.integer "totalyears"
-  end
-
-  create_table "seriescatalog_all", id: false, force: true do |t|
-    t.integer "datastreamid",                        null: false
-    t.string  "datastreamname",                      null: false
-    t.integer "siteid",                              null: false
-    t.string  "sitecode",                limit: 50,  null: false
-    t.string  "sitename"
-    t.float   "offsetvalue"
-    t.string  "unitsabbreviation"
-    t.integer "offsettypeid"
-    t.integer "variableid",                          null: false
-    t.string  "variablecode",            limit: 50,  null: false
-    t.string  "variablename",                        null: false
-    t.string  "speciation",                          null: false
-    t.integer "variableunitsid",                     null: false
-    t.string  "samplemedium",                        null: false
-    t.string  "valuetype",                           null: false
-    t.float   "timesupport",                         null: false
-    t.integer "timeunitsid",                         null: false
-    t.string  "datatype",                            null: false
-    t.string  "generalcategory",                     null: false
-    t.integer "methodid",                            null: false
-    t.text    "methoddescription",                   null: false
-    t.integer "sourceid",                            null: false
-    t.string  "organization",                        null: false
-    t.text    "sourcedescription",                   null: false
-    t.text    "citation",                            null: false
-    t.integer "qualitycontrollevelid"
-    t.string  "qualitycontrollevelcode", limit: 50,  null: false
-    t.string  "begindatetime",           limit: 100
-    t.string  "enddatetime",             limit: 100
-    t.string  "begindatetimeutc",        limit: 100
-    t.string  "enddatetimeutc",          limit: 100
-    t.binary  "geolocation"
+    t.float   "lat"
+    t.float   "long"
+    t.float   "elev"
     t.text    "geolocationtext"
     t.string  "spatialcharacteristics",  limit: 50,  null: false
     t.integer "totalvalues"
@@ -1411,27 +1638,20 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   end
 
   create_table "sites", primary_key: "siteid", force: true do |t|
-    t.string   "sitecode",               limit: 50,                                          null: false
+    t.string   "sitecode",               limit: 50, null: false
     t.string   "sitename"
-    t.string   "spatialcharacteristics", limit: 50,                                          null: false
-    t.integer  "sourceid",                                                                   null: false
+    t.string   "spatialcharacteristics", limit: 50, null: false
+    t.integer  "sourceid",                          null: false
     t.string   "verticaldatum"
     t.integer  "localprojectionid"
     t.float    "posaccuracy_m"
     t.string   "state"
     t.string   "county"
     t.text     "comments"
-    t.integer  "latlongdatumid",                                                             null: false
+    t.integer  "latlongdatumid",                    null: false
     t.text     "geolocation"
     t.text     "locationdescription"
-    t.datetime "updated_at",                        default: "timezone('utc'::text, now())", null: false
-  end
-
-  create_table "sites_summary", id: false, force: true do |t|
-    t.integer "siteid",                 null: false
-    t.text    "geolocation",            null: false
-    t.string  "begindate",   limit: 10, null: false
-    t.string  "enddate",     limit: 10, null: false
+    t.datetime "updated_at"
   end
 
   create_table "sitesource", id: false, force: true do |t|
@@ -1464,29 +1684,21 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.integer "organizationid",                      null: false
   end
 
-  create_table "snowdepth_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
   create_table "sources", primary_key: "sourceid", force: true do |t|
-    t.string  "organization",                               null: false
-    t.text    "sourcedescription",                          null: false
-    t.string  "sourcerole",        limit: 50,               null: false
-    t.string  "sourcelink",        limit: 500
-    t.string  "contactname",                   default: "", null: false
-    t.string  "phone",                         default: "", null: false
-    t.string  "email",                         default: "", null: false
-    t.string  "address",                       default: "", null: false
-    t.string  "city",                          default: "", null: false
-    t.string  "state",                         default: "", null: false
-    t.string  "zipcode",                       default: "", null: false
-    t.text    "citation",                                   null: false
-    t.integer "metadataid",                                 null: false
+    t.string   "organization",                               null: false
+    t.text     "sourcedescription",                          null: false
+    t.string   "sourcerole",        limit: 50,               null: false
+    t.string   "sourcelink",        limit: 500
+    t.string   "contactname",                   default: "", null: false
+    t.string   "phone",                         default: "", null: false
+    t.string   "email",                         default: "", null: false
+    t.string   "address",                       default: "", null: false
+    t.string   "city",                          default: "", null: false
+    t.string   "state",                         default: "", null: false
+    t.string   "zipcode",                       default: "", null: false
+    t.text     "citation",                                   null: false
+    t.integer  "metadataid",                                 null: false
+    t.datetime "updated_at"
   end
 
   create_table "spatial_ref_sys", id: false, force: true do |t|
@@ -1507,15 +1719,6 @@ ActiveRecord::Schema.define(version: 20140220002828) do
   create_table "speciationcv", id: false, force: true do |t|
     t.string "term",       null: false
     t.text   "definition"
-  end
-
-  create_table "swe_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
   end
 
   create_table "sysdiagrams", primary_key: "diagram_id", force: true do |t|
@@ -1571,515 +1774,5 @@ ActiveRecord::Schema.define(version: 20140220002828) do
     t.string "term",       null: false
     t.text   "definition"
   end
-
-  create_table "wd_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "ws_totalyears", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.string  "sitename"
-    t.integer "totyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  create_table "yearly_annualairtemps_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_annualairtemps_avg", ["siteid"], name: "yearly_annualairtemps_avg_siteid_idx", using: :btree
-
-  create_table "yearly_annualprecips_avg", id: false, force: true do |t|
-    t.integer "siteid",         null: false
-    t.float   "avgannualtotal"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_annualprecips_avg", ["siteid"], name: "yearly_annualprecips_avg_siteid_idx", using: :btree
-
-  create_table "yearly_avgannualairtemp", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgannualairtemp", ["siteid"], name: "yearly_avgannualairtemp_siteid_idx", using: :btree
-
-  create_table "yearly_avgannualprecip", id: false, force: true do |t|
-    t.integer "siteid",                    null: false
-    t.string  "sitecode",       limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                  null: false
-    t.string  "organization",              null: false
-    t.float   "avgannualtotal"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgannualprecip", ["siteid"], name: "yearly_avgannualprecip_siteid_idx", using: :btree
-
-  create_table "yearly_avgfallairtemp", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgfallairtemp", ["siteid"], name: "yearly_avgfallairtemp_siteid_idx", using: :btree
-
-  create_table "yearly_avgfallairtemps", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "seasonalavg"
-  end
-
-  add_index "yearly_avgfallairtemps", ["siteid"], name: "yearly_avgfallairtemps_siteid_idx", using: :btree
-
-  create_table "yearly_avgfallprecip", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgfallprecip", ["siteid"], name: "yearly_avgfallprecip_siteid_idx", using: :btree
-
-  create_table "yearly_avgfallprecips", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "monthlyavg"
-  end
-
-  add_index "yearly_avgfallprecips", ["siteid"], name: "yearly_avgfallprecips_siteid_idx", using: :btree
-
-  create_table "yearly_avgpeakdischarge", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgpeakdischarge", ["siteid"], name: "yearly_avgpeakdischarge_siteid_idx", using: :btree
-
-  create_table "yearly_avgpeakdischarges", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_avgpeakdischarges", ["siteid"], name: "yearly_avgpeakdischarges_siteid_idx", using: :btree
-
-  create_table "yearly_avgpeaksnowdepth", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgpeaksnowdepth", ["siteid"], name: "yearly_avgpeaksnowdepth_siteid_idx", using: :btree
-
-  create_table "yearly_avgpeaksnowdepths", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_avgpeaksnowdepths", ["siteid"], name: "yearly_avgpeaksnowdepths_siteid_idx", using: :btree
-
-  create_table "yearly_avgpeakswe", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgpeakswe", ["siteid"], name: "yearly_avgpeakswe_siteid_idx", using: :btree
-
-  create_table "yearly_avgpeakswes", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_avgpeakswes", ["siteid"], name: "yearly_avgpeakswes_siteid_idx", using: :btree
-
-  create_table "yearly_avgspringairtemp", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgspringairtemp", ["siteid"], name: "yearly_avgspringairtemp_siteid_idx", using: :btree
-
-  create_table "yearly_avgspringairtemps", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "seasonalavg"
-  end
-
-  add_index "yearly_avgspringairtemps", ["siteid"], name: "yearly_avgspringairtemps_siteid_idx", using: :btree
-
-  create_table "yearly_avgspringprecip", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgspringprecip", ["siteid"], name: "yearly_avgspringprecip_siteid_idx", using: :btree
-
-  create_table "yearly_avgspringprecips", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "monthlyavg"
-  end
-
-  add_index "yearly_avgspringprecips", ["siteid"], name: "yearly_avgspringprecips_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerairtemp", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgsummerairtemp", ["siteid"], name: "yearly_avgsummerairtemp_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerairtemps", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "seasonalavg"
-  end
-
-  add_index "yearly_avgsummerairtemps", ["siteid"], name: "yearly_avgsummerairtemps_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerdischarge", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgsummerdischarge", ["siteid"], name: "yearly_avgsummerdischarge_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerdischarges", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "seasonalavg"
-  end
-
-  add_index "yearly_avgsummerdischarges", ["siteid"], name: "yearly_avgsummerdischarges_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerprecip", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgsummerprecip", ["siteid"], name: "yearly_avgsummerprecip_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerprecips", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.string  "sitename"
-    t.integer "year"
-    t.float   "monthlyavg"
-  end
-
-  add_index "yearly_avgsummerprecips", ["siteid"], name: "yearly_avgsummerprecips_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerrh", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgsummerrh", ["siteid"], name: "yearly_avgsummerrh_siteid_idx", using: :btree
-
-  create_table "yearly_avgsummerrhs", id: false, force: true do |t|
-    t.integer "siteid",        null: false
-    t.integer "year"
-    t.float   "seasonalavgrh"
-    t.float   "seasonalavgat"
-  end
-
-  add_index "yearly_avgsummerrhs", ["siteid"], name: "yearly_avgsummerrhs_siteid_idx", using: :btree
-
-  create_table "yearly_avgwinterairtemp", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgwinterairtemp", ["siteid"], name: "yearly_avgwinterairtemp_siteid_idx", using: :btree
-
-  create_table "yearly_avgwinterairtemps", id: false, force: true do |t|
-    t.integer "siteid",      null: false
-    t.integer "year"
-    t.float   "seasonalavg"
-  end
-
-  add_index "yearly_avgwinterairtemps", ["siteid"], name: "yearly_avgwinterairtemps_siteid_idx", using: :btree
-
-  create_table "yearly_avgwinterprecip", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgwinterprecip", ["siteid"], name: "yearly_avgwinterprecip_siteid_idx", using: :btree
-
-  create_table "yearly_avgwinterprecips", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.integer "year"
-    t.float   "monthlyavg"
-  end
-
-  add_index "yearly_avgwinterprecips", ["siteid"], name: "yearly_avgwinterprecips_siteid_idx", using: :btree
-
-  create_table "yearly_avgwinterrh", id: false, force: true do |t|
-    t.integer "siteid",                  null: false
-    t.string  "sitecode",     limit: 50, null: false
-    t.string  "sitename"
-    t.integer "sourceid",                null: false
-    t.string  "organization",            null: false
-    t.float   "avg"
-    t.integer "totalyears"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.float   "elevation"
-  end
-
-  add_index "yearly_avgwinterrh", ["siteid"], name: "yearly_avgwinterrh_siteid_idx", using: :btree
-
-  create_table "yearly_avgwinterrhs", id: false, force: true do |t|
-    t.integer "siteid",        null: false
-    t.integer "year"
-    t.float   "seasonalavgrh"
-    t.float   "seasonalavgat"
-  end
-
-  add_index "yearly_avgwinterrhs", ["siteid"], name: "yearly_avgwinterrhs_siteid_idx", using: :btree
-
-  create_table "yearly_fallairtemps_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_fallairtemps_avg", ["siteid"], name: "yearly_fallairtemps_avg_siteid_idx", using: :btree
-
-  create_table "yearly_fallprecips_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_fallprecips_avg", ["siteid"], name: "yearly_fallprecips_avg_siteid_idx", using: :btree
-
-  create_table "yearly_peakdischarges", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.integer "year"
-    t.float   "datavalue"
-  end
-
-  add_index "yearly_peakdischarges", ["siteid"], name: "yearly_peakdischarges_siteid_idx", using: :btree
-
-  create_table "yearly_peaksnowdepths", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.integer "year"
-    t.float   "datavalue"
-  end
-
-  add_index "yearly_peaksnowdepths", ["siteid"], name: "yearly_peaksnowdepths_siteid_idx", using: :btree
-
-  create_table "yearly_peakswes", id: false, force: true do |t|
-    t.integer "siteid",    null: false
-    t.integer "year"
-    t.float   "datavalue"
-  end
-
-  add_index "yearly_peakswes", ["siteid"], name: "yearly_peakswes_siteid_idx", using: :btree
-
-  create_table "yearly_springairtemps_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_springairtemps_avg", ["siteid"], name: "yearly_springairtemps_avg_siteid_idx", using: :btree
-
-  create_table "yearly_springprecips_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_springprecips_avg", ["siteid"], name: "yearly_springprecips_avg_siteid_idx", using: :btree
-
-  create_table "yearly_summerairtemps_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_summerairtemps_avg", ["siteid"], name: "yearly_summerairtemps_avg_siteid_idx", using: :btree
-
-  create_table "yearly_summerdischarges_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_summerdischarges_avg", ["siteid"], name: "yearly_summerdischarges_avg_siteid_idx", using: :btree
-
-  create_table "yearly_summerprecips_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_summerprecips_avg", ["siteid"], name: "yearly_summerprecips_avg_siteid_idx", using: :btree
-
-  create_table "yearly_summerrhs_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_summerrhs_avg", ["siteid"], name: "yearly_summerrhs_avg_siteid_idx", using: :btree
-
-  create_table "yearly_winterairtemps_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_winterairtemps_avg", ["siteid"], name: "yearly_winterairtemps_avg_siteid_idx", using: :btree
-
-  create_table "yearly_winterprecips_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_winterprecips_avg", ["siteid"], name: "yearly_winterprecips_avg_siteid_idx", using: :btree
-
-  create_table "yearly_winterrhs_avg", id: false, force: true do |t|
-    t.integer "siteid",     null: false
-    t.float   "avg"
-    t.integer "totalyears"
-  end
-
-  add_index "yearly_winterrhs_avg", ["siteid"], name: "yearly_winterrhs_avg_siteid_idx", using: :btree
 
 end

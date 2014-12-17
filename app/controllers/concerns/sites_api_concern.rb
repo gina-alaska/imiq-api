@@ -7,14 +7,14 @@ module SitesApiConcern
   }
   
   API = {
-    '/sites.{format}?{query}' => {
-      description: "Parse list of data sources within Imiq. Restricted to those sites that have summary data products available for immediate export.",
-      url: "http://imiq-api.gina.alaska.edu/sites.json",
+    '/sites.geojson' => {
+      description: "Parse list in .geojson format of sites within Imiq. Restricted to those sites that have summary data products available for immediate export. More information on geojson format is available at http://geojson.org/.",
+      url: "http://imiq-api.gina.alaska.edu/sites.geojson",
       url_params: [
         {
           name: 'format',
           required: true,
-          values: %w{ geojson,json,pdf }
+          values: %w{ geojson }
           }],
       api_params: [
       {
@@ -61,7 +61,70 @@ module SitesApiConcern
       },
       {
         name: 'variablename', 
-        description: 'select sites by variablename (i.e. airtemp, rh, watertemp, etc., see /sites/variables endpoint)', 
+        description: 'select sites by variablename (i.e. airtemp, rh, watertemp, etc., see http://imiq-api.gina.alaska.edu/sites/variables.json)', 
+        type: 'string', 
+        default: '',
+        required: false        
+      }
+    ],
+      response: '
+{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[-149.558,69.201,293.0]},"properties":{"id":907,"url":"http://imiq-api.gina.alaska.edu/sites/907"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[-149.821,69.486,295.0]},"properties":{"id":909,"url":"http://imiq-api.gina.alaska.edu/sites/909"},...}'
+    },
+    '/sites.{format}?{query}' => {
+      description: "Parse list of sites within Imiq. Restricted to those sites that have summary data products available for immediate export.",
+      url: "http://imiq-api.gina.alaska.edu/sites.json",
+      url_params: [
+        {
+          name: 'format',
+          required: true,
+          values: %w{ json,pdf }
+          }],
+      api_params: [
+      {
+        name: 'bounds', 
+        description: 'select sites within geographic bounding box; use percent encoding to define bounds=[ne_lat],bounds=[sw_lat],bounds=[ne_lon],bounds=[sw_lon])', 
+        type: 'integer', 
+        default: '50',
+        required: false    
+      },
+      { 
+        name: 'limit', 
+        description: 'number of site records to be retrieved per page', 
+        type: 'integer', 
+        default: '50',
+        required: false 
+      }, 
+      { 
+        name: 'page', 
+        description: 'division of sites into sections (using limit to define number per section)', 
+        type: 'integer', 
+        default: '1',
+        required: false 
+      },
+      {
+        name: 'networkcode', 
+        description: 'select sites by networkcode (i.e. RAWS, SNOTEL, NCDC ISH, etc.)', 
+        type: 'string', 
+        default: '',
+        required: false         
+      },
+      {
+        name: 'organizationcode', 
+        description: 'select sites by organizationcode (i.e. NOAA, UAF, USFWS, etc.)', 
+        type: 'string', 
+        default: '',
+        required: false          
+      },
+      {
+        name: 'siteids', 
+        description: 'select sites by siteids; use a list query siteids=1,2', 
+        type: 'integer', 
+        default: '',
+        required: false         
+      },
+      {
+        name: 'variablename', 
+        description: 'select sites by variablename (i.e. airtemp, rh, watertemp, etc., see http://imiq-api.gina.alaska.edu/sites/variables.json)', 
         type: 'string', 
         default: '',
         required: false        
@@ -223,7 +286,7 @@ Water content
 "
     },
     '/sites/{siteid}.{format}}' => {
-      description: "Individual foos",
+      description: "Parse individual site within Imiq. Restricted to those sites that have summary data products available for immediate export.",
       url: "http://imiq-api.gina.alaska.edu/sites/1.json",
       url_params: [
         {
@@ -234,7 +297,7 @@ Water content
         {
           name: 'format',
           required: true,
-          values: %w{ geojson,json,pdf }
+          values: %w{ json,pdf }
           },
         ],     
       api_params: [],
