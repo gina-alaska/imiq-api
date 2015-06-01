@@ -55,3 +55,4 @@ cookbook/.kitchen/logs/kitchen.log
 cookbook/.kitchen
 
 .powenv
+.env
