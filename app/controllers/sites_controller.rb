@@ -1,7 +1,7 @@
 class SitesController < ApplicationController
   include SitesApiConcern
   respond_to :geojson, :json
-  
+
   # before_action :set_cors_headers, only: [:index,:show,:list,:variables]
   set_pagination_headers :sites, only: [:index, :show]
 
@@ -11,8 +11,8 @@ class SitesController < ApplicationController
 
   def index
     @sites = site_search.results
-    respond_to do |format| 
-      format.json 
+    respond_to do |format|
+      format.json
       format.geojson
       format.pdf {
         render pdf: 'Imiq_Site_List', layout: 'pdf.html'
@@ -36,16 +36,16 @@ class SitesController < ApplicationController
 
   def list
     @sites = site_search(100000).results
-    
+
     respond_to do |format|
       format.html
       format.pdf {
         render pdf: 'Imiq_Site_List', layout: 'pdf.html'
       }
-      
+
       format.rtf {
         filename = "Imiq_Site_List.rtf"
-        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""        
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
         render 'list.txt'
       }
       format.txt {
@@ -60,7 +60,7 @@ class SitesController < ApplicationController
   # [GET] /sites/1.html
   def show
     @site = Site.find(params[:id])
-    
+
     respond_to do |format|
       format.html { render layout: false }
       format.json
@@ -79,13 +79,13 @@ class SitesController < ApplicationController
 
   def site_search(limit = nil)
     Rails.logger.info api_params.inspect
-    
+
     Site.search(include: [:networks, :organizations, :datastreams]) do
       fulltext api_params[:q] if api_params[:q].present?
 
       with :has_data, true
       with :has_location, true
-      # with :geomtype, 'Point'
+      with :geomtype, 'POINT'
 
       if api_params[:variablenames].present? and api_params[:time_step].present?
         with :timestep_variables, api_params[:variablenames].collect { |name| "#{api_params[:time_step]}_#{name}"}
@@ -94,7 +94,7 @@ class SitesController < ApplicationController
       elsif api_params[:time_step].present?
         with :timesteps, api_params[:time_step]
       end
-      
+
       order_by(api_params[:order]) if api_params[:order].present?
 
       with :siteid, api_params[:siteids] if api_params[:siteids].present?
@@ -117,7 +117,7 @@ class SitesController < ApplicationController
     api_request[:page] = 1 if api_request[:page].to_i == 0
     api_request[:start] = (api_request[:page].to_i-1) * api_request[:limit].to_i
     api_request[:siteids] = api_request[:siteids].split(',') if api_request[:siteids].present?
-    
+
     if api_request[:bounds].present?
       bounds = api_request.delete(:bounds)
 
