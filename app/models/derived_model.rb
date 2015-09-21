@@ -4,6 +4,7 @@ class DerivedModel
     ['Daily ', ''],
     ['Hourly ', ''],
     ['Monthly ', ''],
+    ['Annual ', ''],    
     ['datavalue', ''],
     ['temp', 'temperature'],
     ['precip', 'precipitation'],
@@ -69,7 +70,7 @@ class DerivedModel
 
     name.capitalize
   end
- 
+
   def model
     @klass
   end
