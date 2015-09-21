@@ -34,7 +34,9 @@ class Site < ActiveRecord::Base
   has_many :monthly_precips, foreign_key: 'siteid'
   has_many :monthly_rhs, foreign_key: 'siteid'
   has_many :monthly_snowdepths, foreign_key: 'siteid'
-
+  has_many :annual_airtemps, foreign_key: 'siteid'
+  has_many :annual_discharges, foreign_key: 'siteid'
+  has_many :annual_rhs, foreign_key: 'siteid'
 
   scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
@@ -74,9 +76,10 @@ class Site < ActiveRecord::Base
   'daily' => [...],
   'hourly' => [...],
   'monthly' => [...]
+  'annual' => [...]
 }
 =end
-  
+
   def has_data_for(model)
     case model.slug.split('_').first
     when 'source'
@@ -85,7 +88,7 @@ class Site < ActiveRecord::Base
       self.respond_to?(model.slug.pluralize) and self.send(model.slug.pluralize).size > 0
     end
   end
-  
+
   def derived_variables
     if @derived_variables.nil?
       @derived_variables = {}
@@ -121,12 +124,12 @@ class Site < ActiveRecord::Base
   end
 
   def variables_for(timestep, &block)
-    derived_variables[timestep].collect do |v| 
-      a = v[1] 
+    derived_variables[timestep].collect do |v|
+      a = v[1]
       if block_given?
         a = yield a
       end
-      
+
       a
     end
   end
