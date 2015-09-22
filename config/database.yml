@@ -1,0 +1,27 @@
+development:
+  adapter: postgresql
+  database: imiq_staging
+  username: <%= ENV['DB_USER_DEVELOPMENT'] %>
+  password: <%= ENV['DB_PASSWORD_DEVELOPMENT'] %>
+  host: <%= ENV['DB_HOST_DEVELOPMENT'] %>
+  pool: <%= ENV['DB_POOL_DEVELOPMENT'] || 5 %>
+  schema_search_path: <%= ENV['DB_SCHEMA_DEVELOPMENT'] || 'public' %>
+  client_encoding: UTF8
+test:
+  adapter: postgresql
+  database: imiq_test
+  username: <%= ENV['DB_USER_TEST'] %>
+  password: <%= ENV['DB_PASSWORD_TEST'] %>
+  host: <%= ENV['DB_HOST_TEST'] %>
+  pool: <%= ENV['DB_POOL_TEST'] || 5 %>
+  schema_search_path: <%= ENV['DB_SCHEMA_TEST'] || 'public' %>
+  client_encoding: UTF8
+production:
+  adapter: postgresql
+  database: imiq_staging
+  username: <%= ENV['DB_USER_PRODUCTION'] %>
+  password: <%= ENV['DB_PASSWORD_PRODUCTION'] %>
+  host: <%= ENV['DB_HOST_PRODUCTION'] %>
+  pool: <%= ENV['DB_POOL_PRODUCTION'] || 5 %>
+  schema_search_path: <%= ENV['DB_SCHEMA_PRODUCTION'] || 'public' %>
+  client_encoding: UTF8
