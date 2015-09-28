@@ -37,7 +37,7 @@ class Site < ActiveRecord::Base
   has_many :annual_airtemps, foreign_key: 'siteid'
   has_many :annual_discharges, foreign_key: 'siteid'
   has_many :annual_rhs, foreign_key: 'siteid'
-
+  has_many :fifteenmin_watertemps, foreign_key: 'siteid'
   scope :geomtype, Proc.new { |geomtype|
     where('spatialcharacteristics ilike ?', "#{geomtype}")
   }
@@ -77,6 +77,7 @@ class Site < ActiveRecord::Base
   'hourly' => [...],
   'monthly' => [...]
   'annual' => [...]
+  'fifteenmin' => [...]
 }
 =end
 

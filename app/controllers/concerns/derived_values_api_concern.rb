@@ -4,11 +4,11 @@ module DerivedValuesApiConcern
   TITLE = {
     title: "Export",
     description: "
-The export endpoint accesses summary-products in the Imiq Hydroclimate Database and builds a .csv file for download. 
+The export endpoint accesses summary-products in the Imiq Hydroclimate Database and builds a .csv file for download.
 The timestep and the summary-product data field are declared in the URL. "
 
   }
-  
+
   API = {
     '/export/{timestep}_{field}.{format}?{query}' => {
       description: "
@@ -31,13 +31,13 @@ Export \"field\" value descriptions:
         {
           name: 'timestep',
           required: true,
-          values: %w{ hourly daily monthly annual }
-        }, 
+          values: %w{ fifteenmin hourly daily monthly annual }
+        },
         {
           name: 'field',
           required: true,
           values: %w{ airtemp discharge precip rh snowdepth swe watertemp winddirection windspeed }
-          
+
         },
         {
           name: 'format',
@@ -48,32 +48,32 @@ Export \"field\" value descriptions:
       ],
       api_params: [
         {
-          name: 'siteid', 
-          description: 'unique siteid as identified on the map or from a site list', 
-          type: 'integer', 
+          name: 'siteid',
+          description: 'unique siteid as identified on the map or from a site list',
+          type: 'integer',
           default: 'none',
-          required: false    
-        },
-        { 
-          name: 'siteids', 
-          description: 'comma-separated list of unique siteids as identified on the map or from a site list', 
-          type: 'integer', 
-          default: 'none',
-          required: false 
+          required: false
         },
         {
-          name: 'startdate', 
-          description: 'start date for data, format=YYYYMMDD (i.e. 19940601)', 
-          type: 'datetime', 
+          name: 'siteids',
+          description: 'comma-separated list of unique siteids as identified on the map or from a site list',
+          type: 'integer',
           default: 'none',
-          required: false    
+          required: false
         },
-        { 
-          name: 'enddate', 
-          description: 'start date for data, format=YYYYMMDD (i.e. 19940731)', 
-          type: 'datetime', 
+        {
+          name: 'startdate',
+          description: 'start date for data, format=YYYYMMDD (i.e. 19940601)',
+          type: 'datetime',
           default: 'none',
-          required: false 
+          required: false
+        },
+        {
+          name: 'enddate',
+          description: 'start date for data, format=YYYYMMDD (i.e. 19940731)',
+          type: 'datetime',
+          default: 'none',
+          required: false
         },
       ],
    }

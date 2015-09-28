@@ -12,7 +12,8 @@ class DerivedValuesController < ApplicationController
       "annual" => "c1",
       "monthly" => "c1",
       "hourly" => "c1",
-      "daily" => "c1"
+      "daily" => "c1",
+      "fifteenmin" => "c1"
     }
     datavalue = DVFactory.slug(api_params[:field])
     @sites = []
