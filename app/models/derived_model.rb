@@ -5,7 +5,7 @@ class DerivedModel
     ['Hourly ', ''],
     ['Monthly ', ''],
     ['Annual ', ''],
-    ['Fifteen Minutes ', ''],
+    ['Fifteenmin ', ''],
     ['datavalue', ''],
     ['temp', 'temperature'],
     ['precip', 'precipitation'],
