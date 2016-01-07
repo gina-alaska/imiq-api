@@ -1,4 +1,6 @@
-json.type "FeatureCollection"
-json.features @sites do |site|
-  json.partial! site
+json.type 'FeatureCollection'.freeze
+json.features do
+  json.cache_collection! @sites do |site|
+    json.partial! site
+  end
 end

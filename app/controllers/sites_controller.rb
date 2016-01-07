@@ -78,8 +78,6 @@ class SitesController < ApplicationController
   protected
 
   def site_search(limit = nil)
-    Rails.logger.info api_params.inspect
-
     Site.search(include: [:networks, :organizations, :datastreams]) do
       fulltext api_params[:q] if api_params[:q].present?
 
