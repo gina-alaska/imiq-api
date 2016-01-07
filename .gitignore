@@ -56,3 +56,5 @@ cookbook/.kitchen
 
 .powenv
 .env
+.kitchen
+.otto
