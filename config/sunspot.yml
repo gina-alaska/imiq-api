@@ -5,3 +5,10 @@ development:
     port: 8982
     path: /solr/development
     log_level: INFO
+production:
+  solr:
+    solr_home: solr
+    hostname: <%= ENV['SUNSPOT_HOST'] %>
+    port: 8983
+    path: /solr/default
+    log_level: INFO
