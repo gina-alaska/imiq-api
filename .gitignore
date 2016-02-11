@@ -33,7 +33,6 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 config/initializers/secret_token.rb
-config/database.yml
 ## Environment normalisation:
 /vendor/bundle
 
@@ -44,12 +43,6 @@ config/database.yml
 .rvmrc
 
 *.pid
-
-*.pid
-
-*.pid
-
-solr/pids/development/sunspot-solr-development.pid
 
 cookbook/.kitchen/logs/kitchen.log
 cookbook/.kitchen
