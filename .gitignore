@@ -11,6 +11,7 @@ solr/data
 solr/development
 solr/production
 solr/default
+solr/test
 !solr/conf
 
 # Ignore the default SQLite database.
