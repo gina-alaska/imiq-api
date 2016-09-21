@@ -23,6 +23,7 @@ class DerivedValuesController < ApplicationController
     else
       respond_to do |format|
         format.csv {
+          @header = params[:header].present? ? params[:header] == "true" : true
           @fstep = datavalue.timestep
           @ffield = datavalue.field
           @fprettyname = datavalue.pretty_name
@@ -64,7 +65,7 @@ class DerivedValuesController < ApplicationController
       @values = @values.enddate(Date.parse(api_params[:enddate]).end_of_day)
     end
 
-    @values = @values.where(siteid: api_params[:siteids]).paginate(page: params[:page] || 1, per_page: params[:limit] || 1000)
+    @values = @values.where(siteid: api_params[:siteids]).paginate(page: params[:page] || 1, per_page: params[:limit] || 5000)
   end
 
   def get_graph_data
