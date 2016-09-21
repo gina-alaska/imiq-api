@@ -23,6 +23,7 @@ class DerivedValuesController < ApplicationController
     else
       respond_to do |format|
         format.csv {
+          @header = params[:header].present? ? params[:header] == "true" : true
           @fstep = datavalue.timestep
           @ffield = datavalue.field
           @fprettyname = datavalue.pretty_name
@@ -33,7 +34,7 @@ class DerivedValuesController < ApplicationController
           @timenow = Time.now
           filename_parts += [@fstep,@ffield]
           filename = "#{filename_parts.join('_')}.#{@fext}.csv"
-          
+
           headers["Content-type"] = "text/csv"
           headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
 
@@ -52,7 +53,7 @@ class DerivedValuesController < ApplicationController
   end
 
   protected
-  
+
   def get_data_values
     @datavalue = DVFactory.slug(api_params[:field])
     @sites = Site.where(siteid: api_params[:siteids])
@@ -63,13 +64,13 @@ class DerivedValuesController < ApplicationController
     if api_params[:enddate].present?
       @values = @values.enddate(Date.parse(api_params[:enddate]).end_of_day)
     end
-    
-    @values = @values.where(siteid: api_params[:siteids])
+
+    @values = @values.where(siteid: api_params[:siteids]).paginate(page: params[:page] || 1, per_page: params[:limit] || 5000)
   end
-  
+
   def get_graph_data
     get_data_values
-   
+
     {
       title: {
         text: "#{@datavalue.timestep} #{@datavalue.pretty_name}".capitalize
@@ -90,8 +91,8 @@ class DerivedValuesController < ApplicationController
       end
     }
   end
-  
-  
+
+
   def csv_error
     render text: 'An error was encountered while trying to create the CSV file'
   end
@@ -108,7 +109,7 @@ class DerivedValuesController < ApplicationController
     if api_request[:siteids].present?
       api_request[:siteids] = api_request[:siteids].split(',')
     end
-    
+
     if api_request[:siteid].present?
       api_request[:siteids] << api_request[:siteid]
     end
