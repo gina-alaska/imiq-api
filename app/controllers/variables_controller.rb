@@ -1,25 +1,22 @@
 class VariablesController < ApplicationController
   include NetworksApiConcern
-  respond_to :json
 
   def index
     @variables = Variable.order('variablename ASC')
     @variables = @variables.includes(:sites)
     @variables = @variables.reject { |v| v.sites.empty? }
 
-    # respond_to do |format|
-    #   format.json {
-    #     render json: @variables
-    #   }
-    # end
-
-    respond_with @variables
+    respond_to do |format|
+      format.json
+    end
   end
 
   def show
     @variable = Variable.find(params[:id])
 
-    respond_with @variable
+    respond_to do |format|
+      format.json
+    end
   end
 
  def list

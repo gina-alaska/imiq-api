@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.5'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-gem 'georuby'
+gem 'georuby', require: ['georuby', 'geo_ruby/ewk', 'geo_ruby/geojson']
 gem 'quiet_assets'
 #gem 'bower-tools', github: 'gina-alaska/bower-tools'
 gem 'bower-rails'
@@ -50,12 +50,18 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'web-console', '~> 2.0'
+  gem 'simplecov', :require => false
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 gem 'unicorn'
-gem 'spring', group: :development 
+gem 'puma'
+gem 'spring', group: :development
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
