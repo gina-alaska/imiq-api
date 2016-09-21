@@ -81,3 +81,4 @@ gem 'capistrano-bower'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 # gem 'rails12factor'
+gem 'version'
