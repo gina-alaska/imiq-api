@@ -69,8 +69,8 @@ gem 'jbuilder_cache_multi'
 gem 'scope_cache_key'
 
 # Use Capistrano for deployment
-gem 'capistrano', group: :development
-gem 'capistrano-chruby', github: "capistrano/chruby"
+gem 'capistrano', '~> 3.2'
+gem 'capistrano-chruby'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-bower'

@@ -1,7 +1,7 @@
 set :application, 'imiq-api'
 set :repo_url, 'https://github.com/gina-alaska/imiq-api.git'
 
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+ask :branch, proc { `cat VERSION`.chomp }
 
 set :deploy_to, '/www/imiq_api'
 set :scm, :git
@@ -19,7 +19,7 @@ set :keep_releases, 5
 namespace :deploy do
   desc 'Restart application'
   task :restart do
-    puts "We currently don't have support for auto restarting, please login to browse-web0 and run 'sudo service unicorn_browser_ng restart'"
+    puts "We currently don't have support for auto restarting, please login and run 'sudo service unicorn restart'"
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
