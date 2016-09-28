@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   include SitesApiConcern
-  respond_to :geojson, :json
+  # respond_to :geojson, :json
 
   # before_action :set_cors_headers, only: [:index,:show,:list,:variables]
   set_pagination_headers :sites, only: [:index, :show]
@@ -78,8 +78,6 @@ class SitesController < ApplicationController
   protected
 
   def site_search(limit = nil)
-    Rails.logger.info api_params.inspect
-
     Site.search(include: [:networks, :organizations, :datastreams]) do
       fulltext api_params[:q] if api_params[:q].present?
 

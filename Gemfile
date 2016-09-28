@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.5'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
-gem 'georuby'
+gem 'georuby', require: ['georuby', 'geo_ruby/ewk', 'geo_ruby/geojson']
 gem 'quiet_assets'
 #gem 'bower-tools', github: 'gina-alaska/bower-tools'
 gem 'bower-rails'
@@ -39,7 +40,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.3.2'
 
 # Use high_voltage for storing static pages.
 gem 'high_voltage', '~> 2.2.1'
@@ -49,19 +50,27 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'web-console', '~> 2.0'
+  gem 'simplecov', :require => false
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 gem 'unicorn'
-gem 'spring', group: :development 
+gem 'puma'
+gem 'spring', group: :development
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'jbuilder_cache_multi'
+gem 'scope_cache_key'
 
 # Use Capistrano for deployment
-gem 'capistrano', group: :development
-gem 'capistrano-chruby', github: "capistrano/chruby"
+gem 'capistrano', '~> 3.2'
+gem 'capistrano-chruby'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-bower'
@@ -71,3 +80,5 @@ gem 'capistrano-bower'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+# gem 'rails12factor'
+gem 'version'

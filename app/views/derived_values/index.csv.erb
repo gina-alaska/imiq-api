@@ -1,16 +1,17 @@
 <% if flash[:error] %>
 ERROR: <%= flash[:error] %>
 <% end %>
+<% if @header %>
 NOTE: Data are provisional and subject to revision.  See README.txt for citation information.
 Database ID: <%= render("dbversion.text") %>
 Time of Data Export: <%= @timenow.strftime("%Y-%m-%d %X") %>
 Site ID(s): <%= @values.pluck(:siteid).uniq.join(', ').html_safe %>
-Data Description: <%= @fprettyname %> 
-Level of Processing: <%= @fext %>, <%= @fprocdescrip %> 
+Data Description: <%= @fprettyname %>
+Level of Processing: <%= @fext %>, <%= @fprocdescrip %>
 Site ID Units: unitless
 Site Name Units: unitless
 Variable ID: <%= @values.first.try(:variableid) %>
-Date Units: <%= @values.first.try(:timeformattext) %> 
+Date Units: <%= @values.first.try(:timeformattext) %>
 Latitude Units: decimal degrees
 Longitude Units: decimal degrees
 Elevation Units: meters above sea level
@@ -18,6 +19,7 @@ VariableID Units: unitless
 DataValue Units: <%= @values.first.try(:unit).try(:unitsname) %>
 ################################################################
 SiteID,SiteName,Date,Latitude,Longitude,Elevation,VariableID,DataValue
+<% end %>
 <% @values.each do |row| %>
 <%= row.siteid %>,<%= row.site.sitename %>,<%= row.utcdatetime.strftime(row.timeformat) %>,<%= number_with_precision(row.site.lat, precision: 3) %>,<%= number_with_precision(row.site.lng, precision: 3) %>,<%= number_with_precision(row.site.z, precision: 3) %>,<%= row.variableid %>,<%= number_with_precision(row.datavalue, precision: 3) %>
 <% end %>
