@@ -67,11 +67,7 @@ class DerivedValuesController < ApplicationController
       @values = @values.enddate(Date.parse(api_params[:enddate]).end_of_day)
     end
 
-<<<<<<< HEAD
-    @values = @values.where(siteid: api_params[:siteids])
-=======
     @values = @values.where(siteid: api_params[:siteids]).paginate(page: params[:page] || 1, per_page: params[:limit] || 5000)
->>>>>>> master
   end
 
   def get_graph_data
