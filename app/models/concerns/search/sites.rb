@@ -53,7 +53,7 @@ module Search
         end
 
         string :geomtype do
-          spatialcharacteristics
+          spatialcharacteristics.upcase
         end
         boolean :has_data do
           # derived_variables.values.flatten.compact.count > 0

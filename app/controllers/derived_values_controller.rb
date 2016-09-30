@@ -9,9 +9,11 @@ class DerivedValuesController < ApplicationController
       "c1" => "Summary product using one or more measurements from Imiq database."
     }
     procinfo = {
+      "annual" => "c1",
       "monthly" => "c1",
       "hourly" => "c1",
-      "daily" => "c1"
+      "daily" => "c1",
+      "fifteenmin" => "c1"
     }
     datavalue = DVFactory.slug(api_params[:field])
     @sites = []
