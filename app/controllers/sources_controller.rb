@@ -28,6 +28,21 @@ class SourcesController < ApplicationController
   #   @source.update_attributes(params[:site])
   # end
 
+  def list
+    search = Source.search do
+      #with :has_data, true
+      order_by :contactname, :asc
+    end
+    
+    @sources = search.results
+    
+    respond_to do |format|
+      format.json {
+        render json: @sources.as_json
+      }
+    end
+  end
+
   protected
 
   def api_params
