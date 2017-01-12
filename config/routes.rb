@@ -28,12 +28,7 @@ ImiqApi::Application.routes.draw do
     end
   end
 
-  resources :sources, except: [:new, :update, :destroy, :create, :edit] do
-    collection do
-      get 'list'
-    end
-  end
-
+  resources :sources, except: [:new, :update, :destroy, :create, :edit]
   resources :statistics, only: [:index, :show] 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,6 +1,4 @@
 class Source < ActiveRecord::Base
-  include Search::Sources
-
   has_many :sites, foreign_key: 'sourceid'
   belongs_to :metadata, foreign_key: 'metadataid'
   has_many :organizations_sources, foreign_key: 'sourceid'
