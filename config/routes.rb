@@ -27,7 +27,9 @@ ImiqApi::Application.routes.draw do
       get :variables
     end
   end
+
   resources :sources, except: [:new, :update, :destroy, :create, :edit]
+  resources :statistics, only: [:index, :show] 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
