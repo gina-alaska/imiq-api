@@ -46,10 +46,11 @@ class DVFactory
       if name.nil?
         [
           ['Barometric Pressure', 'source_air_barometric_pressure', { variablename: 'Barometric pressure', samplemedium: 'Air' }],
+          ['Carbon dioxide', 'source_carbon_dioxide', { variablename: 'Carbon dioxide', samplemedium: 'Air' }],
           ['Clouds', 'source_air_clouds', { variablename: ['Ceiling height','Sky cover'], samplemedium: 'Air' }],
-          ['Humidity', 'source_air_humidity', { variablename: ['Relative humidity','Vapor pressure'], samplemedium: 'Air'}],
-          ['Radiation, Longwave/Shortwave', 'source_air_radiation_lwsw', { variablename: ['Radiation, incoming longwave','Radiation, outgoing longwave','Radiation, global','Radiation, incoming shortwave','Radiation, outgoing shortwave','Radiation, global','Radiation, net','Radiation, net longwave','Radiation, total incoming','Radiation, total outgoing'], samplemedium: 'Air' }],
-          ['Radiation, PAR', 'source_radiation_par', { variablename: ['Radiation, PAR', 'Radiation, incoming PAR'] }],
+          ['Moisture', 'source_air_humidity', { variablename: ['Relative humidity','Vapor pressure', 'Vapor pressure deficit', 'Water vapor density', 'Temperature, dew point', 'Visibility'], samplemedium: 'Air'}],
+          ['Radiation, Longwave/Shortwave', 'source_air_radiation_lwsw', { variablename: ['Radiation, incoming longwave','Radiation, outgoing longwave','Radiation, global','Radiation, incoming shortwave','Radiation, outgoing shortwave','Radiation, global','Radiation, net','Radiation, net longwave','Radiation, total incoming','Radiation, total outgoing', 'Radiation, outgoing longwave', 'Radiation, incoming longwave'], samplemedium: 'Air' }],
+          ['Radiation, PAR', 'source_radiation_par', { variablename: ['Radiation, PAR', 'Radiation, incoming PAR', 'Radiation, outgoing PAR'] }],
           ['Temperature, Air', 'source_air_temperature', { variablename: ['Temperature'], samplemedium: 'Air' }],
           ['Visibility', 'source_air_visibility', { variablename: ['Visibility'], samplemedium: 'Air' }],
           ['Wind, Direction/Speed', 'source_air_wind', { variablename: ['Wind direction', 'Wind sector', 'Wind speed', 'Wind vector magnitude'], samplemedium: 'Air' }],
@@ -67,10 +68,11 @@ class DVFactory
           ['Thaw Depth', 'source_soil_thaw_depth', { variablename: 'Thaw depth', samplemedium: 'Soil' }],
           ['Soil Water Content', 'source_soil_water_content', { variablename: ['Water content','Volumetric water content'], samplemedium: 'Soil' }],
           ['Water Chemistry', 'source_sw_chemistry', { variablename: ['Carbon, total organic', 'Electrical Conductivity', 'Luminescent, dissolved oxygen', 'Oxygen, dissolved', 'Reduction potential', 'Turbidity', 'pH'], samplemedium: 'Surface Water' }],
-          ['Discharge/Runoff', 'source_sw_discharge', { variablename: ['Discharge','Runoff'], samplemedium: 'Surface Water' }],
-          ['Fish Detected', 'source_sw_fish_detected', { variablename: 'Fish detected', samplemedium: 'Surface Water' }],
+          ['Discharge/Runoff', 'source_sw_discharge', { variablename: ['Discharge', 'Runoff', 'Velocity'], samplemedium: 'Surface Water' }],
+          ['General Properties', 'source_general_properties', { variablename: ['Aluminum', 'Carbonate', 'Colored dissolved organic matter', 'Iron', 'Ph', 'RBP_Substrate-Muck/Mud-Very_Fine_Particles', 'Sand', 'Silt', 'Solids', 'total', 'Substrate-clay', 'Substrate-gravel'], samplemedium: 'Sediment' }],
+          ['Biology', 'source_sw_fish_detected', { variablename: ['Fish detected', 'Count', 'Weight'], samplemedium: 'Surface Water' }],
           ['Ice Properties', 'source_sw_ice', { variablename: ['Ice','Ice thickness'] }],
-          ['Physical Water Properties', 'source_sw_physical', { variablename: ['Area, Surface', 'Free board', 'Gage height', 'Volume', 'Water depth', 'Water level'], samplemedium: 'Surface Water' }],
+          ['Physical Water Properties', 'source_sw_physical', { variablename: ['Area, Surface', 'Free board', 'Gage height', 'Volume', 'Water depth', 'Water level', 'Width', 'Water depth, averaged'], samplemedium: 'Surface Water' }],
           ['Water Pressure', 'source_sw_pressure', { variablename: ['Barometric pressure', 'Water pressure'], samplemedium: 'Surface Water' }],
           ['Surface Water Temperature', 'source_sw_temperature', { variablename: ['Temperature, temperature'], samplemedium: 'Surface Water' }]
         ].collect { |item| SourceModel.new(*item) }
