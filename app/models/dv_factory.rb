@@ -54,8 +54,8 @@ class DVFactory
           ['Temperature, Air', 'source_air_temperature', { variablename: ['Temperature'], samplemedium: 'Air' }],
           ['Visibility', 'source_air_visibility', { variablename: ['Visibility'], samplemedium: 'Air' }],
           ['Wind, Direction/Speed', 'source_air_wind', { variablename: ['Wind direction', 'Wind sector', 'Wind speed', 'Wind vector magnitude'], samplemedium: 'Air' }],
-          ['Pan Evaporation', 'source_precipitation_pan_evaporation', { variablename: ['Evaporation'], samplemedium: 'Air' }],
-          ['Precipitation', 'source_precipitation_precipitation', { variablename: ['Precipitation'], samplemedium: 'Air' }],
+          ['Pan Evaporation', 'source_precipitation_pan_evaporation', { variablename: ['Evaporation'], samplemedium: 'Precipitation' }],
+          ['Precipitation', 'source_precipitation_precipitation', { variablename: ['Precipitation'], samplemedium: 'Precipitation' }],
           ['Snowfall', 'source_precipitation_snowfall', { variablename: ['Snowfall'], samplemedium: ['Precipitation', 'Snow'] }],
           ['Ablation', 'source_snow_ablation', { variablename: ['Ablation'], samplemedium: 'Snow' }],
           ['Snow Density', 'source_snow_density', { variablename: ['Density'], samplemedium: 'Snow' }],
@@ -74,7 +74,7 @@ class DVFactory
           ['Ice Properties', 'source_sw_ice', { variablename: ['Ice','Ice thickness'] }],
           ['Physical Water Properties', 'source_sw_physical', { variablename: ['Area, Surface', 'Free board', 'Gage height', 'Volume', 'Water depth', 'Water level', 'Width', 'Water depth, averaged'], samplemedium: 'Surface Water' }],
           ['Water Pressure', 'source_sw_pressure', { variablename: ['Barometric pressure', 'Water pressure'], samplemedium: 'Surface Water' }],
-          ['Surface Water Temperature', 'source_sw_temperature', { variablename: ['Temperature, temperature'], samplemedium: 'Surface Water' }]
+          ['Surface Water Temperature', 'source_sw_temperature', { variablename: ['Temperature', 'temperature'], samplemedium: 'Surface Water' }]
         ].collect { |item| SourceModel.new(*item) }
       else
         SourceModel.new(name)
