@@ -1,6 +1,10 @@
 # Changelog
 
-## [1.3.1]
+## [1.3.1] - 2017-11-28
+### fixes
+- security bugs by updating gem yajl-ruby(~>1.3.1)
+
+## [1.3.1] 2017-11-28
 ### fixes
 - security bugs by updating gems used for rails(now 4.2.10) and 
 yajl-ruby(~>1.2.1)
