@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.10'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 
 # Use sqlite3 as the database for Active Record
@@ -15,7 +15,7 @@ gem 'haml'
 gem 'rdiscount'
 gem 'will_paginate'
 #gem 'activerecord-import', '~> 0.4.0'
-gem 'yajl-ruby'
+gem 'yajl-ruby', '~> 1.2.1'
 #gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
