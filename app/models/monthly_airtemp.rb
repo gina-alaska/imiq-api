@@ -1,4 +1,4 @@
-class MonthlyAirtemp < ActiveRecord::Base
+class MonthlyAirtemp < ApplicationRecord
   include DerivedModelConcerns
   include MonthlyModelConcerns 
   

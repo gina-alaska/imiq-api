@@ -1,4 +1,4 @@
-class OrganizationsSource < ActiveRecord::Base
+class OrganizationsSource < ApplicationRecord
   self.table_name = 'organizations'
 
   belongs_to :network, foreign_key: 'networkid'

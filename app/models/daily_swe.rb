@@ -1,4 +1,4 @@
-class DailySwe < ActiveRecord::Base
+class DailySwe < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns  
   

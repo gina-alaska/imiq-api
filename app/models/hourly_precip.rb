@@ -1,4 +1,4 @@
-class HourlyPrecip < ActiveRecord::Base
+class HourlyPrecip < ApplicationRecord
   include DerivedModelConcerns
   include HourlyModelConcerns 
   

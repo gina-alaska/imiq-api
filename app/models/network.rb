@@ -1,4 +1,4 @@
-class Network < ActiveRecord::Base
+class Network < ApplicationRecord
   self.table_name = 'networkdescriptions'
 
   include Search::Networks

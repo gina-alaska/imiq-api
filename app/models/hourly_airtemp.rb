@@ -1,4 +1,4 @@
-class HourlyAirtemp < ActiveRecord::Base
+class HourlyAirtemp < ApplicationRecord
   include DerivedModelConcerns
   include HourlyModelConcerns  
   

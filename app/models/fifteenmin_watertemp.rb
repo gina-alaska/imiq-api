@@ -1,4 +1,4 @@
-class FifteenminWatertemp < ActiveRecord::Base
+class FifteenminWatertemp < ApplicationRecord
   include DerivedModelConcerns
   include FifteenminModelConcerns
   

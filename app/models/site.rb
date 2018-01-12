@@ -1,4 +1,4 @@
-class Site < ActiveRecord::Base
+class Site < ApplicationRecord
   include GeoRuby::SimpleFeatures
   include SitesTable
   # include SeriesCatalog62View

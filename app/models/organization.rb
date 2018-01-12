@@ -1,4 +1,4 @@
-class Organization < ActiveRecord::Base
+class Organization < ApplicationRecord
   self.table_name = 'organizationdescriptions'
   
   include Search::Organizations

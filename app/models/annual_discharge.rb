@@ -1,4 +1,4 @@
-class AnnualDischarge < ActiveRecord::Base
+class AnnualDischarge < ApplicationRecord
   include DerivedModelConcerns
   include AnnualModelConcerns
 

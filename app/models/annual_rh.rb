@@ -1,4 +1,4 @@
-class AnnualRh < ActiveRecord::Base
+class AnnualRh < ApplicationRecord
   include DerivedModelConcerns
   include AnnualModelConcerns
 

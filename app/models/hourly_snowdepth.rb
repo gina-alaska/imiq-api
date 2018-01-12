@@ -1,4 +1,4 @@
-class HourlySnowdepth < ActiveRecord::Base
+class HourlySnowdepth < ApplicationRecord
   include DerivedModelConcerns
   include HourlyModelConcerns   
   

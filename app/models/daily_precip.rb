@@ -1,4 +1,4 @@
-class DailyPrecip < ActiveRecord::Base
+class DailyPrecip < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns
   

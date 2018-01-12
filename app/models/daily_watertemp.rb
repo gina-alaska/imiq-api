@@ -1,4 +1,4 @@
-class DailyWatertemp < ActiveRecord::Base
+class DailyWatertemp < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns  
   

@@ -1,4 +1,4 @@
-class HourlyWindspeed < ActiveRecord::Base
+class HourlyWindspeed < ApplicationRecord
   include DerivedModelConcerns
   include HourlyModelConcerns   
   

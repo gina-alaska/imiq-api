@@ -1,4 +1,4 @@
-class MonthlyRh < ActiveRecord::Base
+class MonthlyRh < ApplicationRecord
   include DerivedModelConcerns
   include MonthlyModelConcerns 
   

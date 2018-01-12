@@ -1,4 +1,4 @@
-class HourlyWinddirection < ActiveRecord::Base
+class HourlyWinddirection < ApplicationRecord
   include DerivedModelConcerns
   include HourlyModelConcerns   
   

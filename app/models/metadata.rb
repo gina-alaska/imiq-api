@@ -1,4 +1,4 @@
-class Metadata < ActiveRecord::Base
+class Metadata < ApplicationRecord
   self.table_name = "isometadata"
   
   has_many :sources, foreign_key: 'metadataid'

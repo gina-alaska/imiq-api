@@ -1,4 +1,4 @@
-class Imiqversion < ActiveRecord::Base  
+class Imiqversion < ApplicationRecord  
   self.table_name = 'imiqversion'
 
   def version

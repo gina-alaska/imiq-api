@@ -1,2 +1,2 @@
-class VariableName < ActiveRecord::Base
+class VariableName < ApplicationRecord
 end

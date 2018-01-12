@@ -1,4 +1,4 @@
-class DailyRh < ActiveRecord::Base
+class DailyRh < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns
     

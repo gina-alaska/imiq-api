@@ -1,4 +1,4 @@
-class Variable < ActiveRecord::Base
+class Variable < ApplicationRecord
   include Search::Variables
   
   has_many :datastreams, foreign_key: 'variableid'

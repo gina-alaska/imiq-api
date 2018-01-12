@@ -1,4 +1,4 @@
-class DailyWindspeed < ActiveRecord::Base
+class DailyWindspeed < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns 
   

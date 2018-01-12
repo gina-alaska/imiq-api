@@ -1,4 +1,4 @@
-class DailyWinddirection < ActiveRecord::Base
+class DailyWinddirection < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns  
  

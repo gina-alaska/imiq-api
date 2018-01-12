@@ -1,4 +1,4 @@
-class Source < ActiveRecord::Base
+class Source < ApplicationRecord
   has_many :sites, foreign_key: 'sourceid'
   belongs_to :metadata, foreign_key: 'metadataid'
   has_many :organizations_sources, foreign_key: 'sourceid'

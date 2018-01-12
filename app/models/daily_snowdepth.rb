@@ -1,4 +1,4 @@
-class DailySnowdepth < ActiveRecord::Base
+class DailySnowdepth < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns
     

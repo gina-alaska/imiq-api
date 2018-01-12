@@ -1,4 +1,4 @@
-class AnnualAirtemp < ActiveRecord::Base
+class AnnualAirtemp < ApplicationRecord
   include DerivedModelConcerns
   include AnnualModelConcerns
 

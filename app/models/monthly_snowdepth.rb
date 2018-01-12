@@ -1,4 +1,4 @@
-class MonthlySnowdepth < ActiveRecord::Base
+class MonthlySnowdepth < ApplicationRecord
   include DerivedModelConcerns
   include MonthlyModelConcerns 
   

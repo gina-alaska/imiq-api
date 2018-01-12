@@ -1,4 +1,4 @@
-class HourlyRh < ActiveRecord::Base
+class HourlyRh < ApplicationRecord
   include DerivedModelConcerns
   include HourlyModelConcerns 
   

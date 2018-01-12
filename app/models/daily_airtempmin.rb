@@ -1,4 +1,4 @@
-class DailyAirtempmin < ActiveRecord::Base
+class DailyAirtempmin < ApplicationRecord
   include DerivedModelConcerns
   include DailyModelConcerns 
 

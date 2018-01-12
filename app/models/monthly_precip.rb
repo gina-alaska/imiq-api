@@ -1,4 +1,4 @@
-class MonthlyPrecip < ActiveRecord::Base
+class MonthlyPrecip < ApplicationRecord
   include DerivedModelConcerns
   include MonthlyModelConcerns 
   
