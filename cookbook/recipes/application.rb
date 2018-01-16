@@ -1,6 +1,0 @@
-include_recipe 'imiq_api::default'
-include_recipe 'imiq_api::mount_points'
-include_recipe 'imiq_api::nginx'
-include_recipe 'gina-postgresql::client'
-include_recipe 'imiq_api::rails'
-include_recipe 'imiq_api::unicorn'
