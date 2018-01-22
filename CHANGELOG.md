@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1] - 2018-01-22
+### changes
+- rails version is now 5.0.0
+
+### removes
+- chef cookbook
+
 ## [1.3.1] - 2017-11-28
 ### fixes
 - security bugs by updating gem yajl-ruby(~>1.3.1)
