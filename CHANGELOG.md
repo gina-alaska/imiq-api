@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.2] - 2018-03-30
+### updated
+- Updated Gemfile.lock for loofah security update to 2.2.2.
+
 ## [1.4.1] - 2018-01-22
 ### changes
 - rails version is now 5.0.0
