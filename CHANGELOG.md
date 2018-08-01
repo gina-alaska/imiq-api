@@ -1,6 +1,10 @@
 # Changelog
 
-## [1.4.2] - 2018-07-03
+## [1.4.4] - 2018-08-01
+### added
+- datavalues count, and updated_at to statistics api
+
+## [1.4.3] - 2018-07-03
 ### changed
 - production log level set to :error
 
