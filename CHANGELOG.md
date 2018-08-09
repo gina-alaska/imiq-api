@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.5] - 2018-08-09
+### added
+- changelog to statistics api
+
 ## [1.4.4] - 2018-08-01
 ### added
 - datavalues count, and updated_at to statistics api
